@@ -1,0 +1,8 @@
+[book]
+title = "DM By Example"
+description = "A guide to DM in the style of Rust by Example."
+authors = ["ZeWaka"]
+language = "en"
+multilingual = false
+src = "src"
+default-theme = "navy"
