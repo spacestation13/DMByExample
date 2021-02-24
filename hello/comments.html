@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Introduction - DM By Example</title>
+        <title>Comments - DM By Example</title>
         
         
 
@@ -18,28 +18,28 @@
         <meta name="theme-color" content="#ffffff" />
 
         
-        <link rel="icon" href="favicon.svg">
+        <link rel="icon" href="../favicon.svg">
         
         
-        <link rel="shortcut icon" href="favicon.png">
+        <link rel="shortcut icon" href="../favicon.png">
         
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
         
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="stylesheet" href="../css/print.css" media="print">
         
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         
-        <link rel="stylesheet" href="fonts/fonts.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
         
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -49,7 +49,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">1.</strong> Hello World</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hello/comments.html"><strong aria-hidden="true">1.1.</strong> Comments</a></li></ol></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">2.</strong> Variables</a></li><li class="chapter-item expanded "><a href="meta.html"><strong aria-hidden="true">3.</strong> Meta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="meta/langserver.html"><strong aria-hidden="true">3.1.</strong> Language Server</a></li><li class="chapter-item expanded "><a href="meta/dmdoc.html"><strong aria-hidden="true">3.2.</strong> DMDoc</a></li><li class="chapter-item expanded "><a href="meta/strongdmm.html"><strong aria-hidden="true">3.3.</strong> StrongDMM</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="../hello_world.html"><strong aria-hidden="true">1.</strong> Hello World</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../hello/comments.html" class="active"><strong aria-hidden="true">1.1.</strong> Comments</a></li></ol></li><li class="chapter-item expanded "><a href="../variables.html"><strong aria-hidden="true">2.</strong> Variables</a></li><li class="chapter-item expanded "><a href="../meta.html"><strong aria-hidden="true">3.</strong> Meta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../meta/langserver.html"><strong aria-hidden="true">3.1.</strong> Language Server</a></li><li class="chapter-item expanded "><a href="../meta/dmdoc.html"><strong aria-hidden="true">3.2.</strong> DMDoc</a></li><li class="chapter-item expanded "><a href="../meta/strongdmm.html"><strong aria-hidden="true">3.3.</strong> StrongDMM</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -131,7 +131,7 @@
 
                     <div class="right-buttons">
                         
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         
@@ -163,17 +163,64 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>This guide...</p>
+                        <h1 id="comments"><a class="header" href="#comments">Comments</a></h1>
+<p>Any program requires comments, and DM supports a few different varieties:</p>
+<ul>
+<li>Regular comments which are ignored by the compiler:
+<ul>
+<li><code>// Line comments which go to the end of the line.</code></li>
+<li><code>/* Block comments which go to the closing delimiter. */</code></li>
+</ul>
+</li>
+<li>Doc comments which are parsed for SS13 codebase <a href="../meta/dmdoc.html">documentation</a>:
+<ul>
+<li><code>/// Generate docs for the following item.</code></li>
+<li><code>//! Generate docs for the enclosing item.</code></li>
+<li><code>/** Generate docs until the closing delimiter. */</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-dm">/proc/test()
+	// This is an example of a line comment
+	// There are two slashes at the beginning of the line
+	// And nothing written inside these will be read by the compiler
+
+	// world.log &lt;&lt; &quot;Hello, world!&quot;
+
+	/* 
+	 * This is another type of comment, a block comment. In general,
+	 * line comments are the recommended comment style. But
+	 * block comments are extremely useful for temporarily disabling
+	 * chunks of code. /* Block comments can be /* nested, */ */
+	 * so it takes only a few keystrokes to comment out everything
+	 * in this test() proc.
+	 */
+
+	/// This is an example of a doc comment documenting the x variable.
+	var/x = &quot;Hi!&quot;
+
+/**
+  * Now I'm documenting the other() proc.
+  *
+  * I can type on multiple lines.
+  * `I can embed markdown as well!`
+  */
+/proc/other()
+	world.log &lt;&lt; &quot;foo&quot;
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
+                            <a rel="prev" href="../hello_world.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
 
                         
-                            <a rel="next" href="hello_world.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../variables.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -185,9 +232,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
+                    <a rel="prev" href="../hello_world.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
 
                 
-                    <a rel="next" href="hello_world.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../variables.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -210,14 +261,14 @@
         
 
         
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         
