@@ -21,6 +21,6 @@ Let's write the infamous [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) usi
 			world << "[n]"
 
 		// Increment counter
-		n += 1;
+		n += 1
 ```
 
