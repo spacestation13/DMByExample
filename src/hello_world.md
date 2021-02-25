@@ -9,5 +9,22 @@ This is the source code of the traditional Hello World program.
     // Statements here are executed when a mob logs into the game
 
     // Print text to world
-    world << "Hello world"
+    world << "Hello World!"
 ```
+
+`world << "x"` is the most basic way to output text to the default window, using the << [operator].
+
+To run this, simply open up a blank byond project, and compile it.
+
+When you log into the game, you will see the text in the side chat bar!
+
+## Activity
+
+Try adding a new line with a second `world << "x"` so that the output shows:
+
+```
+Hello World!
+I'm a Developer!
+```
+
+[operator]:./operators.md
