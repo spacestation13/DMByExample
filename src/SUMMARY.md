@@ -9,7 +9,7 @@
 - [Variables](./variables.md)
 	- [Casting](./vars/casting.md)
 - [Operators](./operators.md)
-	- [Bitflags]()
+	- [Bitflags](./ops/bitflags.md)
 	- [Operator Overloading]()
 - [Expressions]()
 - [Control Flow]()
