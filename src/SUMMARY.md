@@ -17,7 +17,7 @@
 	- [if/else](./flow/if_else.md)
 	- [loops](./flow/loops.md)
 		- [while](./flow/loops/while.md)
-		- [for]()
+		- [for](./flow/loops/for.md)
 		- [Nesting]()
 	- [Advanced loops]()
 - [Procedures]()
