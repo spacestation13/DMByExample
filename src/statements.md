@@ -21,15 +21,14 @@ x += 5
 
 Statements can be part of other statements, and expressions must be part of a statement.
 ```dm
-/mob/login()
-	// variable binding
-	var/x = 5
+// variable binding
+var/x = 5
 
-	// this line is a statement, and there is a (expression) in it
-	x = (x + 5)
-	
-	var/lessThan3 = x < 3
-	world.log << lessThan3
+// this line is a statement, and there is a (expression) in it
+x = (x + 5)
+
+var/lessThan3 = x < 3
+world.log << lessThan3
 ```
 
 ## Activity
