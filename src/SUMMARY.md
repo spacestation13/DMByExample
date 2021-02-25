@@ -16,7 +16,7 @@
 - [Control Flow](./flow_control.md)
 	- [if/else](./flow/if_else.md)
 	- [loops](./flow/loops.md)
-		- [while]()
+		- [while](./flow/loops/while.md)
 		- [for]()
 		- [Nesting]()
 	- [Advanced loops]()
