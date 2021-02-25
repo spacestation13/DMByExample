@@ -7,7 +7,7 @@
 	- [Comments](./hello/comments.md)
 	- [Basic Types](./hello/types.md)
 - [Variables](./variables.md)
-	- [Casting]()
+	- [Casting](./vars/casting.md)
 - [Operators]()
 	- [Binary Operators]()
 - [Expressions]()
