@@ -1,5 +1,4 @@
 # Variables
-
 Variables are data containers, which, as the name implies, can get their data changed through assignment operations. If you want to store some data, you will use a variable. The basic syntax is:
 
 ```dm
@@ -17,3 +16,6 @@ var/myVar = "Hello World"
 myVar = 1
 ```
 Without any sort of error. Even though this will work with any sort of var type, we will see futher on that it can cause issues when our variables hold objects and we try to access its methods or such, but we will expand on this [later](./Objects.md).
+
+## Activity
+Try using a combination of a variable and a `world << "x"` statement to output the text `"DMBE"` to the chat window.
