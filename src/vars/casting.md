@@ -1,7 +1,5 @@
 # Casting
 
-As we said previously, variables can hold primitive data such as numbers, letters, booleans, but they can also hold objects, which is fundamental for an Object Oriented language like DM. 
-
 Say you have an `/obj/honk` object, you're fully able to assign it to a type-less var as we did before with our string and number, but you won't be able to actually access any of the object's data without typecasting it first. 
 
 The syntax to cast a variable `varname` to the type `your/type` is as such:
