@@ -21,7 +21,7 @@
 		- [for](./flow/loops/for.md)
 		- [Nesting](./flow/loops/nesting.md)
 	- [Advanced loops]()
-- [Procedures]()
+- [Procedures](./procs.md)
 	- [Arguments]()
 	- [Return Values]()
 - [Objects]()
