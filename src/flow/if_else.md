@@ -14,7 +14,7 @@ Branching with `if-else` is similar to other languages. The boolean condition ne
 		world << "[n] is zero"
 ```
 
-You can also construct if statements on a single like, as such:
+You can also construct if statements on a single line, as such:
 ```dm
 if (n == 7) world.log << "Special number!"
 ```
