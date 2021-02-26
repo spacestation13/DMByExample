@@ -36,6 +36,6 @@
 	- [FFI]()
 - [Error Handling]()
 - [Meta](./meta.md)
-	- [Language Server](./meta/langserver.md)
+	- [Language Server]()
 	- [DMDoc](./meta/dmdoc.md)
-	- [StrongDMM](./meta/strongdmm.md)
+	- [StrongDMM]()
