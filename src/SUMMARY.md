@@ -27,7 +27,7 @@
 	- [Return Values]()
 - [Objects]()
 	- [Creation & Disposal]()
-	- [Inheritance]()
+	- [Inheritance](./objs/inheritance.md)
 - [Preprocessor]()
 	- [Advanced Usage]()
 - [I/O]()
