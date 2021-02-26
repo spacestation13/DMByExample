@@ -35,6 +35,7 @@
 	- [HTTP]()
 	- [FFI]()
 - [Error Handling]()
+  - [Try/Catch]()
 - [Meta](./meta.md)
 	- [Language Server]()
 	- [DMDoc](./meta/dmdoc.md)
