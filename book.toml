@@ -5,6 +5,6 @@ authors = ["ZeWaka"]
 language = "en"
 multilingual = false
 src = "src"
-default-theme = "navy"
+default-theme = "dark"
 #[output.html.fold]
 #enable = true
