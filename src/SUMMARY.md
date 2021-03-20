@@ -24,7 +24,7 @@
 	- [Advanced loops]()
 - [Procedures](./procs.md)
 	- [Arguments]()
-	- [Return Values]()
+	- [Return Values](./procs/returns.md)
 - [Objects]()
 	- [Creation & Disposal]()
 	- [Inheritance](./objs/inheritance.md)
