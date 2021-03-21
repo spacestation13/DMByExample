@@ -26,7 +26,7 @@
 	- [Arguments]()
 	- [Return Values](./procs/returns.md)
 - [Objects]()
-	- [Creation & Disposal]()
+	- [Disposal](./objs/disposal.md)
 	- [Inheritance](./objs/inheritance.md)
 - [Preprocessor]()
 	- [Advanced Usage]()
