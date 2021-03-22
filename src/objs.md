@@ -9,15 +9,14 @@ To check if an object is of a certain type, use `istype(x, /type)`:
 
 /proc/foobar(obj/passed)
 	if (istype(passed, /obj/foo))
-		var/obj/foo = passed
-		world << foo.x
+		var/obj/bar = passed
+		world << bar.x
 ```
 
-You can also cast then implicitly typecheck:
+You can also cast (done here in the argument) then implicitly typecheck:
 ```dm
 ...
-/proc/foobar(obj/passed)
-	var/obj/foo = passed
-	if (istype(foo))
-		world << foo.x
+/proc/foobar(obj/foo/bar)
+	if (istype(bar))
+		world << bar.x
 ```
