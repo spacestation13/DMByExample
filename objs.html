@@ -171,15 +171,14 @@
 
 /proc/foobar(obj/passed)
 	if (istype(passed, /obj/foo))
-		var/obj/foo = passed
-		world &lt;&lt; foo.x
+		var/obj/bar = passed
+		world &lt;&lt; bar.x
 </code></pre>
-<p>You can also cast then implicitly typecheck:</p>
+<p>You can also cast (done here in the argument) then implicitly typecheck:</p>
 <pre><code class="language-dm">...
-/proc/foobar(obj/passed)
-	var/obj/foo = passed
-	if (istype(foo))
-		world &lt;&lt; foo.x
+/proc/foobar(obj/foo/bar)
+	if (istype(bar))
+		world &lt;&lt; bar.x
 </code></pre>
 
                     </main>
