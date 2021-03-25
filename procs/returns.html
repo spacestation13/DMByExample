@@ -176,15 +176,15 @@ To call a proc and store it's return value in a variable, you can do this:</p>
 		else
 			return &quot;bad!&quot;
 </code></pre>
-<p>There also exists a special variable for each proc called the 'dot variable'.
-What’s special about the dot variable is that it is automatically returned (as in the <code>return</code> statement) at the end of a proc, provided the proc does not already manually return (e.g. <code>return x</code>)</p>
+<p>There also exists a special variable for each proc called the 'dot variable', accessed via the <code>.</code> symbol.
+What’s special about the dot variable is that it is automatically <code>return</code>ed at the end of a proc, provided the proc does not already manually return (e.g. <code>return x</code>)</p>
 <p>To re-code the above more tersely:</p>
 <pre><code class="language-dm">/proc/foo(arg)
 	. = &quot;bad!&quot;
 	if (arg == 1)
 		return &quot;good!&quot;
 </code></pre>
-<p>With . being present in every proc, we use it as a temporary variable. However, the . variable cannot replace a typecasted variable - it can hold data any other var in DM can, it just can’t be accessed as one, although the <code>.</code> variable is compatible with a few operatorss that look weird but work perfectly fine, such as: <code>.++</code> for incrementing <code>.</code>'s value.</p>
+<p>With <code>.</code> being present in every proc, we use it as a temporary variable. However, the <code>.</code> variable cannot replace a typecasted variable - it can hold data any other var in DM can, it just can’t be accessed as one, although the <code>.</code> variable is compatible with a few operatorss that look weird but work perfectly fine, such as: <code>.++</code> for incrementing <code>.</code>'s value.</p>
 
                     </main>
 
