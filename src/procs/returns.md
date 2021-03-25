@@ -16,8 +16,8 @@ To return specific values from a proc, you use the `return` keyword along with a
 			return "bad!"
 ```
 
-There also exists a special variable for each proc called the 'dot variable'.
-What’s special about the dot variable is that it is automatically returned (as in the `return` statement) at the end of a proc, provided the proc does not already manually return (e.g. `return x`)
+There also exists a special variable for each proc called the 'dot variable', accessed via the `.` symbol.
+What’s special about the dot variable is that it is automatically `return`ed at the end of a proc, provided the proc does not already manually return (e.g. `return x`)
 
 To re-code the above more tersely:
 ```dm
@@ -27,4 +27,4 @@ To re-code the above more tersely:
 		return "good!"
 ```
 
-With . being present in every proc, we use it as a temporary variable. However, the . variable cannot replace a typecasted variable - it can hold data any other var in DM can, it just can’t be accessed as one, although the `.` variable is compatible with a few operatorss that look weird but work perfectly fine, such as: `.++` for incrementing `.`'s value.
+With `.` being present in every proc, we use it as a temporary variable. However, the `.` variable cannot replace a typecasted variable - it can hold data any other var in DM can, it just can’t be accessed as one, although the `.` variable is compatible with a few operatorss that look weird but work perfectly fine, such as: `.++` for incrementing `.`'s value.
