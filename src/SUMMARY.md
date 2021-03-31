@@ -7,7 +7,7 @@
 	- [Comments](./hello/comments.md)
 	- [Basic Types](./hello/types.md)
 - [Variables](./variables.md)
-	- [Strings]()
+	- [Strings](./vars/strings.md)
 	- [Lists](./vars/lists.md)
 		- [Associated Lists]()
 	- [Casting](./vars/casting.md)
