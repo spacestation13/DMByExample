@@ -42,16 +42,16 @@ L.len = 7 // L = {1, 2, 3, 4, 5, null, null}
 To get the length of a list (the first way is faster):
 ```dm
 var/list/L = list(1, 2, 3, 4)
-world << length(L)
-world << L.len
+world << length(L) // 4
+world << L.len // 4
 ```
 
-For multi-dimensional lists, both of these produce the same list:
+For multi-dimensional lists, both of these produce the same list (`{{}, {1, 2}}`):
 ```dm
 var/grid[1][2]
 grid[1][1] = 1
 grid[1][2] = 2
 
 var/list/same = list()
-same += list("1", "2")
+same += list(1, 2)
 ```
