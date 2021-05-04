@@ -192,16 +192,16 @@ L.len = 7 // L = {1, 2, 3, 4, 5, null, null}
 </code></pre>
 <p>To get the length of a list (the first way is faster):</p>
 <pre><code class="language-dm">var/list/L = list(1, 2, 3, 4)
-world &lt;&lt; length(L)
-world &lt;&lt; L.len
+world &lt;&lt; length(L) // 4
+world &lt;&lt; L.len // 4
 </code></pre>
-<p>For multi-dimensional lists, both of these produce the same list:</p>
+<p>For multi-dimensional lists, both of these produce the same list (<code>{{}, {1, 2}}</code>):</p>
 <pre><code class="language-dm">var/grid[1][2]
 grid[1][1] = 1
 grid[1][2] = 2
 
 var/list/same = list()
-same += list(&quot;1&quot;, &quot;2&quot;)
+same += list(1, 2)
 </code></pre>
 
                     </main>
