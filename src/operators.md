@@ -3,6 +3,7 @@
 The operators available in DM are very similar to other C-like languages. Their [precedence](http://www.byond.com/docs/ref/#/operator) is also similar.
 
 Here's the base operators:
+
 ```dm
 Addition = "+"
 Subtraction = "-"
@@ -13,6 +14,7 @@ Modulo = "%"
 ```
 
 Conditional operators:
+
 ```dm
 Equal = "=="
 Not Equal = "!="
@@ -25,6 +27,7 @@ Greater Than or Equal = ">="
 ```
 
 Unary operators:
+
 ```dm
 Not = "!"
 Binary Not = "~"
@@ -34,6 +37,7 @@ Decrement = "--"
 ```
 
 Assignment operators:
+
 ```dm
 Assign = "="
 Addition Assign = "+="
@@ -47,6 +51,7 @@ Or Assign = "||="
 ```
 
 Binary operators:
+
 ```dm
 Binary And = "&"
 Binary Or = "|"
@@ -56,6 +61,7 @@ Right Shift = ">>"
 ```
 
 Binary assignment operators:
+
 ```dm
 Binary And Assign = "&="
 Binary Xor Assign = "^="
@@ -65,12 +71,14 @@ Right Shift Assign = ">>="
 ```
 
 [Equivalence](http://www.byond.com/docs/ref/info.html#/operator/~=) operators:
+
 ```dm
 Equivalent = "~="
 Not Equivalent = "~!"
 ```
 
 Special BYOND operators
+
 ```dm
 In = "in" // Used for ranges ex. `for(var/x in 1 to 5)`
 To = "to" // Only appears in the RHS of `In`, above
@@ -81,7 +89,8 @@ There is also the C-style ternary operator expression: `condition ? if_true : if
 
 ## Activity
 
-Go over the following snippet. What will the value of N be at each line?
+>Go over the following snippet. What will the value of N be at each line?
+
 ```dm
 var/N
 N = 0

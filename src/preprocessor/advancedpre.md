@@ -2,7 +2,7 @@
 
 ## Advanced Macros
 
-The last parameter of a macro can end in `...` which means that it and all other arguments following it count as a single argument. This is called a variadic macro because it lets you use a variable number of arguments. The last parameter will also become optional.
+The last parameter of a macro can end in `...` which means that it, and all other arguments following it, count as a single argument. This is called a variadic macro because it lets you use a variable number of arguments. The last parameter will also become optional.
 
 ```dm
 #define LAZY_LIST(n, items...) if(!n) n = list(items)
@@ -15,7 +15,7 @@ In a macro's body, if you precede a parameter by `#`, the replacement value will
 DEBUG_VAR(x)   // world.log << "x" + " = [x]"
 ```
 
-A parameter preceded by `##` in the macro body is substituted directly, without any spaces. If you use this with the last argument in a variadic macro, any preceding spaces and a comma (if found) will be removed if the replacement is empty.
+A parameter preceded by `##` in the macro body is substituted directly, without any spaces. If you use this with the last argument in a variadic macro, any preceding spaces, and a comma (if found), will be removed if the replacement is empty.
 
 ```dm
 #define MACROVAR(k) var/macro_state_##k

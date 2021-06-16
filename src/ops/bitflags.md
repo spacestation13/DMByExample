@@ -27,5 +27,6 @@ Since DM only supports floating point numbers, we are restricted to 24 bits (23 
 For a closer look at the binary math behind this, check out tgstation's [article](https://tgstation13.org/wiki/Binary_flags).
 
 ## Activity
-Using the above code snippet as a base, try implementing the ability to toggle a flag easily.
-> Hint: What other binary operators are there?
+
+>Using the above code snippet as a base, try implementing the ability to toggle a flag easily.
+>>**Hint**: What other binary operators are there?

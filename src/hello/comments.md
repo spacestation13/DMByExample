@@ -3,12 +3,12 @@
 Any program requires comments, and DM supports a few different varieties:
 
 * Regular comments which are ignored by the compiler:
-	* `// Line comments which go to the end of the line.`
-	* `/* Block comments which go to the closing delimiter. */`
+  * `// Line comments which go to the end of the line.`
+  * `/* Block comments which go to the closing delimiter. */`
 * Doc comments which are parsed for SS13 codebase [documentation][doc]:
-	* `/// Generate docs for the following item.`
-	* `//! Generate docs for the enclosing item.`
-	* `/** Generate docs until the closing delimiter. */`
+  * `/// Generate docs for the following item.`
+  * `//! Generate docs for the enclosing item.`
+  * `/** Generate docs until the closing delimiter. */`
 
 [doc]: ../meta/dmdoc.md
 
