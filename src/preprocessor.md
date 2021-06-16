@@ -6,7 +6,7 @@
 
 Sometimes, you'll want to have shared values across your project instead of copy-pasting them everywhere. This is where `#define` comes in.
 
-The `#define Name Value` statement substitues the `Name` for `Value` as long as the define is not `#undef`-ined. Substitution only applies to whole words. Text inside of double or single quotes is not processed for substitution, so `"This is BIG."` would not be modified even if a define named `BIG` were to be defined. That's different from `"This is [BIG]."`, whereas `BIG` is an embedded expression, which does get processed for macro substitution.
+The `#define Name Value` statement substitues the `Name` for `Value` as long for as the define is not `#undef`-ined. Substitution only applies to whole words. Text inside of double or single quotes is not processed for substitution, so `"This is BIG."` would not be modified even if a define named `BIG` were to be defined. That's different from `"This is [BIG]."`, whereas `BIG` is an embedded expression, which does get processed for macro substitution.
 
 Example:
 

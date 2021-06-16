@@ -17,7 +17,7 @@ Del(foo)
 
 The garbage collector works by using a reference counting system. Once an object is no longer referenced, it gets deleted.
 
->**Important to Note**: Circular references will never be deleted by the garbage collector. This is defined as a pair of objects with variables that point to each other, or even an object with a variable that points to itself. Also, an object with running or sleeping procs will not be deleted.
+>**Important to note**: Circular references will never be deleted by the garbage collector. This is defined as a pair of objects with variables that point to each other, or even an object with a variable that points to itself. Also, an object with running or sleeping procs will not be deleted.
 
 So, let's do a GC-ing version of the above snippet:
 
