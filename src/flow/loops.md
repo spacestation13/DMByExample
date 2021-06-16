@@ -1,10 +1,10 @@
-# loops
+# Loops
 
 Loops are the fundamental way to do repeat actions in a programming language.
 
 One thing in common across all types of loops in DM are the `break` and `continue` statements.
 
-The `break` statement can be used to exit a loop at anytime, whereas the `continue` statement can be used to skip the rest of the iteration and start a new one.
+The `break` statement can be used to exit a loop at anytime, whereas the `continue` statement can be used to skip the rest of the iteration and start a new one from the beginning of the loop.
 
 ```dm
 /mob/Login()

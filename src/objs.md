@@ -2,7 +2,8 @@
 
 ## ⚠⚠ WIP PAGE ⚠⚠
 
-To check if an object is of a certain type, use `istype(x, /type)`:
+To check if an object is of a certain type, use `istype(x, /type)` which returns a `TRUE` or `FALSE` value:
+
 ```dm
 /obj/foo
 	var/x = 1
@@ -13,7 +14,8 @@ To check if an object is of a certain type, use `istype(x, /type)`:
 		world << bar.x
 ```
 
-You can also cast (done here in the argument) then implicitly typecheck:
+You can also cast, (done here in the argument), then implicitly typecheck:
+
 ```dm
 ...
 /proc/foobar(obj/foo/bar)

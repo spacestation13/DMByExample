@@ -1,8 +1,8 @@
 # while
 
-The while keyword can be used to run a loop while a condition is true.
+The `while` keyword can be used to run a loop while a condition is true.
 
-Let's write the infamous [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) using a `while` loop.
+Let's write the infamous [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) problem using a while loop.
 
 ```dm
 /mob/Login()
@@ -23,4 +23,3 @@ Let's write the infamous [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz) usi
 		// Increment counter
 		n += 1
 ```
-

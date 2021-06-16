@@ -1,6 +1,6 @@
 # Procedures
 
-Procedures, or procs, are declared using the `proc` keyword. These are also known by other names in other languages, such as functions or methods. Its arguments come after in parentheses. DM does not have return type annotation like other languages.
+Procedures, or procs, are declared using the `proc` keyword. These are also known by other names in other languages, such as functions or methods. Its arguments come after in parentheses. DM does not have a return type annotation like other languages.
 
 If you are not declaring (therefore, you would be overriding) a new proc, you omit the `proc` keyword. See: `/mob/Login()` below.
 
