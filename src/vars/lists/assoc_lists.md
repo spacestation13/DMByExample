@@ -36,4 +36,4 @@ var/list/L = list(fizz = "buzz", money = 100)
 
 >**Notice:** See how the keys don't have double quotes around them?
 
-TODO: Associated lists and their loops
+TODO: Associated lists and their loops, cursed numerical keys, and list->assoc list conversion funtimes
