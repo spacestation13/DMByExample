@@ -16,7 +16,7 @@ For an easy installation simply click on the **Windows** button under **BETA**. 
 
 Once that's is all finished, you are ready to [get started with the DM language!](./hello_world.md)
 
-## VSCode (Optional but Highly Recommended)
+## VSCode (Very Highly Recommended)
 
 An optional installation to make your life much easier when coding in DM would be VSCode. It's an open-source multi-platform code editor that includes a lot of features and QOL improvements that make it substantially better than the editor that comes with your BYOND download.
 
