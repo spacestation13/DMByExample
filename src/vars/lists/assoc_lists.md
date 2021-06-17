@@ -2,7 +2,7 @@
 
 ## ⚠⚠ WIP PAGE ⚠⚠
 
-Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a `key-value pair`. This can be done as such:
+Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a `key-value pair` or dictionary. This can be done as such:
 
 ```dm
 var/list/L = list()
