@@ -2,7 +2,7 @@
 
 ## ⚠⚠ WIP PAGE ⚠⚠
 
-The parameters that are found within the paraentheses of a proc are know as `arguments`. This allows you to make more diverse procs and helps to prevent rewriting similar code as different values can be used in the same proc with arguments.
+The parameters that are found within the paraentheses of a proc are known as `arguments`. This allows you to make more diverse procs and helps to prevent rewriting similar code as different values can be used in the same proc with arguments.
 
 For instance, let's bring over part of that FizzBuzz proc that was written on the last page.
 
