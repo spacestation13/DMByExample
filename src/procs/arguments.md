@@ -31,4 +31,4 @@ Now when we call this proc we can simply do `is_divisible_by(10)` to get the sam
 
 >**NOTE:** We can override the default value of an argument simply by defining a value for that parameter. If we wrote `is_divisible_by(10, 7)` then the default `5` will be overwrote by our `7`.
 
-TODO: Argument type specification
+TODO: Argument object type specification, `...`
