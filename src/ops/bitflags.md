@@ -29,4 +29,5 @@ For a closer look at the binary math behind this, check out tgstation's [article
 ## Activity
 
 >Using the above code snippet as a base, try implementing the ability to toggle a flag easily.
->>**Hint**: What other binary operators are there?
+>
+>**Hint**: What other binary operators are there?
