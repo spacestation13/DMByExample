@@ -54,7 +54,7 @@ which will print out the key while using it to grab value associated with it, or
 var/j
 var/k
 
-for(j = 1, j <= exlist.len, j++)
+for(j = 1, j <= length(exlist), j++)
 	k = exlist[j]
 	world << "[k] = [exlist[k]]"
 ```

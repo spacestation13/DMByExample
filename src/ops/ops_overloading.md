@@ -28,7 +28,7 @@ An example would be if you have two objs that you wanted to have the vars within
 	world << newfoo.showvars()
 ```
 
-Operator overloading would allow you to define how the `+=` should act differently when we want to add our vars together since normally it wouldn't do what we want it to. This is done through defining a proc inside of a datum/obj using the keyword `operator` immediately followed by the operator we want to override with new functionality.
+Operator overloading would allow you to define how the `+=` should act differently when we want to add our vars together since normally it wouldn't do what we want it to. This is done through defining a proc inside of a datum/obj using the keyword `operator` almost always immediately followed by the operator we want to override with new functionality.
 
 ```dm
 /obj/foo

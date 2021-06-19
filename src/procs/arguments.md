@@ -42,6 +42,6 @@ proc/set_card_desc(obj/car/C, desc = "Red hatchback")
 	world << "Your [C] looks like a [desc]."
 ```
 
->Specifing works like declaring a var but `/var` is implied and not needed.
+>Specifing works like declaring a var but `var/` is implied and not needed.
 
 TODO: `...`
