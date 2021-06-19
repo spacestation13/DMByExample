@@ -18,7 +18,7 @@ Once that's is all finished, you are ready to [get started with the DM language!
 
 ## VSCode (Very Highly Recommended)
 
-An optional installation to make your life much easier when coding in DM would be VSCode. It's an open-source multi-platform code editor that includes a lot of features and QOL improvements that make it substantially better than the editor that comes with your BYOND download.
+An installation to make your life much easier when coding in DM would be VSCode. It's an open-source multi-platform code editor that includes a lot of features and QOL improvements that make it substantially better than the editor that comes with your BYOND download.
 
 You can get VSCode from [here](https://code.visualstudio.com/). For this download, we suggest using the **stable build** as the insider edition updates frequently and can mess with your projects if you aren't experienced enough. As for the actual installation process, it's the same deal with BYOND. You can change the options if you like but if you are unsure of what you are doing the defaults will work just fine.
 

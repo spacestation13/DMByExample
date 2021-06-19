@@ -38,4 +38,5 @@ world.log << lessThan3
 ## Activity
 
 Try making a statement of your own from a total of three expressions. It should be true (1) if a variable `y` is greater than 3 but less than 10.
+
 >**Hint:** Think of nested expressions.
