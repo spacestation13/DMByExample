@@ -13,7 +13,7 @@ L["money"] = 100 // "money" is the key, 100 is the value
 
 The above list `L` now contains the keys `"fizz"` and `"money"` which are associated with the values `"buzz"` and `100` respectively.
 
-Now the question becomes, "What does this actually do for us that a regular list can't do?" The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic indicies.
+Now the question becomes, "What does this actually do for us that a regular list can't do?" The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.
 
 ```dm
 world << L["fizz"] // "buzz"
@@ -36,4 +36,31 @@ var/list/L = list(fizz = "buzz", money = 100)
 
 >**Notice:** See how the keys don't have double quotes around them?
 
-TODO: Associated lists and their loops, cursed numerical keys, and list->assoc list conversion funtimes
+## Associated List Loops
+
+Looping through associated lists is fairly straightforward. You can either loop through the list items,
+
+```dm
+var/list/exlist = list(fizz = "buzz", money = 100)
+var/i
+
+for(i in exlist)
+	world << "[i] = [exlist[i]]"
+```
+
+which will print out the key while using it to grab value associated with it, or you can loop through the array indicies.
+
+```dm
+var/j
+var/k
+
+for(j = 1, j <= length(exlist), j++)
+	k = exlist[j]
+	world << "[k] = [exlist[k]]"
+```
+
+The second option is useful if you need to only grab certain items from the list while the first is best if you need to grab everything.
+
+>**Note:** Using a key that doesn't have an associated value or a key that doesn't exist will return `null`.
+
+TODO: Cursed numerical keys and list->assoc list conversion funtimes
