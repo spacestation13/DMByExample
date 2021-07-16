@@ -144,12 +144,13 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="associated-lists"><a class="header" href="#associated-lists">Associated lists</a></h1>
-<h2 id="-wip-page-"><a class="header" href="#-wip-page-">⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a <code>key-value pair</code> or dictionary. This can be done as such:</p>
+<p>Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a <code>key-value pair</code>, <code>map</code>, or <code>dictionary</code>. This can be done as such:</p>
 <pre><code class="language-dm">var/list/L = list()
 
 L[&quot;fizz&quot;] = &quot;buzz&quot; // &quot;fizz&quot; is the key, &quot;buzz&quot; is the value
 L[&quot;money&quot;] = 100 // &quot;money&quot; is the key, 100 is the value
+
+//L = {&quot;fizz&quot; = &quot;buzz&quot;, &quot;money&quot; = 100}
 </code></pre>
 <p>The above list <code>L</code> now contains the keys <code>&quot;fizz&quot;</code> and <code>&quot;money&quot;</code> which are associated with the values <code>&quot;buzz&quot;</code> and <code>100</code> respectively.</p>
 <p>Now the question becomes, &quot;What does this actually do for us that a regular list can't do?&quot; The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.</p>
@@ -186,7 +187,51 @@ for(j = 1, j &lt;= length(exlist), j++)
 <blockquote>
 <p><strong>Note:</strong> Using a key that doesn't have an associated value or a key that doesn't exist will return <code>null</code>.</p>
 </blockquote>
-<p>TODO: Cursed numerical keys and list-&gt;assoc list conversion funtimes</p>
+<h2 id="determining-list-type"><a class="header" href="#determining-list-type">Determining list type</a></h2>
+<p>It might sometimes come up that you need to check whether the list you're working with is associative or not. Unfortunately DM does not provide a convenient and reliable way of doing this.</p>
+<p>The two common ways that this is approached are:</p>
+<ul>
+<li>Use the DM proc <code>json_encode()</code> - if the JSON representation of the list starts with an open curly bracket <code>{</code> that means it's a JSON object, so it has to be an associative list.</li>
+<li>Iterate over the entire list and make sure all values are null. This is usually faster, but can yield a false positive - associative lists with all values set to <code>null</code> are unlikely to come up in practice, but legal.</li>
+</ul>
+<h2 id="conversion-to-associative"><a class="header" href="#conversion-to-associative">Conversion to Associative</a></h2>
+<p>Conversion to an associative list is hassle-free, though serves limited purpose. Probably best avoided if you're trying to write clean code.</p>
+<p>If you assign a value to any existing or new key using the <code>list[key] = value</code> syntax the list will turn into an associative one, where all existing items will become keys without set values.</p>
+<pre><code class="language-dm">var/list/mylist = list(&quot;jim&quot;, &quot;angela&quot;)
+
+mylist[&quot;stacey&quot;] = &quot;apple&quot;
+
+//mylist = {&quot;jim&quot; = null, &quot;angela&quot; = null, &quot;stacey&quot; = &quot;apple&quot;}
+</code></pre>
+<h2 id="conversion-from-associative-and-numerical-keys"><a class="header" href="#conversion-from-associative-and-numerical-keys">Conversion From Associative and Numerical Keys</a></h2>
+<p>DM makes certain relevant operations here possible, but it's really not a good idea to use this outside of very unique scenarios. You can safely skip this section.</p>
+<p>The way DM differentiates associative lists from non-associative ones is by checking if every key has an associated value. This is not the same as checking if the value is <code>null</code>. From the point of view of the programmer there is no way to differentiate between a non-existent value and a value equal to <code>null</code>.</p>
+<p>There is, however, a way to remove a value from a list - using a numerical key during assignment.</p>
+<p>This will assign the provided value as a key of that index, not value, while removing the existing value altogether.</p>
+<pre><code class="language-dm">var/list/mylist = list()
+mylist[&quot;foo&quot;] = &quot;bar&quot;
+mylist[&quot;soup&quot;] = &quot;barszcz&quot;
+
+mylist[1] = &quot;sandwich&quot;
+                           ↓ this null is not a null, but a non-existent value
+//mylist = {&quot;sandwich&quot; = null, &quot;soup&quot; = &quot;barszcz&quot;}
+
+mylist[2] = &quot;barszcz&quot;
+//mylist = [&quot;sandwich&quot;, &quot;barszcz&quot;]
+</code></pre>
+<p>You can use this method to supply numerical keys, however they will be interpreted as empty string keys until the list stops being associative. You can't actually access any item by those numerical keys, since accessing by number refers to indexes and not keys, so their use is limited.</p>
+<pre><code class="language-dm">var/list/mylist = list()
+mylist[&quot;foo&quot;] = &quot;bar&quot;
+mylist[&quot;test&quot;] = &quot;test&quot;
+
+mylist[1] = 5
+
+//mylist = {&quot;&quot;:null,&quot;test&quot;:&quot;test&quot;}
+
+mylist[2] = 6
+
+//mylist = [5, 6]
+</code></pre>
 
                     </main>
 

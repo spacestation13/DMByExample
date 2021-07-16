@@ -339,12 +339,13 @@ var/list/same = list()
 same += list(1, 2)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="associated-lists"><a class="header" href="#associated-lists">Associated lists</a></h1>
-<h2 id="-wip-page--1"><a class="header" href="#-wip-page--1">⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a <code>key-value pair</code> or dictionary. This can be done as such:</p>
+<p>Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a <code>key-value pair</code>, <code>map</code>, or <code>dictionary</code>. This can be done as such:</p>
 <pre><code class="language-dm">var/list/L = list()
 
 L[&quot;fizz&quot;] = &quot;buzz&quot; // &quot;fizz&quot; is the key, &quot;buzz&quot; is the value
 L[&quot;money&quot;] = 100 // &quot;money&quot; is the key, 100 is the value
+
+//L = {&quot;fizz&quot; = &quot;buzz&quot;, &quot;money&quot; = 100}
 </code></pre>
 <p>The above list <code>L</code> now contains the keys <code>&quot;fizz&quot;</code> and <code>&quot;money&quot;</code> which are associated with the values <code>&quot;buzz&quot;</code> and <code>100</code> respectively.</p>
 <p>Now the question becomes, &quot;What does this actually do for us that a regular list can't do?&quot; The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.</p>
@@ -381,7 +382,51 @@ for(j = 1, j &lt;= length(exlist), j++)
 <blockquote>
 <p><strong>Note:</strong> Using a key that doesn't have an associated value or a key that doesn't exist will return <code>null</code>.</p>
 </blockquote>
-<p>TODO: Cursed numerical keys and list-&gt;assoc list conversion funtimes</p>
+<h2 id="determining-list-type"><a class="header" href="#determining-list-type">Determining list type</a></h2>
+<p>It might sometimes come up that you need to check whether the list you're working with is associative or not. Unfortunately DM does not provide a convenient and reliable way of doing this.</p>
+<p>The two common ways that this is approached are:</p>
+<ul>
+<li>Use the DM proc <code>json_encode()</code> - if the JSON representation of the list starts with an open curly bracket <code>{</code> that means it's a JSON object, so it has to be an associative list.</li>
+<li>Iterate over the entire list and make sure all values are null. This is usually faster, but can yield a false positive - associative lists with all values set to <code>null</code> are unlikely to come up in practice, but legal.</li>
+</ul>
+<h2 id="conversion-to-associative"><a class="header" href="#conversion-to-associative">Conversion to Associative</a></h2>
+<p>Conversion to an associative list is hassle-free, though serves limited purpose. Probably best avoided if you're trying to write clean code.</p>
+<p>If you assign a value to any existing or new key using the <code>list[key] = value</code> syntax the list will turn into an associative one, where all existing items will become keys without set values.</p>
+<pre><code class="language-dm">var/list/mylist = list(&quot;jim&quot;, &quot;angela&quot;)
+
+mylist[&quot;stacey&quot;] = &quot;apple&quot;
+
+//mylist = {&quot;jim&quot; = null, &quot;angela&quot; = null, &quot;stacey&quot; = &quot;apple&quot;}
+</code></pre>
+<h2 id="conversion-from-associative-and-numerical-keys"><a class="header" href="#conversion-from-associative-and-numerical-keys">Conversion From Associative and Numerical Keys</a></h2>
+<p>DM makes certain relevant operations here possible, but it's really not a good idea to use this outside of very unique scenarios. You can safely skip this section.</p>
+<p>The way DM differentiates associative lists from non-associative ones is by checking if every key has an associated value. This is not the same as checking if the value is <code>null</code>. From the point of view of the programmer there is no way to differentiate between a non-existent value and a value equal to <code>null</code>.</p>
+<p>There is, however, a way to remove a value from a list - using a numerical key during assignment.</p>
+<p>This will assign the provided value as a key of that index, not value, while removing the existing value altogether.</p>
+<pre><code class="language-dm">var/list/mylist = list()
+mylist[&quot;foo&quot;] = &quot;bar&quot;
+mylist[&quot;soup&quot;] = &quot;barszcz&quot;
+
+mylist[1] = &quot;sandwich&quot;
+                           ↓ this null is not a null, but a non-existent value
+//mylist = {&quot;sandwich&quot; = null, &quot;soup&quot; = &quot;barszcz&quot;}
+
+mylist[2] = &quot;barszcz&quot;
+//mylist = [&quot;sandwich&quot;, &quot;barszcz&quot;]
+</code></pre>
+<p>You can use this method to supply numerical keys, however they will be interpreted as empty string keys until the list stops being associative. You can't actually access any item by those numerical keys, since accessing by number refers to indexes and not keys, so their use is limited.</p>
+<pre><code class="language-dm">var/list/mylist = list()
+mylist[&quot;foo&quot;] = &quot;bar&quot;
+mylist[&quot;test&quot;] = &quot;test&quot;
+
+mylist[1] = 5
+
+//mylist = {&quot;&quot;:null,&quot;test&quot;:&quot;test&quot;}
+
+mylist[2] = 6
+
+//mylist = [5, 6]
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="casting"><a class="header" href="#casting">Casting</a></h1>
 <p>DM provides implicit type conversion (coercion) between primitive types.</p>
 <pre><code class="language-dm">var/x = &quot;string&quot;
@@ -394,7 +439,7 @@ world &lt;&lt; x // 5
 <pre><code class="language-dm">var/your/type/varname = initialValue
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="constants"><a class="header" href="#constants">Constants</a></h1>
-<h2 id="-wip-page--2"><a class="header" href="#-wip-page--2">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--1"><a class="header" href="#-wip-page--1">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Constant is a modifier for vars that define a constant value. This is done by using the <code>const</code> keyword.</p>
 <pre><code class="language-dm">var/const/max_cash = 1000
 </code></pre>
@@ -501,7 +546,7 @@ if(N==2 &amp;&amp; 1/2==0.5) N = 0.5
 <p><strong>Hint</strong>: What other binary operators are there?</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="operator-overloading"><a class="header" href="#operator-overloading">Operator Overloading</a></h1>
-<h2 id="-wip-page--3"><a class="header" href="#-wip-page--3">## ⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--2"><a class="header" href="#-wip-page--2">## ⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Operator overloading is a special way to define a different process for operators to use when working with datums/objects. It's similar to <a href="ops/../objs/inheritance.html">object overriding</a> which you'll learn about later. This is yet another way to save you some time and writing if you have to perform an operation multiple times.</p>
 <p>An example would be if you have two objs that you wanted to have the vars within added up. Without operator overloading it would look something like this:</p>
 <pre><code class="language-dm">/obj/foo
@@ -734,7 +779,7 @@ world &lt;&lt; json_encode(my_list)
 		fizzbuzz(p)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
-<h2 id="-wip-page--4"><a class="header" href="#-wip-page--4">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--3"><a class="header" href="#-wip-page--3">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>The parameters that are found within the paraentheses of a proc are known as <code>arguments</code>. This allows you to make more diverse procs and helps to prevent rewriting similar code as different values can be used in the same proc with arguments.</p>
 <p>For instance, let's bring over part of that FizzBuzz proc that was written on the last page.</p>
 <pre><code class="language-dm">/proc/is_divisible_by(lhs, rhs)
@@ -767,7 +812,7 @@ world &lt;&lt; json_encode(my_list)
 </blockquote>
 <p>TODO: <code>...</code></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="named-arguments"><a class="header" href="#named-arguments">Named Arguments</a></h1>
-<h2 id="-wip-page--5"><a class="header" href="#-wip-page--5">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--4"><a class="header" href="#-wip-page--4">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Another way to pass arguments to a func is to name them when calling. Normally when you call a func, the arguments used will be placed in the func's arguments in the order they are set when you call that func.</p>
 <pre><code class="language-dm">proc/SomeProc(a, b, c)
 	world &lt;&lt; &quot;[a] is first, [b] is second, [c] is third.&quot;
@@ -807,7 +852,7 @@ What’s special about the dot variable is that it's automatically <code>return<
 </code></pre>
 <p>With <code>.</code> being present in every proc, we use it as a temporary variable. However, the <code>.</code> variable cannot replace a typecasted variable - it can hold data as any other var in DM can, but it just can’t be accessed as one. Although, the <code>.</code> variable <strong>is</strong> compatible with a few operators that look weird but work perfectly fine, such as: <code>.++</code> for incrementing <code>.</code>'s value.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="objects"><a class="header" href="#objects">Objects</a></h1>
-<h2 id="-wip-page--6"><a class="header" href="#-wip-page--6">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--5"><a class="header" href="#-wip-page--5">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>To check if an object is of a certain type, use <code>istype(x, /type)</code> which returns a <code>TRUE</code> or <code>FALSE</code> value:</p>
 <pre><code class="language-dm">/obj/foo
 	var/x = 1
@@ -912,7 +957,7 @@ foo = null
 	my_subtype.dream() // &quot;Beyond&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="preprocessor"><a class="header" href="#preprocessor">Preprocessor</a></h1>
-<h2 id="-wip-page--7"><a class="header" href="#-wip-page--7">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--6"><a class="header" href="#-wip-page--6">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <h2 id="define--undef"><a class="header" href="#define--undef">#define / #undef</a></h2>
 <p>Sometimes, you'll want to have shared values across your project instead of copy-pasting them everywhere. This is where <code>#define</code> comes in.</p>
 <p>The <code>#define Name Value</code> statement substitues the <code>Name</code> for <code>Value</code> as long for as the define is not <code>#undef</code>-ined. Substitution only applies to whole words. Text inside of double or single quotes is not processed for substitution, so <code>&quot;This is BIG.&quot;</code> would not be modified even if a define named <code>BIG</code> were to be defined. That's different from <code>&quot;This is [BIG].&quot;</code>, whereas <code>BIG</code> is an embedded expression, which does get processed for macro substitution.</p>
@@ -963,10 +1008,10 @@ MACROVAR(right) // becomes `var/macro_state_right`
 world &lt;&lt; &quot;[TOTEXT(SAYTWICE(hi))]&quot;   // world &lt;&lt; &quot;hihi&quot;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="meta"><a class="header" href="#meta">Meta</a></h1>
-<h2 id="-wip-page--8"><a class="header" href="#-wip-page--8">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--7"><a class="header" href="#-wip-page--7">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>The SS13 community has built up a lot of toolings around the base DM language.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="language-server"><a class="header" href="#language-server">Language Server</a></h1>
-<h2 id="-wip-page--9"><a class="header" href="#-wip-page--9">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--8"><a class="header" href="#-wip-page--8">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>A language server (protocol) is something that is used to help a tool/client and a server, that provides the actual &quot;smartness&quot;, so that the client can use features like auto complete and the like. In even more layman terms, it's something that gives you the nice features that makes your coding life easier.</p>
 <p>Unless you skipped the large recommendation on the second page, you should already have the language server for the DM language. This is what gave you, and VSCode, the ability to have searchable definitions and auto complete.</p>
 <h2 id="extra-readings"><a class="header" href="#extra-readings">Extra Readings</a></h2>
@@ -1010,7 +1055,7 @@ world &lt;&lt; &quot;[TOTEXT(SAYTWICE(hi))]&quot;   // world &lt;&lt; &quot;hihi
 </code></pre>
 <p>Source code for DMDoc can be found <a href="https://github.com/SpaceManiac/SpacemanDMM/tree/master/src/dmdoc">here</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="strongdmm"><a class="header" href="#strongdmm">StrongDMM</a></h1>
-<h2 id="-wip-page--10"><a class="header" href="#-wip-page--10">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--9"><a class="header" href="#-wip-page--9">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>A useful alternative to BYOND's built-in map editor, <a href="https://github.com/SpaiR/StrongDMM">StrongDMM</a> is a map editor to assist you with map creation. To get it simply go to the page and scroll down until you see <strong>DOWNLOAD FOR WINDOWS</strong>, the big blue button. Run it and point it to your project's .dme for the tool to understand your project's parameters. Then create/edit to your heart's content.</p>
 
                     </main>
