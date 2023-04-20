@@ -15,11 +15,13 @@ You can simply assign them to your variable, and access the variable's contents.
 
 In particular, notice how lists (`/list`) aren't considered a primitive type. Even though assigning a list to a var won't cause an error normally, it's bad practice to not typecast it since a list is essentially an object. You also won't be able to access list methods and properties on a non-typecasted list.
 
-Null (`null`) is considered a primitive type because it can be assigned to any var, and since null basically means no value you aren't going to access any of its properties since it has none. Forgetting that it exists can cause a lot of issues. A common thing to see in procs is the following check for null value:
+Null (`null`) is considered a primitive type because it can be assigned to any var, and since null basically means no value you aren't going to access any of its properties since it has none.
+Forgetting that vars can be uninitialised or deleted can cause a lot of issues. A common thing to see in procs is the following check for null value:
 ```
 if (isnull(variable)
 	return
 ```
+which prevents null values from interacting with later code and throwing a bunch of errors.
 
 ## Object types
 
