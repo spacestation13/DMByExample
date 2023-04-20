@@ -31,7 +31,52 @@ There also exists a subset of defines called Macros. These are in the format: `#
 
 ## #if / #elif / #else / #ifdef / #endif
 
-TODO
+These conditional defines work very similarly to the regular `if()` and `else` logic that we saw earlier, except that you have to close the code block with `#endif`. The code within the true statements gets compiled, while the others do not compile. Like defines, they get sort of 'swapped out' before the code is run, so they're not typically used with variables, but with other defines.
+`#elif` is equivalent to `else if`, and `#if` and `#else` are self explanatory.
+`#ifdef DEFINE` is a special case which substitutes in its code block when the define in the argument is defined, and is false otherwise. It's functionally identical to `#if defined(DEFINE)`. `#ifndef DEFINE` meanwhile, is the same as `#if !defined(DEFINE)`.
+Like all defines, the indentation does not matter. It does matter that the code block's indentation matches the code around it, however.
+
+```dm
+// some random defines that get determined before the code compiles.
+#define LOGIC_A 1
+#define LOGIC_B 2
+#define LOGIC_C 3
+
+#ifdef LOGIC_C // LOGIC_C is defined, so this code will run.
+world << "Logic C is in place"
+#endif
+
+#ifdef LOGIC_D // this code will not run, since LOGIC_D isn't defined
+world << "Logic D is in place"
+#endif
+
+#if LOGIC_A > LOGIC_B // this generally isn't how you'd use defines
+world << "Logic A is larger than B"
+#elif LOGIC_A < LOGIC
+world << "Logic A is smaller than B"
+#endif
+```
+
+You can use these to help define large groups of defines at once.
+
+```dm
+// in this example, you define the one that you want by uncommenting it in the code, before the code compiles
+//#define STARTUP_SETTING_A
+#define STARTUP_SETTING_B  // we're defining setting b
+//#define STARTUP_SETTING_C
+
+#ifdef STARTUP_SETTING_A
+	#define FULL_BOOT
+	#define TRACKING_SETTINGS
+	#define OTHER_NONSENSE
+#elif defined(STARTUP_SETTING_B)
+	#define FULL_BOOT
+	#define OTHER_NONSENSE
+#elif defined(STARTUP_SETTING_C)
+	#define FULL_BOOT
+#endif
+// the defines FULL_BOOT and etc would then be used by later parts of code.
+```
 
 ## #include
 
