@@ -31,10 +31,9 @@ There also exists a subset of defines called Macros. These are in the format: `#
 
 ## #if / #elif / #else / #ifdef / #endif
 
-These conditional defines work very similarly to the regular `if()` and `else` logic that we saw earlier, except that you have to close the code block with `#endif`. The code within the true statements gets compiled, while the others do not compile. Like defines, they get sort of 'swapped out' before the code is run, so they're not typically used with variables, but with other defines.
+These conditional defines work very similarly to the regular `if()` and `else` logic that we saw earlier, except that you have to close the code block with `#endif`. The code within the true statements gets compiled, and untrue statements have their code blocks simply not included in the code. Like defines, they get sort of 'swapped out' before the code is run, so can't be used with variables, but only with other defines.
 `#elif` is equivalent to `else if`, and `#if` and `#else` are self explanatory.
-`#ifdef DEFINE` is a special case which substitutes in its code block when the define in the argument is defined, and is false otherwise. It's functionally identical to `#if defined(DEFINE)`. `#ifndef DEFINE` meanwhile, is the same as `#if !defined(DEFINE)`.
-Like all defines, the indentation does not matter. It does matter that the code block's indentation matches the code around it, however.
+`#ifdef DEFINE` is a special case which substitutes in its code block when the define in the argument is defined, and is false otherwise. It's almost functionally identical to `#if defined(DEFINE)`, but comes with a caveat: there is no `#elsedef` for you to connect it to, they have to be closed off with `#endif`. `#ifndef DEFINE` meanwhile, is similar to `#if !defined(DEFINE)`, with the same.
 
 ```dm
 // some random defines that get determined before the code compiles.
@@ -50,7 +49,7 @@ world << "Logic C is in place"
 world << "Logic D is in place"
 #endif
 
-#if LOGIC_A > LOGIC_B // this generally isn't how you'd use defines, but it serves as an example.
+#if LOGIC_A > LOGIC_B
 world << "Logic A is larger than B" // this part isn't compiled
 #elif LOGIC_A < LOGIC
 world << "Logic A is smaller than B" // this part is compiled
