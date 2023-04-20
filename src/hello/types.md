@@ -7,7 +7,7 @@ Even though variables do not need to have their types defined for primitive data
 Primitive types are types that do not need variables to be typecasted anyhow. This includes:
 
 * Numeric values: `1, 24.3, 3.14` (WARNING: DM doesn't use integers, it uses floats. Watch out for floating point precision errors.)
-* Strings: `"a", "abc"` (These can use single or double quotes, although usually a codebase will have a general form which you should follow.)
+* [Strings](../vars/strings.md): `"a", "abc"` (These can use single or double quotes, although usually a codebase will have a general form which you should follow.)
 * Booleans: `TRUE, FALSE` (These aren't anything different than the numerical values 1 and 0, but are cleaner visually.)
 * Null: `null`
 
