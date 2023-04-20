@@ -50,17 +50,17 @@ world << "Logic C is in place"
 world << "Logic D is in place"
 #endif
 
-#if LOGIC_A > LOGIC_B // this generally isn't how you'd use defines
-world << "Logic A is larger than B"
+#if LOGIC_A > LOGIC_B // this generally isn't how you'd use defines, but it serves as an example.
+world << "Logic A is larger than B" // this part isn't compiled
 #elif LOGIC_A < LOGIC
-world << "Logic A is smaller than B"
+world << "Logic A is smaller than B" // this part is compiled
 #endif
 ```
 
 You can use these to help define large groups of defines at once.
 
 ```dm
-// in this example, you define the one that you want by uncommenting it in the code, before the code compiles
+// in this example, you define the one that you want by uncommenting it in the code, before the code compiles. This is a fairly common usage of so called 'build' defines.
 //#define STARTUP_SETTING_A
 #define STARTUP_SETTING_B  // we're defining setting b
 //#define STARTUP_SETTING_C
@@ -75,7 +75,7 @@ You can use these to help define large groups of defines at once.
 #elif defined(STARTUP_SETTING_C)
 	#define FULL_BOOT
 #endif
-// the defines FULL_BOOT and etc would then be used by later parts of code.
+// the defines FULL_BOOT and etc would then be used by later parts of code, with further conditionals.
 ```
 
 ## #include
