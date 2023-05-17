@@ -5,8 +5,10 @@
         <meta charset="UTF-8">
         <title>DM By Example</title>
         <meta name="robots" content="noindex" />
+
+
         <!-- Custom HTML head -->
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        
         <meta name="description" content="A guide to DM in the style of Rust by Example.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -17,25 +19,29 @@
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
         <link rel="stylesheet" href="css/print.css" media="print">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
         <link rel="stylesheet" href="fonts/fonts.css">
+
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -51,7 +57,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -63,12 +69,14 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -84,7 +92,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -94,7 +102,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -111,6 +119,7 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
+
                     </div>
                 </div>
 
@@ -124,8 +133,9 @@
                         </ul>
                     </div>
                 </div>
+
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -227,13 +237,17 @@ I'm a Developer!
 <p>Primitive types are types that do not need variables to be typecasted anyhow. This includes:</p>
 <ul>
 <li>Numeric values: <code>1, 24.3, 3.14</code></li>
-<li>Strings: <code>&quot;a&quot;, &quot;abc&quot;</code></li>
-<li>Booleans: <code>TRUE, FALSE</code> (which aren't anything different than the numerical values 1 and 0)</li>
+<li><a href="hello/../vars/strings.html">Strings</a>: <code>&quot;a&quot;, &quot;abc&quot;</code></li>
 <li>Null: <code>null</code></li>
 </ul>
 <p>You can simply assign them to your variable, and access the variable's contents.</p>
 <p>In particular, notice how lists (<code>/list</code>) aren't considered a primitive type. Even though assigning a list to a var won't cause an error normally, it's bad practice to not typecast it since a list is essentially an object. You also won't be able to access list methods and properties on a non-typecasted list.</p>
-<p>Null (<code>null</code>) is considered a primitive type because it can be assigned to any var, and since null basically means no value you aren't going to access any of its properties since it has none.</p>
+<p>Null (<code>null</code>) is considered a primitive type because it can be assigned to any var, and since null basically means no value you aren't going to access any of its properties since it has none.
+Forgetting that vars can be uninitialised or deleted can cause a lot of issues. A common thing to see in procs is the following check for null value:</p>
+<pre><code>if (isnull(variable)
+	return
+</code></pre>
+<p>which prevents null values from interacting with later code and throwing a bunch of errors.</p>
 <h2 id="object-types"><a class="header" href="#object-types">Object types</a></h2>
 <p>Object types are the core of any object oriented programming language like DM. These will be covered further <a href="hello/../objs.html">later</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
@@ -489,7 +503,7 @@ Binary Or Assign = &quot;|=&quot;
 Left Shift Assign = &quot;&lt;&lt;=&quot;
 Right Shift Assign = &quot;&gt;&gt;=&quot;
 </code></pre>
-<p><a href="http://www.byond.com/docs/ref/info.html#/operator/%7E=">Equivalence</a> operators:</p>
+<p><a href="http://www.byond.com/docs/ref/info.html#/operator/~=">Equivalence</a> operators:</p>
 <pre><code class="language-dm">Equivalent = &quot;~=&quot;
 Not Equivalent = &quot;~!&quot;
 </code></pre>
@@ -967,7 +981,46 @@ var/daytime = NIGHT  // daytime = 1
 		world &lt;&lt; &quot;Hello there!&quot;
 </code></pre>
 <h2 id="if--elif--else--ifdef--endif"><a class="header" href="#if--elif--else--ifdef--endif">#if / #elif / #else / #ifdef / #endif</a></h2>
-<p>TODO</p>
+<p>These conditional defines work very similarly to the regular <code>if()</code> and <code>else</code> logic that we saw earlier, except that you have to close the code block with <code>#endif</code>. The code within the true statements gets compiled, and untrue statements have their code blocks simply not included in the code. Like defines, they get sort of 'swapped out' before the code is run, so can't be used with variables, but only with other defines.
+<code>#elif</code> is equivalent to <code>else if</code>, and <code>#if</code> and <code>#else</code> are self explanatory.
+<code>#ifdef DEFINE</code> is a special case which substitutes in its code block when the define in the argument is defined, and is false otherwise. It's almost functionally identical to <code>#if defined(DEFINE)</code>, but comes with a caveat: there is no <code>#elsedef</code> for you to connect it to, they have to be closed off with <code>#endif</code>. <code>#ifndef DEFINE</code> meanwhile, is similar to <code>#if !defined(DEFINE)</code>, with the same.</p>
+<pre><code class="language-dm">// some random defines that get determined before the code compiles.
+#define LOGIC_A 1
+#define LOGIC_B 2
+#define LOGIC_C 3
+
+#ifdef LOGIC_C // LOGIC_C is defined, so this code will run.
+world &lt;&lt; &quot;Logic C is in place&quot;
+#endif
+
+#ifdef LOGIC_D // this code will not run, since LOGIC_D isn't defined
+world &lt;&lt; &quot;Logic D is in place&quot;
+#endif
+
+#if LOGIC_A &gt; LOGIC_B
+world &lt;&lt; &quot;Logic A is larger than B&quot; // this part isn't compiled
+#elif LOGIC_A &lt; LOGIC
+world &lt;&lt; &quot;Logic A is smaller than B&quot; // this part is compiled
+#endif
+</code></pre>
+<p>You can use these to help define large groups of defines at once.</p>
+<pre><code class="language-dm">// in this example, you define the one that you want by uncommenting it in the code, before the code compiles. This is a fairly common usage of so called 'build' defines.
+//#define STARTUP_SETTING_A
+#define STARTUP_SETTING_B  // we're defining setting b
+//#define STARTUP_SETTING_C
+
+#ifdef STARTUP_SETTING_A
+	#define FULL_BOOT
+	#define TRACKING_SETTINGS
+	#define OTHER_NONSENSE
+#elif defined(STARTUP_SETTING_B)
+	#define FULL_BOOT
+	#define OTHER_NONSENSE
+#elif defined(STARTUP_SETTING_C)
+	#define FULL_BOOT
+#endif
+// the defines FULL_BOOT and etc would then be used by later parts of code, with further conditionals.
+</code></pre>
 <h2 id="include"><a class="header" href="#include">#include</a></h2>
 <p>TODO</p>
 <h2 id="error--warn"><a class="header" href="#error--warn">#error / #warn</a></h2>
@@ -1054,31 +1107,43 @@ world &lt;&lt; &quot;[TOTEXT(SAYTWICE(hi))]&quot;   // world &lt;&lt; &quot;hihi
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+
+
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
             </nav>
 
         </div>
 
-        <script type="text/javascript">
+
+
+
+        <script>
             window.playground_copyable = true;
         </script>
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        <script type="text/javascript">
+
+        <script>
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
+
+    </div>
     </body>
 </html>
