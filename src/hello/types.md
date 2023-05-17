@@ -8,7 +8,6 @@ Primitive types are types that do not need variables to be typecasted anyhow. Th
 
 * Numeric values: `1, 24.3, 3.14`
 * [Strings](../vars/strings.md): `"a", "abc"`
-* Booleans: `TRUE, FALSE`
 * Null: `null`
 
 You can simply assign them to your variable, and access the variable's contents.
