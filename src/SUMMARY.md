@@ -30,6 +30,7 @@
 - [Objects](./objs.md)
 	- [Disposal](./objs/disposal.md)
 	- [Inheritance](./objs/inheritance.md)
+  - [Primitive Object Types](./objs/basic_types.dm)
 - [Preprocessor](./preprocessor.md)
 	- [Advanced Usage](./preprocessor/advancedpre.md)
 - [I/O]()
