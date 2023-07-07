@@ -1,7 +1,7 @@
 ## Basic Object Types
 In Object Oriented programming, objects inherit behaviour from parents. DM has some built in ancestors which share certain behaviours. These will be gone over individually and in more detail in their own pages, but here is the general overview.
 ### Datums
-The first is the Datum (`/datum/`). It's the ancestor of all the other types (except for /world, /client, /list, and /savefile) that we will see. It's essentially pure data, hence the name, and can have pretty much any vars you like. When you define a new "top level" object, if you do not specify a parent_type, it defaults to /datum.
+The first is the Datum (`/datum/`). It's the ancestor of all the other types (except for some types like /world, /client, /list, and more) that we will see. It's essentially pure data, hence the name, and can have pretty much any vars you like. When you define a new "top level" object, if you do not specify a parent_type, it defaults to /datum.
 ```dm
 MyType
 	var/myvar = "test"
