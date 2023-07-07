@@ -8,7 +8,7 @@ MyType
 // this "mytype object" is a datum. Normally, though, you'd put it as datum/MyType or /datum/MyType
 ```
 ### Atoms
-Atoms (`/atom/`) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It's an abstract parent which shouldn't really be used by itself, but it gives important information to its children, mainly areas, turfs, objs, and mobs.
+Atoms (`/atom/`) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It's an abstract parent which shouldn't really be used by itself, but it gives important information to its children, mainly **a**reas, **t**urfs, **o**bjs, and **m**obs.
 `/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`. Again, this is an abstract parent, so you shouldn't define objects of its type.
 #### Areas
 An area (`/area/`) is how the game controls rooms and certain zones. Every tile on a map has exactly one area, and if you don't set one in the map editor, it defaults to `/area/space`.
