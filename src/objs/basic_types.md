@@ -9,7 +9,11 @@ MyType
 ```
 ### Atoms
 Atoms (`/atom/`) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It's an abstract parent which shouldn't really be used by itself, but it gives important information to its children, mainly **a**reas, **t**urfs, **o**bjs, and **m**obs.
-`/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`. Again, this is an abstract parent, so you shouldn't define objects of its type.
+`/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`. Again, this is an abstract parent, so you shouldn't define objects under it.
+```dm
+/atom/movable/car
+	//don't do this
+```
 #### Areas
 An area (`/area/`) is how the game controls rooms and certain zones. Every tile on a map has exactly one area, and if you don't set one in the map editor, it defaults to `/area/space`.
 When the game starts, one object is created per area, and it's treated as a single object. All tiles with the same area are connected to the same single instance of that area.
@@ -32,12 +36,12 @@ When you do src.loc on an atom, the return value is actually the turf.
 	density = 1 // it can't be walked through.
 /turf/floor
 	desc = "A steel tiled floor"
-	specialfloor
-		desc = "Something seems strange about this floor."
-		Entered() // when the tile is walked over, do a special thing
-			doSpecialThing()
-		proc/doSpecialThing()
-			// the thing that the tile would do when walked on would go here.
+/turf/floorspecialfloor
+	desc = "Something seems strange about this floor."
+	Entered() // when the tile is walked over, do a special thing
+		doSpecialThing()
+	proc/doSpecialThing()
+		// the thing that the tile would do when walked on would go here.
 ```
 #### Mobs
 Living things that can move around, deriving from the word "mobile". These are what the player controls, and are slightly more complicated than objs since they can have a /client attached to them (i.e. a player).
@@ -47,6 +51,7 @@ Living things that can move around, deriving from the word "mobile". These are w
 ```
 #### Objs
 Objs (NOT the same as objects) are general purpose items and things that you can find in a map. Everything that's not a turf or a mob on a map is almost certainly an obj.
+A programming object is a type of thing that can hold multiple kinds of data (i.e. a datum). An obj on the other hand is a "physical" object that you'd find within the world. Not the same concept.
 ```dm
 /obj/egg
 	desc = "A chicken egg."
