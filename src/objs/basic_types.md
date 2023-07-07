@@ -15,8 +15,7 @@ Atoms (`/atom/`) are the direct child of datums, and they represent objects that
 	//don't do this
 ```
 #### Areas
-An area (`/area/`) is how the game controls rooms and certain zones. Every tile on a map has exactly one area, and if you don't set one in the map editor, it defaults to `/area/space`.
-When the game starts, one object is created per area, and it's treated as a single object. All tiles with the same area are connected to the same single instance of that area.
+An area (`/area/`) is how the game controls rooms and certain zones. Every tile on a map should have exactly one area.
 ```dm
 /area/Entered(O)
 	.=..() // makes sure that the parent stuff is called when the function returns, for instance, from /atom.
@@ -29,7 +28,7 @@ When the game starts, one object is created per area, and it's treated as a sing
 ```
 #### Turfs
 A turf (`/turf/`is essentially the tile itself. They can't be moved, only replaced with new ones (which removes the old one). Depending on what game or what server you're running, these are generally used as floors, walls and windows (although, of course, it varies).
-When you do src.loc on an atom, the return value is actually the turf.
+When you do src.loc on an atom, the return value usually the turf. Unless its location is null, of course.
 ```dm
 /turf/wall
 	desc = "A steel wall."
