@@ -4,7 +4,8 @@ In Object Oriented programming, objects inherit behaviour from parents. DM has s
 
 ### Datums
 
-The first is the Datum (`/datum/`). It's the ancestor of all the other types (except for some types like /world, /client, /list, and more) that we will see. It's essentially pure data, hence the name, and can have pretty much any vars you like. When you define a new "top level" object, if you do not specify a parent_type, it defaults to /datum.
+The first is the Datum (`/datum/`). It's the ancestor of all the other types (except for some types like /world, /client, /list, and more) that we will see. It's essentially pure data, hence the name, and can have pretty much any vars you like.
+> Note: When you define a new "top level" object, if you do not specify a parent_type, it defaults to /datum.
 
 ```dm
 MyType
@@ -40,7 +41,7 @@ An area (`/area/`) is how the game controls rooms and certain zones. Every tile 
 #### Turfs
 
 A turf (`/turf/`is essentially the tile itself. They can't be moved, only replaced with new ones (which removes the old one). Depending on what game or what server you're running, these are generally used as floors, walls and windows (although, of course, it varies).
-When you do src.loc on an atom, the return value usually the turf. Unless its location is null, of course.
+> Note: the return value of .loc on an atom is usually the turf that the atom is on. Unless its location is null, of course.
 
 ```dm
 /turf/wall
@@ -67,7 +68,7 @@ Living things that can move around, deriving from the word "mobile". These are w
 #### Objs
 
 Objs (NOT the same as objects) are general purpose items and things that you can find in a map. Everything that's not a turf or a mob on a map is almost certainly an obj.
-A programming object is a type of thing that can hold multiple kinds of data (i.e. a datum). An obj on the other hand is a "physical" object that you'd find within the world. Not the same concept.
+> **Objects vs Objs**: A programming object is a type of thing that can hold multiple kinds of data (i.e. a datum). An obj on the other hand is a "physical" object that you'd find within the world. Not the same concept.
 
 ```dm
 /obj/egg
