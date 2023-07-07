@@ -1,4 +1,4 @@
-## Basic Object Types
+## Primitive Types
 
 In Object Oriented programming, objects inherit behaviour from parents. DM has some built in ancestors which share certain behaviours. These will be gone over individually and in more detail in their own pages, but here is the general overview.
 
@@ -16,7 +16,7 @@ MyType
 ### Atoms
 
 Atoms (`/atom/`) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It's an abstract parent which shouldn't really be used by itself, but it gives important information to its children, mainly **a**reas, **t**urfs, **o**bjs, and **m**obs.
-`/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`. Again, this is an abstract parent, so you shouldn't define objects under it.
+Similarly, `/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`. Again, this is meant to be an abstract parent, so you shouldn't define objects under it, like shown here below.
 
 ```dm
 /atom/movable/car
