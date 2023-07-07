@@ -15,9 +15,8 @@ MyType
 
 ### Atoms
 
-Atoms (`/atom/`) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It's an abstract parent which shouldn't really be used by itself, but it gives important information to its children, mainly **a**reas, **t**urfs, **o**bjs, and **m**obs.
-Similarly, `/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`. Again, this is meant to be an abstract parent, so you shouldn't define objects under it, like shown here below.
-
+Atoms (`/atom/`) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It gives important information to its children, mainly **a**reas, **t**urfs, **o**bjs, and **m**obs.
+Similarly, `/atom/movable` defines behaviour related to moving things, and is the parent of `/obj` and `/mob`.
 ```dm
 /atom/movable/car
 	//don't do this
@@ -30,7 +29,7 @@ An area (`/area/`) is how the game controls rooms and certain zones. Every tile 
 ```dm
 /area/Entered(O)
 	.=..() // makes sure that the parent stuff is called when the function returns, for instance, from /atom.
-	if(desc)
+	if (desc)
 		O << desc // makes it so that entering any area will return the description, if there is one.
 /area/outside
 	desc = "What a lovely day."
@@ -40,7 +39,7 @@ An area (`/area/`) is how the game controls rooms and certain zones. Every tile 
 
 #### Turfs
 
-A turf (`/turf/`is essentially the tile itself. They can't be moved, only replaced with new ones (which removes the old one). Depending on what game or what server you're running, these are generally used as floors, walls and windows (although, of course, it varies).
+A turf (`/turf/`) is essentially the tile itself. They can't be moved, only replaced with new ones (which removes the old one). Depending on what game or what server you're running, these are generally used as floors, walls and windows (although, of course, it varies).
 > Note: the return value of .loc on an atom is usually the turf that the atom is on. Unless its location is null, of course.
 
 ```dm
@@ -49,7 +48,7 @@ A turf (`/turf/`is essentially the tile itself. They can't be moved, only replac
 	density = 1 // it can't be walked through.
 /turf/floor
 	desc = "A steel tiled floor"
-/turf/floorspecialfloor
+/turf/floor/specialfloor
 	desc = "Something seems strange about this floor."
 	Entered() // when the tile is walked over, do a special thing
 		doSpecialThing()
