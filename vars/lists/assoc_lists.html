@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,10 +7,10 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="A guide to DM in the style of Rust by Example.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../../favicon.svg">
         <link rel="shortcut icon" href="../../favicon.png">
@@ -24,21 +24,23 @@
         <link rel="stylesheet" href="../../fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../../highlight.css">
-        <link rel="stylesheet" href="../../tomorrow-night.css">
-        <link rel="stylesheet" href="../../ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="../../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body>
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -60,65 +62,49 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="../../installation.html">Installation</a></li><li class="chapter-item expanded "><a href="../../hello_world.html"><strong aria-hidden="true">1.</strong> Hello World</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../hello/comments.html"><strong aria-hidden="true">1.1.</strong> Comments</a></li><li class="chapter-item expanded "><a href="../../hello/types.html"><strong aria-hidden="true">1.2.</strong> Basic Types</a></li></ol></li><li class="chapter-item expanded "><a href="../../variables.html"><strong aria-hidden="true">2.</strong> Variables</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../vars/strings.html"><strong aria-hidden="true">2.1.</strong> Strings</a></li><li class="chapter-item expanded "><a href="../../vars/lists.html"><strong aria-hidden="true">2.2.</strong> Lists</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../vars/lists/assoc_lists.html" class="active"><strong aria-hidden="true">2.2.1.</strong> Associated Lists</a></li></ol></li><li class="chapter-item expanded "><a href="../../vars/casting.html"><strong aria-hidden="true">2.3.</strong> Casting</a></li><li class="chapter-item expanded "><a href="../../vars/constants.html"><strong aria-hidden="true">2.4.</strong> Constants</a></li></ol></li><li class="chapter-item expanded "><a href="../../operators.html"><strong aria-hidden="true">3.</strong> Operators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../ops/bitflags.html"><strong aria-hidden="true">3.1.</strong> Bitflags</a></li><li class="chapter-item expanded "><a href="../../ops/ops_overloading.html"><strong aria-hidden="true">3.2.</strong> Operator Overloading</a></li></ol></li><li class="chapter-item expanded "><a href="../../statements.html"><strong aria-hidden="true">4.</strong> Statements</a></li><li class="chapter-item expanded "><a href="../../flow_control.html"><strong aria-hidden="true">5.</strong> Control Flow</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../flow/if_else.html"><strong aria-hidden="true">5.1.</strong> if/else</a></li><li class="chapter-item expanded "><a href="../../flow/loops.html"><strong aria-hidden="true">5.2.</strong> loops</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../flow/loops/while.html"><strong aria-hidden="true">5.2.1.</strong> while</a></li><li class="chapter-item expanded "><a href="../../flow/loops/for.html"><strong aria-hidden="true">5.2.2.</strong> for</a></li><li class="chapter-item expanded "><a href="../../flow/loops/nesting.html"><strong aria-hidden="true">5.2.3.</strong> Nesting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> Advanced loops</div></li></ol></li><li class="chapter-item expanded "><a href="../../procs.html"><strong aria-hidden="true">6.</strong> Procedures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../procs/arguments.html"><strong aria-hidden="true">6.1.</strong> Arguments</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../procs/arguments/named_argu.html"><strong aria-hidden="true">6.1.1.</strong> Named Arguments</a></li></ol></li><li class="chapter-item expanded "><a href="../../procs/returns.html"><strong aria-hidden="true">6.2.</strong> Return Values</a></li></ol></li><li class="chapter-item expanded "><a href="../../objs.html"><strong aria-hidden="true">7.</strong> Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../objs/disposal.html"><strong aria-hidden="true">7.1.</strong> Disposal</a></li><li class="chapter-item expanded "><a href="../../objs/inheritance.html"><strong aria-hidden="true">7.2.</strong> Inheritance</a></li><li class="chapter-item expanded "><a href="../../objs/primitive_types.html"><strong aria-hidden="true">7.3.</strong> Primitive Types</a></li></ol></li><li class="chapter-item expanded "><a href="../../preprocessor.html"><strong aria-hidden="true">8.</strong> Preprocessor</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../preprocessor/advancedpre.html"><strong aria-hidden="true">8.1.</strong> Advanced Usage</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> File I/O</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> HTTP</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.3.</strong> FFI</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Error Handling</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> Try/Catch</div></li></ol></li><li class="chapter-item expanded "><a href="../../meta.html"><strong aria-hidden="true">11.</strong> Meta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../meta/lang_server.html"><strong aria-hidden="true">11.1.</strong> Language Server</a></li><li class="chapter-item expanded "><a href="../../meta/dmdoc.html"><strong aria-hidden="true">11.2.</strong> DMDoc</a></li><li class="chapter-item expanded "><a href="../../meta/strongdmm.html"><strong aria-hidden="true">11.3.</strong> StrongDMM</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -170,33 +156,33 @@
 <p>Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a <code>key-value pair</code>, <code>map</code>, or <code>dictionary</code>. This can be done as such:</p>
 <pre><code class="language-dm">var/list/L = list()
 
-L[&quot;fizz&quot;] = &quot;buzz&quot; // &quot;fizz&quot; is the key, &quot;buzz&quot; is the value
-L[&quot;money&quot;] = 100 // &quot;money&quot; is the key, 100 is the value
+L["fizz"] = "buzz" // "fizz" is the key, "buzz" is the value
+L["money"] = 100 // "money" is the key, 100 is the value
 
-//L = {&quot;fizz&quot; = &quot;buzz&quot;, &quot;money&quot; = 100}
+//L = {"fizz" = "buzz", "money" = 100}
 </code></pre>
-<p>The above list <code>L</code> now contains the keys <code>&quot;fizz&quot;</code> and <code>&quot;money&quot;</code> which are associated with the values <code>&quot;buzz&quot;</code> and <code>100</code> respectively.</p>
-<p>Now the question becomes, &quot;What does this actually do for us that a regular list can't do?&quot; The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.</p>
-<pre><code class="language-dm">world &lt;&lt; L[&quot;fizz&quot;] // &quot;buzz&quot;
-world &lt;&lt; L[&quot;money&quot;] // 100
+<p>The above list <code>L</code> now contains the keys <code>"fizz"</code> and <code>"money"</code> which are associated with the values <code>"buzz"</code> and <code>100</code> respectively.</p>
+<p>Now the question becomes, "What does this actually do for us that a regular list can't do?" The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.</p>
+<pre><code class="language-dm">world &lt;&lt; L["fizz"] // "buzz"
+world &lt;&lt; L["money"] // 100
 </code></pre>
 <p>This is especially helpful for lists that have values which move in and out constantly since there is no guarantee that something at index <code>[1]</code> will be the same value you call for at the same index later on. However, as long as you don't delete a key or its value from the list, it doesn't matter how the items are shifted as you'll get the value associated with the proper key.</p>
 <p>As with regular lists, you can initalize an associated list with nearly the same syntax.</p>
-<pre><code class="language-dm">var/list/L = list(&quot;fizz&quot; = &quot;buzz&quot;, &quot;money&quot; = 100)
+<pre><code class="language-dm">var/list/L = list("fizz" = "buzz", "money" = 100)
 </code></pre>
 <p>This can also be done in shorthand if your key is a text string that meets the requirements for a variable name.</p>
-<pre><code class="language-dm">var/list/L = list(fizz = &quot;buzz&quot;, money = 100)
+<pre><code class="language-dm">var/list/L = list(fizz = "buzz", money = 100)
 </code></pre>
 <blockquote>
 <p><strong>Notice:</strong> See how the keys don't have double quotes around them?</p>
 </blockquote>
 <h2 id="associated-list-loops"><a class="header" href="#associated-list-loops">Associated List Loops</a></h2>
 <p>Looping through associated lists is fairly straightforward. You can either loop through the list items,</p>
-<pre><code class="language-dm">var/list/exlist = list(fizz = &quot;buzz&quot;, money = 100)
+<pre><code class="language-dm">var/list/exlist = list(fizz = "buzz", money = 100)
 var/i
 
 for(i in exlist)
-	world &lt;&lt; &quot;[i] = [exlist[i]]&quot;
+	world &lt;&lt; "[i] = [exlist[i]]"
 </code></pre>
 <p>which will print out the key while using it to grab value associated with it, or you can loop through the array indicies.</p>
 <pre><code class="language-dm">var/j
@@ -204,7 +190,7 @@ var/k
 
 for(j = 1, j &lt;= length(exlist), j++)
 	k = exlist[j]
-	world &lt;&lt; &quot;[k] = [exlist[k]]&quot;
+	world &lt;&lt; "[k] = [exlist[k]]"
 </code></pre>
 <p>The second option is useful if you need to only grab certain items from the list while the first is best if you need to grab everything.</p>
 <blockquote>
@@ -220,11 +206,11 @@ for(j = 1, j &lt;= length(exlist), j++)
 <h2 id="conversion-to-associative"><a class="header" href="#conversion-to-associative">Conversion to Associative</a></h2>
 <p>Conversion to an associative list is hassle-free, though serves limited purpose. Probably best avoided if you're trying to write clean code.</p>
 <p>If you assign a value to any existing or new key using the <code>list[key] = value</code> syntax the list will turn into an associative one, where all existing items will become keys without set values.</p>
-<pre><code class="language-dm">var/list/mylist = list(&quot;jim&quot;, &quot;angela&quot;)
+<pre><code class="language-dm">var/list/mylist = list("jim", "angela")
 
-mylist[&quot;stacey&quot;] = &quot;apple&quot;
+mylist["stacey"] = "apple"
 
-//mylist = {&quot;jim&quot; = null, &quot;angela&quot; = null, &quot;stacey&quot; = &quot;apple&quot;}
+//mylist = {"jim" = null, "angela" = null, "stacey" = "apple"}
 </code></pre>
 <h2 id="conversion-from-associative-and-numerical-keys"><a class="header" href="#conversion-from-associative-and-numerical-keys">Conversion From Associative and Numerical Keys</a></h2>
 <p>DM makes certain relevant operations here possible, but it's really not a good idea to use this outside of very unique scenarios. You can safely skip this section.</p>
@@ -232,24 +218,24 @@ mylist[&quot;stacey&quot;] = &quot;apple&quot;
 <p>There is, however, a way to remove a value from a list - using a numerical key during assignment.</p>
 <p>This will assign the provided value as a key of that index, not value, while removing the existing value altogether.</p>
 <pre><code class="language-dm">var/list/mylist = list()
-mylist[&quot;foo&quot;] = &quot;bar&quot;
-mylist[&quot;soup&quot;] = &quot;barszcz&quot;
+mylist["foo"] = "bar"
+mylist["soup"] = "barszcz"
 
-mylist[1] = &quot;sandwich&quot;
+mylist[1] = "sandwich"
                            ↓ this null is not a null, but a non-existent value
-//mylist = {&quot;sandwich&quot; = null, &quot;soup&quot; = &quot;barszcz&quot;}
+//mylist = {"sandwich" = null, "soup" = "barszcz"}
 
-mylist[2] = &quot;barszcz&quot;
-//mylist = [&quot;sandwich&quot;, &quot;barszcz&quot;]
+mylist[2] = "barszcz"
+//mylist = ["sandwich", "barszcz"]
 </code></pre>
 <p>You can use this method to supply numerical keys, however they will be interpreted as empty string keys until the list stops being associative. You can't actually access any item by those numerical keys, since accessing by number refers to indexes and not keys, so their use is limited.</p>
 <pre><code class="language-dm">var/list/mylist = list()
-mylist[&quot;foo&quot;] = &quot;bar&quot;
-mylist[&quot;test&quot;] = &quot;test&quot;
+mylist["foo"] = "bar"
+mylist["test"] = "test"
 
 mylist[1] = 5
 
-//mylist = {&quot;&quot;:null,&quot;test&quot;:&quot;test&quot;}
+//mylist = {"":null,"test":"test"}
 
 mylist[2] = 6
 
@@ -264,7 +250,7 @@ mylist[2] = 6
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../../vars/casting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../vars/casting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -278,7 +264,7 @@ mylist[2] = 6
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../../vars/casting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../vars/casting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

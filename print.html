@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>DM By Example</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="A guide to DM in the style of Rust by Example.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -25,21 +25,23 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
-    </head>
-    <body>
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,65 +63,49 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('no-js')
+            const html = document.documentElement;
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            html.classList.add("js");
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
+            sidebar_toggle.checked = sidebar === 'visible';
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="installation.html">Installation</a></li><li class="chapter-item expanded "><a href="hello_world.html"><strong aria-hidden="true">1.</strong> Hello World</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="hello/comments.html"><strong aria-hidden="true">1.1.</strong> Comments</a></li><li class="chapter-item expanded "><a href="hello/types.html"><strong aria-hidden="true">1.2.</strong> Basic Types</a></li></ol></li><li class="chapter-item expanded "><a href="variables.html"><strong aria-hidden="true">2.</strong> Variables</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vars/strings.html"><strong aria-hidden="true">2.1.</strong> Strings</a></li><li class="chapter-item expanded "><a href="vars/lists.html"><strong aria-hidden="true">2.2.</strong> Lists</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="vars/lists/assoc_lists.html"><strong aria-hidden="true">2.2.1.</strong> Associated Lists</a></li></ol></li><li class="chapter-item expanded "><a href="vars/casting.html"><strong aria-hidden="true">2.3.</strong> Casting</a></li><li class="chapter-item expanded "><a href="vars/constants.html"><strong aria-hidden="true">2.4.</strong> Constants</a></li></ol></li><li class="chapter-item expanded "><a href="operators.html"><strong aria-hidden="true">3.</strong> Operators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ops/bitflags.html"><strong aria-hidden="true">3.1.</strong> Bitflags</a></li><li class="chapter-item expanded "><a href="ops/ops_overloading.html"><strong aria-hidden="true">3.2.</strong> Operator Overloading</a></li></ol></li><li class="chapter-item expanded "><a href="statements.html"><strong aria-hidden="true">4.</strong> Statements</a></li><li class="chapter-item expanded "><a href="flow_control.html"><strong aria-hidden="true">5.</strong> Control Flow</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="flow/if_else.html"><strong aria-hidden="true">5.1.</strong> if/else</a></li><li class="chapter-item expanded "><a href="flow/loops.html"><strong aria-hidden="true">5.2.</strong> loops</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="flow/loops/while.html"><strong aria-hidden="true">5.2.1.</strong> while</a></li><li class="chapter-item expanded "><a href="flow/loops/for.html"><strong aria-hidden="true">5.2.2.</strong> for</a></li><li class="chapter-item expanded "><a href="flow/loops/nesting.html"><strong aria-hidden="true">5.2.3.</strong> Nesting</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> Advanced loops</div></li></ol></li><li class="chapter-item expanded "><a href="procs.html"><strong aria-hidden="true">6.</strong> Procedures</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="procs/arguments.html"><strong aria-hidden="true">6.1.</strong> Arguments</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="procs/arguments/named_argu.html"><strong aria-hidden="true">6.1.1.</strong> Named Arguments</a></li></ol></li><li class="chapter-item expanded "><a href="procs/returns.html"><strong aria-hidden="true">6.2.</strong> Return Values</a></li></ol></li><li class="chapter-item expanded "><a href="objs.html"><strong aria-hidden="true">7.</strong> Objects</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="objs/disposal.html"><strong aria-hidden="true">7.1.</strong> Disposal</a></li><li class="chapter-item expanded "><a href="objs/inheritance.html"><strong aria-hidden="true">7.2.</strong> Inheritance</a></li><li class="chapter-item expanded "><a href="objs/primitive_types.html"><strong aria-hidden="true">7.3.</strong> Primitive Types</a></li></ol></li><li class="chapter-item expanded "><a href="preprocessor.html"><strong aria-hidden="true">8.</strong> Preprocessor</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="preprocessor/advancedpre.html"><strong aria-hidden="true">8.1.</strong> Advanced Usage</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.</strong> I/O</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">9.1.</strong> File I/O</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.2.</strong> HTTP</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">9.3.</strong> FFI</div></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">10.</strong> Error Handling</div></li><li><ol class="section"><li class="chapter-item expanded "><div><strong aria-hidden="true">10.1.</strong> Try/Catch</div></li></ol></li><li class="chapter-item expanded "><a href="meta.html"><strong aria-hidden="true">11.</strong> Meta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="meta/lang_server.html"><strong aria-hidden="true">11.1.</strong> Language Server</a></li><li class="chapter-item expanded "><a href="meta/dmdoc.html"><strong aria-hidden="true">11.2.</strong> DMDoc</a></li><li class="chapter-item expanded "><a href="meta/strongdmm.html"><strong aria-hidden="true">11.3.</strong> StrongDMM</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -198,13 +184,13 @@ You can also join the coderbus <a href="https://discord.gg/Vh8TJp9">discord</a> 
     // Statements here are executed when a mob logs into the game
 
     // Print text to world
-    world &lt;&lt; &quot;Hello World!&quot;
+    world &lt;&lt; "Hello World!"
 </code></pre>
-<p><code>world &lt;&lt; &quot;x&quot;</code> is the most basic way to output text to the default window, using the &lt;&lt; <a href="./operators.html">operator</a>.</p>
+<p><code>world &lt;&lt; "x"</code> is the most basic way to output text to the default window, using the &lt;&lt; <a href="./operators.html">operator</a>.</p>
 <p>To run this, simply open up a blank BYOND project and compile it.</p>
 <p>When you log into the game, you'll see the text in the side chat bar!</p>
 <h2 id="activity"><a class="header" href="#activity">Activity</a></h2>
-<p>Try adding a new line with a second <code>world &lt;&lt; &quot;x&quot;</code> so that the output shows:</p>
+<p>Try adding a new line with a second <code>world &lt;&lt; "x"</code> so that the output shows:</p>
 <pre><code class="language-dm">Hello World!
 I'm a Developer!
 </code></pre>
@@ -230,7 +216,7 @@ I'm a Developer!
 	// There are two slashes at the beginning of the line
 	// And nothing written inside these will be read by the compiler
 
-	// world.log &lt;&lt; &quot;Hello, world!&quot;
+	// world.log &lt;&lt; "Hello, world!"
 
 	/* 
 	 * This is another type of comment, a block comment. In general,
@@ -242,7 +228,7 @@ I'm a Developer!
 	 */
 
 	/// This is an example of a doc comment documenting the x variable.
-	var/x = &quot;Hi!&quot;
+	var/x = "Hi!"
 
 /**
   * Now I'm documenting the other() proc.
@@ -251,7 +237,7 @@ I'm a Developer!
   * `I can embed markdown as well!`
   */
 /proc/other()
-	world.log &lt;&lt; &quot;foo&quot;
+	world.log &lt;&lt; "foo"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="basic-types"><a class="header" href="#basic-types">Basic Types</a></h1>
 <p>Even though variables do not need to have their types defined for primitive data, different types still exist, and variables need their type defined if you are going to assign them to an object and if you plan to use the variable to access some of the object's properties.</p>
@@ -259,7 +245,7 @@ I'm a Developer!
 <p>Primitive types are types that do not need variables to be typecasted anyhow. This includes:</p>
 <ul>
 <li>Numeric values: <code>1, 24.3, 3.14</code></li>
-<li><a href="hello/../vars/strings.html">Strings</a>: <code>&quot;a&quot;, &quot;abc&quot;</code></li>
+<li><a href="hello/../vars/strings.html">Strings</a>: <code>"a", "abc"</code></li>
 <li>Null: <code>null</code></li>
 </ul>
 <p>You can simply assign them to your variable, and access the variable's contents.</p>
@@ -280,69 +266,69 @@ Forgetting that vars can be uninitialised or deleted can cause a lot of issues. 
 <p><code>myVariable</code> is the variable's name, which cannot be a reserved word like <code>var</code> as we said previously.</p>
 <p><code>= initialValue</code> is used to assign an initial value to the variable. This is optional, and if omitted, the variable's value will be <code>null</code>, a special value that means the variable holds nothing.</p>
 <p>A key difference in other languages, like C, is that primitive variables don't need the user to define their type, which means you can do</p>
-<pre><code class="language-dm">var/myVar = &quot;Hello World&quot;
+<pre><code class="language-dm">var/myVar = "Hello World"
 myVar = 1
 </code></pre>
 <p>without any sort of error. Even though this will work with any sort of var type, we will see futher on that it can cause issues when our variables hold objects and we try to access its methods or such, but we'll expand on this <a href="./objs.html">later</a>.</p>
 <h2 id="activity-1"><a class="header" href="#activity-1">Activity</a></h2>
 <blockquote>
-<p>Try using a combination of a variable and a <code>world &lt;&lt; &quot;x&quot;</code> statement to output the text <code>&quot;DMBE&quot;</code> to the chat window.</p>
+<p>Try using a combination of a variable and a <code>world &lt;&lt; "x"</code> statement to output the text <code>"DMBE"</code> to the chat window.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="strings"><a class="header" href="#strings">Strings</a></h1>
-<p>Like most other languags, DM has text constants. In DM, we use double quotes <code>&quot;</code> to denote them:</p>
-<pre><code class="language-dm">var/x = &quot;Hello World!&quot;
+<p>Like most other languags, DM has text constants. In DM, we use double quotes <code>"</code> to denote them:</p>
+<pre><code class="language-dm">var/x = "Hello World!"
 </code></pre>
 <p>To place a quote inside a string, escape it with a backslash <code>\</code> character. You'll also need to escape a backslash if you want to use one on purpose.</p>
-<pre><code class="language-dm">world &lt;&lt; &quot;The cow says, \&quot;Hi.\&quot;&quot; // The cow says, &quot;Hi.&quot;
+<pre><code class="language-dm">world &lt;&lt; "The cow says, \"Hi.\"" // The cow says, "Hi."
 </code></pre>
 <p>Backslashes are also used for <a href="https://secure.byond.com/docs/ref/info.html#/DM/text/macros">special macros and other symbols</a> that are otherwise hard to include. A backslash at the end of a line will ignore the line break and continue the string on the next line after ignoring any leading spaces:</p>
-<pre><code class="language-dm">var/str = &quot;Multi \
+<pre><code class="language-dm">var/str = "Multi \
            Line \
-           String&quot;
+           String"
 </code></pre>
 <p>We also have the ability to interpolate variables within strings as such:</p>
 <pre><code class="language-dm">var/num = 5
-world &lt;&lt; &quot;Bob has [num] cows.&quot; // Bob has 5 cows.
+world &lt;&lt; "Bob has [num] cows." // Bob has 5 cows.
 </code></pre>
-<p>Instead of escaping every line, there is another format for multi-line strings (<code>{&quot;&quot;}</code>):</p>
-<pre><code class="language-dm">var/an = &quot;an&quot;
-var/text = {&quot;
+<p>Instead of escaping every line, there is another format for multi-line strings (<code>{""}</code>):</p>
+<pre><code class="language-dm">var/an = "an"
+var/text = {"
 This is how we have
 multi
 line
 text. Also, [an] embedded string.
-&quot;}
+"}
 </code></pre>
 <p>DM also has a format for raw strings, which do not allow escape characters or embedded expressions. There are two main ways to specify a raw string, all of which begin with <code>@</code>.</p>
-<p>Simple raw strings generally follow <code>@</code> with a single-character delimiter, usually <code>&quot;</code>. Line breaks are not allowed in simple raw strings.</p>
-<pre><code class="language-dm">world &lt;&lt; @&quot;I can say \ or [] without escaping anything!&quot;
+<p>Simple raw strings generally follow <code>@</code> with a single-character delimiter, usually <code>"</code>. Line breaks are not allowed in simple raw strings.</p>
+<pre><code class="language-dm">world &lt;&lt; @"I can say \ or [] without escaping anything!"
 </code></pre>
-<p>Complex raw strings use more complicated delimiters, but they let you include line breaks. The main way to do this starts with <code>@{&quot;</code> and ends with <code>&quot;}</code>, like the familiar multi-line format.</p>
-<pre><code class="language-dm">world &lt;&lt; @{&quot;
-Now I have absolute freedom to use &quot;quotes&quot;
+<p>Complex raw strings use more complicated delimiters, but they let you include line breaks. The main way to do this starts with <code>@{"</code> and ends with <code>"}</code>, like the familiar multi-line format.</p>
+<pre><code class="language-dm">world &lt;&lt; @{"
+Now I have absolute freedom to use "quotes"
 or [brackets] or line breaks.
-&quot;}
+"}
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lists"><a class="header" href="#lists">Lists</a></h1>
 <p>Lists are used to represent groups of objects. Like objects, in order to properly use their methods and vars, they must be declared of type <code>/list</code>.</p>
 <pre><code class="language-dm">var/list/L         // list reference
 L = world.contents // assign to existing list
 L = list()         // make a new list
-L += &quot;futz&quot;        // L = {&quot;futz&quot;}
+L += "futz"        // L = {"futz"}
 </code></pre>
 <p>By default, lists start with a length of 0. However, we can create a list with a predetermined size via these methods:</p>
 <pre><code class="language-dm">var/tenlist[10] // empty list of size 10 (c-style)
 var/fivelist = new/list(5) // empty list of size 5
 </code></pre>
 <p>We can also initalize lists with content included:</p>
-<pre><code class="language-dm">var/list/L = list(&quot;foo&quot;, &quot;bar&quot;) // L = {&quot;foo&quot;, &quot;bar&quot;}
+<pre><code class="language-dm">var/list/L = list("foo", "bar") // L = {"foo", "bar"}
 </code></pre>
 <blockquote>
 <p><strong>Important:</strong> List indices range from <code>1</code> to <code>len</code>.</p>
 </blockquote>
 <p>To access an item in a list:</p>
-<pre><code class="language-dm">var/list/L = list(&quot;foo&quot;, &quot;bar&quot;)
-world &lt;&lt; L[1] // &quot;foo&quot;
+<pre><code class="language-dm">var/list/L = list("foo", "bar")
+world &lt;&lt; L[1] // "foo"
 </code></pre>
 <p>To resize a list at runtime, we use the <code>len</code> variable.</p>
 <p>If the length of the list is changed, existing elements in the list will be preserved if they are less than the new length. New elements in the list will be given the initial value of <code>null</code>:</p>
@@ -369,33 +355,33 @@ same += list(1, 2)
 <p>Associated lists, or list associations, add a unique functionality to regular lists by allowing you to associate values within the list with another value often referred to in other languages as a <code>key-value pair</code>, <code>map</code>, or <code>dictionary</code>. This can be done as such:</p>
 <pre><code class="language-dm">var/list/L = list()
 
-L[&quot;fizz&quot;] = &quot;buzz&quot; // &quot;fizz&quot; is the key, &quot;buzz&quot; is the value
-L[&quot;money&quot;] = 100 // &quot;money&quot; is the key, 100 is the value
+L["fizz"] = "buzz" // "fizz" is the key, "buzz" is the value
+L["money"] = 100 // "money" is the key, 100 is the value
 
-//L = {&quot;fizz&quot; = &quot;buzz&quot;, &quot;money&quot; = 100}
+//L = {"fizz" = "buzz", "money" = 100}
 </code></pre>
-<p>The above list <code>L</code> now contains the keys <code>&quot;fizz&quot;</code> and <code>&quot;money&quot;</code> which are associated with the values <code>&quot;buzz&quot;</code> and <code>100</code> respectively.</p>
-<p>Now the question becomes, &quot;What does this actually do for us that a regular list can't do?&quot; The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.</p>
-<pre><code class="language-dm">world &lt;&lt; L[&quot;fizz&quot;] // &quot;buzz&quot;
-world &lt;&lt; L[&quot;money&quot;] // 100
+<p>The above list <code>L</code> now contains the keys <code>"fizz"</code> and <code>"money"</code> which are associated with the values <code>"buzz"</code> and <code>100</code> respectively.</p>
+<p>Now the question becomes, "What does this actually do for us that a regular list can't do?" The biggest answer to that is now you can retrieve items from the list by the name of the key rather than a generic index.</p>
+<pre><code class="language-dm">world &lt;&lt; L["fizz"] // "buzz"
+world &lt;&lt; L["money"] // 100
 </code></pre>
 <p>This is especially helpful for lists that have values which move in and out constantly since there is no guarantee that something at index <code>[1]</code> will be the same value you call for at the same index later on. However, as long as you don't delete a key or its value from the list, it doesn't matter how the items are shifted as you'll get the value associated with the proper key.</p>
 <p>As with regular lists, you can initalize an associated list with nearly the same syntax.</p>
-<pre><code class="language-dm">var/list/L = list(&quot;fizz&quot; = &quot;buzz&quot;, &quot;money&quot; = 100)
+<pre><code class="language-dm">var/list/L = list("fizz" = "buzz", "money" = 100)
 </code></pre>
 <p>This can also be done in shorthand if your key is a text string that meets the requirements for a variable name.</p>
-<pre><code class="language-dm">var/list/L = list(fizz = &quot;buzz&quot;, money = 100)
+<pre><code class="language-dm">var/list/L = list(fizz = "buzz", money = 100)
 </code></pre>
 <blockquote>
 <p><strong>Notice:</strong> See how the keys don't have double quotes around them?</p>
 </blockquote>
 <h2 id="associated-list-loops"><a class="header" href="#associated-list-loops">Associated List Loops</a></h2>
 <p>Looping through associated lists is fairly straightforward. You can either loop through the list items,</p>
-<pre><code class="language-dm">var/list/exlist = list(fizz = &quot;buzz&quot;, money = 100)
+<pre><code class="language-dm">var/list/exlist = list(fizz = "buzz", money = 100)
 var/i
 
 for(i in exlist)
-	world &lt;&lt; &quot;[i] = [exlist[i]]&quot;
+	world &lt;&lt; "[i] = [exlist[i]]"
 </code></pre>
 <p>which will print out the key while using it to grab value associated with it, or you can loop through the array indicies.</p>
 <pre><code class="language-dm">var/j
@@ -403,7 +389,7 @@ var/k
 
 for(j = 1, j &lt;= length(exlist), j++)
 	k = exlist[j]
-	world &lt;&lt; &quot;[k] = [exlist[k]]&quot;
+	world &lt;&lt; "[k] = [exlist[k]]"
 </code></pre>
 <p>The second option is useful if you need to only grab certain items from the list while the first is best if you need to grab everything.</p>
 <blockquote>
@@ -419,11 +405,11 @@ for(j = 1, j &lt;= length(exlist), j++)
 <h2 id="conversion-to-associative"><a class="header" href="#conversion-to-associative">Conversion to Associative</a></h2>
 <p>Conversion to an associative list is hassle-free, though serves limited purpose. Probably best avoided if you're trying to write clean code.</p>
 <p>If you assign a value to any existing or new key using the <code>list[key] = value</code> syntax the list will turn into an associative one, where all existing items will become keys without set values.</p>
-<pre><code class="language-dm">var/list/mylist = list(&quot;jim&quot;, &quot;angela&quot;)
+<pre><code class="language-dm">var/list/mylist = list("jim", "angela")
 
-mylist[&quot;stacey&quot;] = &quot;apple&quot;
+mylist["stacey"] = "apple"
 
-//mylist = {&quot;jim&quot; = null, &quot;angela&quot; = null, &quot;stacey&quot; = &quot;apple&quot;}
+//mylist = {"jim" = null, "angela" = null, "stacey" = "apple"}
 </code></pre>
 <h2 id="conversion-from-associative-and-numerical-keys"><a class="header" href="#conversion-from-associative-and-numerical-keys">Conversion From Associative and Numerical Keys</a></h2>
 <p>DM makes certain relevant operations here possible, but it's really not a good idea to use this outside of very unique scenarios. You can safely skip this section.</p>
@@ -431,24 +417,24 @@ mylist[&quot;stacey&quot;] = &quot;apple&quot;
 <p>There is, however, a way to remove a value from a list - using a numerical key during assignment.</p>
 <p>This will assign the provided value as a key of that index, not value, while removing the existing value altogether.</p>
 <pre><code class="language-dm">var/list/mylist = list()
-mylist[&quot;foo&quot;] = &quot;bar&quot;
-mylist[&quot;soup&quot;] = &quot;barszcz&quot;
+mylist["foo"] = "bar"
+mylist["soup"] = "barszcz"
 
-mylist[1] = &quot;sandwich&quot;
+mylist[1] = "sandwich"
                            ↓ this null is not a null, but a non-existent value
-//mylist = {&quot;sandwich&quot; = null, &quot;soup&quot; = &quot;barszcz&quot;}
+//mylist = {"sandwich" = null, "soup" = "barszcz"}
 
-mylist[2] = &quot;barszcz&quot;
-//mylist = [&quot;sandwich&quot;, &quot;barszcz&quot;]
+mylist[2] = "barszcz"
+//mylist = ["sandwich", "barszcz"]
 </code></pre>
 <p>You can use this method to supply numerical keys, however they will be interpreted as empty string keys until the list stops being associative. You can't actually access any item by those numerical keys, since accessing by number refers to indexes and not keys, so their use is limited.</p>
 <pre><code class="language-dm">var/list/mylist = list()
-mylist[&quot;foo&quot;] = &quot;bar&quot;
-mylist[&quot;test&quot;] = &quot;test&quot;
+mylist["foo"] = "bar"
+mylist["test"] = "test"
 
 mylist[1] = 5
 
-//mylist = {&quot;&quot;:null,&quot;test&quot;:&quot;test&quot;}
+//mylist = {"":null,"test":"test"}
 
 mylist[2] = 6
 
@@ -456,8 +442,8 @@ mylist[2] = 6
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="casting"><a class="header" href="#casting">Casting</a></h1>
 <p>DM provides implicit type conversion (coercion) between primitive types.</p>
-<pre><code class="language-dm">var/x = &quot;string&quot;
-world &lt;&lt; x // &quot;string&quot;
+<pre><code class="language-dm">var/x = "string"
+world &lt;&lt; x // "string"
 x = 5
 world &lt;&lt; x // 5
 </code></pre>
@@ -470,69 +456,69 @@ world &lt;&lt; x // 5
 <p>Constant is a modifier for vars that define a constant value. This is done by using the <code>const</code> keyword.</p>
 <pre><code class="language-dm">var/const/max_cash = 1000
 </code></pre>
-<p>They are useful for vars that don't need to be changed and are used multiple times. It also helps reduce the amount of &quot;magic numbers', (e.g. numbers that you don't know what they do/what they are for by looking at them).</p>
+<p>They are useful for vars that don't need to be changed and are used multiple times. It also helps reduce the amount of "magic numbers', (e.g. numbers that you don't know what they do/what they are for by looking at them).</p>
 <p>For example, you may want something to have a max speed. Instead of writing code to check different objects against an arbitrary number like <code>100</code>, you can declare a const var like <code>var/const/max_speed = 100</code> that you can use in place of a number. This also provides the ease of only having to change one var instead of potentially hundreds if you decide to change your mind later on.</p>
 <p>TODO: explain how different from defines, scoping</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="operators"><a class="header" href="#operators">Operators</a></h1>
 <p>The operators available in DM are very similar to other C-like languages. Their <a href="http://www.byond.com/docs/ref/#/operator">precedence</a> is also similar.</p>
 <p>Here's the base operators:</p>
-<pre><code class="language-dm">Addition = &quot;+&quot;
-Subtraction = &quot;-&quot;
-Multiplication = &quot;*&quot;
-Division = &quot;/&quot;
-Powower = &quot;**&quot;
-Modulo = &quot;%&quot;
+<pre><code class="language-dm">Addition = "+"
+Subtraction = "-"
+Multiplication = "*"
+Division = "/"
+Powower = "**"
+Modulo = "%"
 </code></pre>
 <p>Conditional operators:</p>
-<pre><code class="language-dm">Equal = &quot;==&quot;
-Not Equal = &quot;!=&quot;
-And = &quot;&amp;&amp;&quot;
-Or = &quot;||&quot;
-Less Than = &quot;&lt;&quot;
-Greater Than = &quot;&gt;&quot;
-Less Than or Equal = &quot;&lt;=&quot;
-Greater Than or Equal = &quot;&gt;=&quot;
+<pre><code class="language-dm">Equal = "=="
+Not Equal = "!="
+And = "&amp;&amp;"
+Or = "||"
+Less Than = "&lt;"
+Greater Than = "&gt;"
+Less Than or Equal = "&lt;="
+Greater Than or Equal = "&gt;="
 </code></pre>
 <p>Unary operators:</p>
-<pre><code class="language-dm">Not = &quot;!&quot;
-Binary Not = &quot;~&quot;
-Negate = &quot;-&quot;
-Increment = &quot;++&quot;
-Decrement = &quot;--&quot;
+<pre><code class="language-dm">Not = "!"
+Binary Not = "~"
+Negate = "-"
+Increment = "++"
+Decrement = "--"
 </code></pre>
 <p>Assignment operators:</p>
-<pre><code class="language-dm">Assign = &quot;=&quot;
-Addition Assign = &quot;+=&quot;
-Subtract Assign = &quot;-=&quot;
-Multiply Assign = &quot;*=&quot;
-Divide Assign = &quot;/=&quot;
-Modulo Assign = &quot;%=&quot;
-Assign Into = &quot;:=&quot; // walrus operator
-And Assign = &quot;&amp;&amp;=&quot;
-Or Assign = &quot;||=&quot;
+<pre><code class="language-dm">Assign = "="
+Addition Assign = "+="
+Subtract Assign = "-="
+Multiply Assign = "*="
+Divide Assign = "/="
+Modulo Assign = "%="
+Assign Into = ":=" // walrus operator
+And Assign = "&amp;&amp;="
+Or Assign = "||="
 </code></pre>
 <p>Binary operators:</p>
-<pre><code class="language-dm">Binary And = &quot;&amp;&quot;
-Binary Or = &quot;|&quot;
-Binary Xor = &quot;^&quot;
-Left Shift = &quot;&lt;&lt;&quot;
-Right Shift = &quot;&gt;&gt;&quot;
+<pre><code class="language-dm">Binary And = "&amp;"
+Binary Or = "|"
+Binary Xor = "^"
+Left Shift = "&lt;&lt;"
+Right Shift = "&gt;&gt;"
 </code></pre>
 <p>Binary assignment operators:</p>
-<pre><code class="language-dm">Binary And Assign = &quot;&amp;=&quot;
-Binary Xor Assign = &quot;^=&quot;
-Binary Or Assign = &quot;|=&quot;
-Left Shift Assign = &quot;&lt;&lt;=&quot;
-Right Shift Assign = &quot;&gt;&gt;=&quot;
+<pre><code class="language-dm">Binary And Assign = "&amp;="
+Binary Xor Assign = "^="
+Binary Or Assign = "|="
+Left Shift Assign = "&lt;&lt;="
+Right Shift Assign = "&gt;&gt;="
 </code></pre>
 <p><a href="http://www.byond.com/docs/ref/info.html#/operator/~=">Equivalence</a> operators:</p>
-<pre><code class="language-dm">Equivalent = &quot;~=&quot;
-Not Equivalent = &quot;~!&quot;
+<pre><code class="language-dm">Equivalent = "~="
+Not Equivalent = "~!"
 </code></pre>
 <p>Special BYOND operators</p>
-<pre><code class="language-dm">In = &quot;in&quot; // Used for ranges ex. `for(var/x in 1 to 5)`
-To = &quot;to&quot; // Only appears in the RHS of `In`, above
-Step = &quot;step&quot; // Only in for loops, ex. `for(var/x in 10 to 1 step -1)`
+<pre><code class="language-dm">In = "in" // Used for ranges ex. `for(var/x in 1 to 5)`
+To = "to" // Only appears in the RHS of `In`, above
+Step = "step" // Only in for loops, ex. `for(var/x in 10 to 1 step -1)`
 </code></pre>
 <p>There is also the C-style ternary operator expression: <code>condition ? if_true : if_false</code>.</p>
 <h2 id="activity-2"><a class="header" href="#activity-2">Activity</a></h2>
@@ -581,7 +567,7 @@ if(N==2 &amp;&amp; 1/2==0.5) N = 0.5
 	var/b = 2
 
 	proc/showvars()
-		return &quot;a = [a], b = [b]&quot;
+		return "a = [a], b = [b]"
 
 /obj/bar
 	var/a = 4
@@ -602,7 +588,7 @@ if(N==2 &amp;&amp; 1/2==0.5) N = 0.5
 	var/b = 2
 
 	proc/showvars()
-		return &quot;a = [a], b = [b]&quot;
+		return "a = [a], b = [b]"
 
 	proc/operator+=(obj/temp)
 		a += temp.a
@@ -661,14 +647,14 @@ world.log &lt;&lt; lessThan3
 	var/n = 5
 
 	if (n &lt; 0)
-		world &lt;&lt; &quot;[n] is negative&quot;
+		world &lt;&lt; "[n] is negative"
 	else if (n &gt; 0)
-		world &lt;&lt; &quot;[n] is positive&quot;
+		world &lt;&lt; "[n] is positive"
 	else
-		world &lt;&lt; &quot;[n] is zero&quot;
+		world &lt;&lt; "[n] is zero"
 </code></pre>
 <p>You can also construct if statements on a single line, as such:</p>
-<pre><code class="language-dm">if (n == 7) world.log &lt;&lt; &quot;Special number!&quot;
+<pre><code class="language-dm">if (n == 7) world.log &lt;&lt; "Special number!"
 </code></pre>
 <h2 id="activity-5"><a class="header" href="#activity-5">Activity</a></h2>
 <blockquote>
@@ -681,22 +667,22 @@ world.log &lt;&lt; lessThan3
 <pre><code class="language-dm">/mob/Login()
 	var/count = 0
 
-	world &lt;&lt; &quot;Let's count until infinity!&quot;
+	world &lt;&lt; "Let's count until infinity!"
 
 	// Infinite loop
 	while (TRUE)
 		count += 1
 
 		if (count == 3)
-			world &lt;&lt; &quot;three&quot;
+			world &lt;&lt; "three"
 
 			// Skip the rest of this iteration
 			continue
 
-		world &lt;&lt; &quot;#[count]&quot;
+		world &lt;&lt; "#[count]"
 
 		if (count == 5)
-			world &lt;&lt; &quot;OK, that's enough&quot;
+			world &lt;&lt; "OK, that's enough"
 
 			// Exit this loop
 			break
@@ -711,13 +697,13 @@ world.log &lt;&lt; lessThan3
 	// Loop while `n` is less than 101
 	while (n &lt; 101)
 		if (n % 15 == 0)
-			world &lt;&lt; &quot;fizzbuzz&quot;
+			world &lt;&lt; "fizzbuzz"
 		else if (n % 3 == 0)
-			world &lt;&lt; &quot;fizz&quot;
+			world &lt;&lt; "fizz"
 		else if (n % 5 == 0)
-			world &lt;&lt; &quot;buzz&quot;
+			world &lt;&lt; "buzz"
 		else
-			world &lt;&lt; &quot;[n]&quot;
+			world &lt;&lt; "[n]"
 
 		// Increment counter
 		n += 1
@@ -749,13 +735,13 @@ for (var/y in 0 to 10)
   // `n` will take the values: 1, 2, ..., 100 in each iteration
   for (var/n in 1 to 101) {
 		if (n % 15 == 0)
-			world &lt;&lt; &quot;fizzbuzz&quot;
+			world &lt;&lt; "fizzbuzz"
 		else if (n % 3 == 0)
-			world &lt;&lt; &quot;fizz&quot;
+			world &lt;&lt; "fizz"
 		else if (n % 5 == 0)
-			world &lt;&lt; &quot;buzz&quot;
+			world &lt;&lt; "buzz"
 		else
-			world &lt;&lt; &quot;[n]&quot;
+			world &lt;&lt; "[n]"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="nesting"><a class="header" href="#nesting">Nesting</a></h1>
 <p>In addition to having stand-alone loops, you can also nest them as such (iterator variables cannot be the same):</p>
@@ -767,7 +753,7 @@ for (var/y in 0 to 10)
 <pre><code class="language-dm">var/list/my_list[3][3]
 for (var/i in 1 to length(my_list))
     for(var/j in 1 to length(my_list))
-        my_list[i][j] = &quot;[i],[j]&quot;
+        my_list[i][j] = "[i],[j]"
 world &lt;&lt; json_encode(my_list)
 </code></pre>
 <h2 id="activity-6"><a class="header" href="#activity-6">Activity</a></h2>
@@ -793,13 +779,13 @@ world &lt;&lt; json_encode(my_list)
 
 /proc/fizzbuzz(n)
 	if (is_divisible_by(n, 15))
-		world &lt;&lt; &quot;fizzbuzz&quot;
+		world &lt;&lt; "fizzbuzz"
 	else if (is_divisible_by(n, 3))
-		world &lt;&lt; &quot;fizz&quot;
+		world &lt;&lt; "fizz"
 	else if (is_divisible_by(n, 5))
-		world &lt;&lt; &quot;buzz&quot;
+		world &lt;&lt; "buzz"
 	else
-		world &lt;&lt; &quot;[n]&quot;
+		world &lt;&lt; "[n]"
 
 /proc/fizzbuzz_to(n)
 	for (var/p in 1 to n+1)
@@ -830,9 +816,9 @@ world &lt;&lt; json_encode(my_list)
 </blockquote>
 <h2 id="argument-specification"><a class="header" href="#argument-specification">Argument Specification</a></h2>
 <p>There is also the notion of specifing the type of variable that you want to use for your arguments. This helps to keep your statements short and to make sure that the right type of variable is being used within the proc itself.</p>
-<pre><code class="language-dm">proc/set_card_desc(obj/car/C, desc = &quot;Red hatchback&quot;)
+<pre><code class="language-dm">proc/set_card_desc(obj/car/C, desc = "Red hatchback")
 	C.desc = desc
-	world &lt;&lt; &quot;Your [C] looks like a [desc].&quot;
+	world &lt;&lt; "Your [C] looks like a [desc]."
 </code></pre>
 <blockquote>
 <p>Specifing works like declaring a var but <code>var/</code> is implied and not needed.</p>
@@ -842,7 +828,7 @@ world &lt;&lt; json_encode(my_list)
 <h2 id="-wip-page--4"><a class="header" href="#-wip-page--4">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Another way to pass arguments to a func is to name them when calling. Normally when you call a func, the arguments used will be placed in the func's arguments in the order they are set when you call that func.</p>
 <pre><code class="language-dm">proc/SomeProc(a, b, c)
-	world &lt;&lt; &quot;[a] is first, [b] is second, [c] is third.&quot;
+	world &lt;&lt; "[a] is first, [b] is second, [c] is third."
 
 proc/Main()
 	SomeProc(1, 2, 3) // 1 goes to a since it's first in the list and so on...
@@ -865,17 +851,17 @@ To call a proc and store its return value in a variable, you can do this:</p>
 <pre><code class="language-dm">/proc/foo(arg)
 	switch (arg)
 		if (1)
-			return &quot;good!&quot;
+			return "good!"
 		else
-			return &quot;bad!&quot;
+			return "bad!"
 </code></pre>
 <p>There also exists a special variable for each proc called the 'dot variable', accessed via the <code>.</code> symbol.
 What’s special about the dot variable is that it's automatically <code>return</code>-ed at the end of a proc, provided that the proc does not already manually return, (e.g. <code>return x</code>).</p>
 <p>To re-code the above more tersely:</p>
 <pre><code class="language-dm">/proc/foo(arg)
-	. = &quot;bad!&quot;
+	. = "bad!"
 	if (arg == 1)
-		return &quot;good!&quot;
+		return "good!"
 </code></pre>
 <p>With <code>.</code> being present in every proc, we use it as a temporary variable. However, the <code>.</code> variable cannot replace a typecasted variable - it can hold data as any other var in DM can, but it just can’t be accessed as one. Although, the <code>.</code> variable <strong>is</strong> compatible with a few operators that look weird but work perfectly fine, such as: <code>.++</code> for incrementing <code>.</code>'s value.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="objects"><a class="header" href="#objects">Objects</a></h1>
@@ -963,36 +949,36 @@ foo = null
 </code></pre>
 <p>You can do this with procs as well:</p>
 <pre><code class="language-dm">/datum/foo/proc/xyzzy()
-	world &lt;&lt; &quot;parent&quot;
+	world &lt;&lt; "parent"
 
 /datum/foo/bar/xyzzy()
-	world &lt;&lt; &quot;child&quot;
+	world &lt;&lt; "child"
 
 /proc/main()
 	var/datum/foo/bar/my_subtype = new
-	my_subtype.xyzzy() // &quot;child&quot;
+	my_subtype.xyzzy() // "child"
 </code></pre>
 <p>Sometimes, you'll want to have some custom functionality, <strong>in addition to</strong>, the parent's functionality. This is expressed in other languages sometimes as <code>super()</code>. Instead, we use <code>..()</code> in DM. This can be called at any point in the proc.</p>
 <pre><code class="language-dm">/datum/foo/proc/dream()
-	return &quot;yond&quot;
+	return "yond"
 
 /datum/foo/bar/dream()
-	world &lt;&lt; &quot;Be&quot; + ..()
+	world &lt;&lt; "Be" + ..()
 
 /proc/main()
 	var/datum/foo/bar/my_subtype = new
-	my_subtype.dream() // &quot;Beyond&quot;
+	my_subtype.dream() // "Beyond"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="primitive-types-1"><a class="header" href="#primitive-types-1">Primitive Types</a></h2>
 <p>In Object Oriented programming, objects inherit behaviour from parents. DM has some built in ancestors which share certain behaviours. These will be gone over individually and in more detail in their own pages, but here is the general overview.</p>
 <h3 id="datums"><a class="header" href="#datums">Datums</a></h3>
 <p>The first is the Datum (<code>/datum/</code>). It's the ancestor of all the other types (except for some types like /world, /client, /list, and more) that we will see. It's essentially pure data, hence the name, and can have pretty much any vars you like.</p>
 <blockquote>
-<p>Note: When you define a new &quot;top level&quot; object, if you do not specify a parent_type, it defaults to /datum.</p>
+<p>Note: When you define a new "top level" object, if you do not specify a parent_type, it defaults to /datum.</p>
 </blockquote>
 <pre><code class="language-dm">MyType
-	var/myvar = &quot;test&quot;
-// this &quot;mytype object&quot; is a datum. Normally, though, you'd put it as datum/MyType or /datum/MyType
+	var/myvar = "test"
+// this "mytype object" is a datum. Normally, though, you'd put it as datum/MyType or /datum/MyType
 </code></pre>
 <h3 id="atoms"><a class="header" href="#atoms">Atoms</a></h3>
 <p>Atoms (<code>/atom/</code>) are the direct child of datums, and they represent objects that can go on a map and therefore in the world. It gives important information to its children, mainly <strong>a</strong>reas, <strong>t</strong>urfs, <strong>o</strong>bjs, and <strong>m</strong>obs.
@@ -1007,9 +993,9 @@ Similarly, <code>/atom/movable</code> defines behaviour related to moving things
 	if (desc)
 		O &lt;&lt; desc // makes it so that entering any area will return the description, if there is one.
 /area/outside
-	desc = &quot;What a lovely day.&quot;
+	desc = "What a lovely day."
 /area/inside
-	desc = &quot;Wonder what the weather's like.&quot;
+	desc = "Wonder what the weather's like."
 </code></pre>
 <h4 id="turfs"><a class="header" href="#turfs">Turfs</a></h4>
 <p>A turf (<code>/turf/</code>) is essentially the tile itself. They can't be moved, only replaced with new ones (which removes the old one). Depending on what game or what server you're running, these are generally used as floors, walls and windows (although, of course, it varies).</p>
@@ -1017,35 +1003,35 @@ Similarly, <code>/atom/movable</code> defines behaviour related to moving things
 <p>Note: the return value of .loc on an atom is usually the turf that the atom is on. Unless its location is null, of course.</p>
 </blockquote>
 <pre><code class="language-dm">/turf/wall
-	desc = &quot;A steel wall.&quot;
+	desc = "A steel wall."
 	density = 1 // it can't be walked through.
 /turf/floor
-	desc = &quot;A steel tiled floor&quot;
+	desc = "A steel tiled floor"
 /turf/floor/specialfloor
-	desc = &quot;Something seems strange about this floor.&quot;
+	desc = "Something seems strange about this floor."
 	Entered() // when the tile is walked over, do a special thing
 		doSpecialThing()
 	proc/doSpecialThing()
 		// the thing that the tile would do when walked on would go here.
 </code></pre>
 <h4 id="mobs"><a class="header" href="#mobs">Mobs</a></h4>
-<p>Living things that can move around, deriving from the word &quot;mobile&quot;. These are what the player controls, and are slightly more complicated than objs since they can have a /client attached to them (i.e. a player).</p>
+<p>Living things that can move around, deriving from the word "mobile". These are what the player controls, and are slightly more complicated than objs since they can have a /client attached to them (i.e. a player).</p>
 <pre><code class="language-dm">/mob/human
-	desc = &quot;A regular old human.&quot;
+	desc = "A regular old human."
 </code></pre>
 <h4 id="objs"><a class="header" href="#objs">Objs</a></h4>
 <p>Objs (NOT the same as objects) are general purpose items and things that you can find in a map. Everything that's not a turf or a mob on a map is almost certainly an obj.</p>
 <blockquote>
-<p><strong>Objects vs Objs</strong>: A programming object is a type of thing that can hold multiple kinds of data (i.e. a datum). An obj on the other hand is a &quot;physical&quot; object that you'd find within the world. Not the same concept.</p>
+<p><strong>Objects vs Objs</strong>: A programming object is a type of thing that can hold multiple kinds of data (i.e. a datum). An obj on the other hand is a "physical" object that you'd find within the world. Not the same concept.</p>
 </blockquote>
 <pre><code class="language-dm">/obj/egg
-	desc = &quot;A chicken egg.&quot;
+	desc = "A chicken egg."
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="preprocessor"><a class="header" href="#preprocessor">Preprocessor</a></h1>
 <h2 id="-wip-page--6"><a class="header" href="#-wip-page--6">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <h2 id="define--undef"><a class="header" href="#define--undef">#define / #undef</a></h2>
 <p>Sometimes, you'll want to have shared values across your project instead of copy-pasting them everywhere. This is where <code>#define</code> comes in.</p>
-<p>The <code>#define Name Value</code> statement substitues the <code>Name</code> for <code>Value</code> as long for as the define is not <code>#undef</code>-ined. Substitution only applies to whole words. Text inside of double or single quotes is not processed for substitution, so <code>&quot;This is BIG.&quot;</code> would not be modified even if a define named <code>BIG</code> were to be defined. That's different from <code>&quot;This is [BIG].&quot;</code>, whereas <code>BIG</code> is an embedded expression, which does get processed for macro substitution.</p>
+<p>The <code>#define Name Value</code> statement substitues the <code>Name</code> for <code>Value</code> as long for as the define is not <code>#undef</code>-ined. Substitution only applies to whole words. Text inside of double or single quotes is not processed for substitution, so <code>"This is BIG."</code> would not be modified even if a define named <code>BIG</code> were to be defined. That's different from <code>"This is [BIG]."</code>, whereas <code>BIG</code> is an embedded expression, which does get processed for macro substitution.</p>
 <p>Example:</p>
 <pre><code class="language-dm">#define DAY   0
 #define NIGHT 1
@@ -1058,7 +1044,7 @@ var/daytime = NIGHT  // daytime = 1
 
 /proc/hello(client/bar)
 	if (isclient(bar))
-		world &lt;&lt; &quot;Hello there!&quot;
+		world &lt;&lt; "Hello there!"
 </code></pre>
 <h2 id="if--elif--else--ifdef--endif"><a class="header" href="#if--elif--else--ifdef--endif">#if / #elif / #else / #ifdef / #endif</a></h2>
 <p>These conditional defines work very similarly to the regular <code>if()</code> and <code>else</code> logic that we saw earlier, except that you have to close the code block with <code>#endif</code>. The code within the true statements gets compiled, and untrue statements have their code blocks simply not included in the code. Like defines, they get sort of 'swapped out' before the code is run, so can't be used with variables, but only with other defines.
@@ -1070,17 +1056,17 @@ var/daytime = NIGHT  // daytime = 1
 #define LOGIC_C 3
 
 #ifdef LOGIC_C // LOGIC_C is defined, so this code will run.
-world &lt;&lt; &quot;Logic C is in place&quot;
+world &lt;&lt; "Logic C is in place"
 #endif
 
 #ifdef LOGIC_D // this code will not run, since LOGIC_D isn't defined
-world &lt;&lt; &quot;Logic D is in place&quot;
+world &lt;&lt; "Logic D is in place"
 #endif
 
 #if LOGIC_A &gt; LOGIC_B
-world &lt;&lt; &quot;Logic A is larger than B&quot; // this part isn't compiled
+world &lt;&lt; "Logic A is larger than B" // this part isn't compiled
 #elif LOGIC_A &lt; LOGIC
-world &lt;&lt; &quot;Logic A is smaller than B&quot; // this part is compiled
+world &lt;&lt; "Logic A is smaller than B" // this part is compiled
 #endif
 </code></pre>
 <p>You can use these to help define large groups of defines at once.</p>
@@ -1118,9 +1104,9 @@ world &lt;&lt; &quot;Logic A is smaller than B&quot; // this part is compiled
 <p>The last parameter of a macro can end in <code>...</code> which means that it, and all other arguments following it, count as a single argument. This is called a variadic macro because it lets you use a variable number of arguments. The last parameter will also become optional.</p>
 <pre><code class="language-dm">#define LAZY_LIST(n, items...) if(!n) n = list(items)
 </code></pre>
-<p>In a macro's body, if you precede a parameter by <code>#</code>, the replacement value will be turned into a string. For instance, <code>2</code> would become <code>&quot;2&quot;</code>.</p>
-<pre><code class="language-dm">#define DEBUG_VAR(v) world.log &lt;&lt; #v + &quot; = [v]&quot;
-DEBUG_VAR(x)   // world.log &lt;&lt; &quot;x&quot; + &quot; = [x]&quot;
+<p>In a macro's body, if you precede a parameter by <code>#</code>, the replacement value will be turned into a string. For instance, <code>2</code> would become <code>"2"</code>.</p>
+<pre><code class="language-dm">#define DEBUG_VAR(v) world.log &lt;&lt; #v + " = [v]"
+DEBUG_VAR(x)   // world.log &lt;&lt; "x" + " = [x]"
 </code></pre>
 <p>A parameter preceded by <code>##</code> in the macro body is substituted directly, without any spaces. If you use this with the last argument in a variadic macro, any preceding spaces, and a comma (if found), will be removed if the replacement is empty.</p>
 <pre><code class="language-dm">#define MACROVAR(k) var/macro_state_##k
@@ -1129,14 +1115,24 @@ MACROVAR(right) // becomes `var/macro_state_right`
 <p>Using <code>###</code> in the macro body, preceded by a number, will repeat the replacement a certain number of times.</p>
 <pre><code class="language-dm">#define SAYTWICE(t) 2###t
 #define TOTEXT(t) #t
-world &lt;&lt; &quot;[TOTEXT(SAYTWICE(hi))]&quot;   // world &lt;&lt; &quot;hihi&quot;
+world &lt;&lt; "[TOTEXT(SAYTWICE(hi))]"   // world &lt;&lt; "hihi"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="try--catch"><a class="header" href="#try--catch">Try / Catch</a></h1>
+<p>You can prevent exceptions ("runtimes") from terminating a proc utilizing a try/catch block. If an exception occurs in any of the code within the "try" block, or any functions called inside of it, it will "catch" the exception in the "catch" block.</p>
+<p>If an exception occurs within a try/catch block, it will unwind the entire callstack back to the try block.</p>
+<pre><code>try
+ var/foo = ""
+ foo += 1
+
+catch(exception/e)
+  world.log &lt;&lt; "Caught an exception! [e.name]"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="meta"><a class="header" href="#meta">Meta</a></h1>
 <h2 id="-wip-page--7"><a class="header" href="#-wip-page--7">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>The SS13 community has built up a lot of toolings around the base DM language.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="language-server"><a class="header" href="#language-server">Language Server</a></h1>
 <h2 id="-wip-page--8"><a class="header" href="#-wip-page--8">⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>A language server (protocol) is something that is used to help a tool/client and a server, that provides the actual &quot;smartness&quot;, so that the client can use features like auto complete and the like. In even more layman terms, it's something that gives you the nice features that makes your coding life easier.</p>
+<p>A language server (protocol) is something that is used to help a tool/client and a server, that provides the actual "smartness", so that the client can use features like auto complete and the like. In even more layman terms, it's something that gives you the nice features that makes your coding life easier.</p>
 <p>Unless you skipped the large recommendation on the second page, you should already have the language server for the DM language. This is what gave you, and VSCode, the ability to have searchable definitions and auto complete.</p>
 <h2 id="extra-readings"><a class="header" href="#extra-readings">Extra Readings</a></h2>
 <p><a href="https://langserver.org/">What is a language server?</a></p>
