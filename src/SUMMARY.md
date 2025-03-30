@@ -38,7 +38,7 @@
 	- [HTTP]()
 	- [FFI]()
 - [Error Handling]()
-	- [Try/Catch]()
+	- [Try/Catch](./errors/try_catch.md)
 - [Meta](./meta.md)
 	- [Language Server](./meta/lang_server.md)
 	- [DMDoc](./meta/dmdoc.md)
