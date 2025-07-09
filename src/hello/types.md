@@ -17,7 +17,7 @@ In particular, notice how lists (`/list`) aren't considered a primitive type. Ev
 Null (`null`) is considered a primitive type because it can be assigned to any var, and since null basically means no value you aren't going to access any of its properties since it has none.
 Forgetting that vars can be uninitialised or deleted can cause a lot of issues. A common thing to see in procs is the following check for null value:
 ```
-if (isnull(variable)
+if (isnull(variable))
 	return
 ```
 which prevents null values from interacting with later code and throwing a bunch of errors.
