@@ -5,7 +5,7 @@ For loops are the other core type of loop in DM.
 There's two main syntaxes for iteration, one traditional and one cleaner:
 
 ```dm
-for (var/x = 0; x < 10; x++)
+for (var/x = 0; x <= 10; x++)
 	...
 
 for (var/x in 0 to 10)
