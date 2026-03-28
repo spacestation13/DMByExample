@@ -10,5 +10,8 @@ default-theme = "dark"
 additional-js = ["theme/playground-embed.js"]
 additional-css = ["theme/playground-embed.css"]
 
+[output.html.playground]
+runnable = false
+
 #[output.html.fold]
 #enable = true
