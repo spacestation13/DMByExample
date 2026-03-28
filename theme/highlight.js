@@ -37,7 +37,7 @@ var hljs = (function () {
     deepFreezeEs6.default = _default;
 
     class Response {
-      
+
       constructor(mode) {
         // eslint-disable-next-line no-undefined
         if (mode.data === undefined) mode.data = {};
@@ -2493,7 +2493,7 @@ hljs.registerLanguage('dm', function () {
   /*
   Language: Dream Maker
   Author: Pieter-Jan Briers <pieterjan.briers@gmail.com>
-  Various bits taken from Javascript, Rust and C++'s file. 
+  Various bits taken from Javascript, Rust and C++'s file.
   Description: Dream Maker language used by the BYOND game engine.
   Category: common
   */
@@ -2503,11 +2503,11 @@ hljs.registerLanguage('dm', function () {
     var BLOCK_COMMENT = hljs.COMMENT('/\\*', '\\*/', {contains: ['self']});
     var KEYWORDS =
       'var proc verb global tmp static const set as ' +
-      'new del ' + 
+      'new del ' +
       'sleep spawn break continue do else for in step goto if return switch while try catch throw';
-    var BUILTINS = 
+    var BUILTINS =
       'usr src world args ' +
-      'list datum area turf obj mob atom movable client database exception ' +
+      'alist list datum area turf obj mob atom movable client database exception ' +
       'icon image matrix mutable_appearance savefile sound regex operator';
     var LITERAL = 'null';
     var SUBST = {
