@@ -20,13 +20,13 @@ var/daytime = NIGHT  // daytime = 1
 
 There also exists a subset of defines called Macros. These are in the format: `#define Name(Parameters) Value`. These are basically like procs, but without the ability to have variables stored within. These are great for common operations, such as checking conditions.
 
-```dm
-/// Returns true if given is a client
-#define isclient(x) istype(x, /client)
+```dm playground
+#define isred(x) (x.color == "#ff0000")
 
-/proc/hello(client/bar)
-	if (isclient(bar))
-		world << "Hello there!"
+/proc/main()
+  var/obj/dog = new /obj{color = "#ff0000"}
+  if (isred(dog))
+    world.log << "Hello there!"
 ```
 
 ## #if / #elif / #else / #ifdef / #endif
