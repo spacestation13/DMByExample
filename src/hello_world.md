@@ -2,29 +2,23 @@
 
 This is the source code of the traditional Hello World program.
 
-```dm
+```dm playground
 // This is a comment, and is ignored by the compiler
 
-// This is a proc `Login()` defined on a base mob. We'll learn more about those later.
-/mob/Login()
-
-    // Statements here are executed when a mob logs into the game
-
-    // Print text to world
-    world << "Hello World!"
+// This is a procedure/function named `main()` defined globally.
+// We'll learn more about these later.
+/proc/main()
+  // Print text to the console
+  world.log << "Hello World!"
 ```
 
-`world << "x"` is the most basic way to output text to the default window, using the << [operator].
-
-To run this, simply open up a blank BYOND project and compile it.
-
-When you log into the game, you'll see the text in the side chat bar!
+`world.log << "xyz"` is the most basic way to output text to the console, using the << [operator].
 
 ## Activity
 
-Try adding a new line with a second `world << "x"` so that the output shows:
+Try adding a new line with a second `world.log <<` so that the output shows:
 
-```dm
+```text
 Hello World!
 I'm a Developer!
 ```
