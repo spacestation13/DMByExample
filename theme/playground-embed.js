@@ -31,7 +31,7 @@
         var ifr = createIframe(makePlaygroundURL(codeText));
         // Auto-height: estimate based on code lines
         const lines = (codeText.match(/\n/g) || []).length + 1;
-        const estimated = Math.min(Math.max(lines * 16 + 88, 200), 900);
+        const estimated = Math.min(Math.max(lines * 17 + 92, 200), 900);
         wrapper.style.height = estimated + 'px';
         wrapper.style.minHeight = '200px';
         wrapper.appendChild(ifr);
