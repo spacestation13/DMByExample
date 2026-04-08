@@ -37,7 +37,7 @@
             const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-76c6a26f.js";
+            window.path_to_searchindex_js = "searchindex-e2cf3d4e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-8f2de12b.js"></script>
@@ -189,7 +189,7 @@ var/daytime = NIGHT  // daytime = 1
 </code></pre>
 <h2 id="macros"><a class="header" href="#macros">Macros</a></h2>
 <p>Macros are defines with parameters, in the format <code>#define Name(Parameters) Value</code>.
-They are <strong>purely textual substitution</strong> — the preprocessor replaces every call site with the expanded text before compilation.
+They are <strong>purely textual substitution</strong> - the preprocessor replaces every call site with the expanded text before compilation.
 There is no function call at runtime, no scope, no type checking, and no local variables.</p>
 <pre><code class="language-dm playground">#define isred(x) ((x).color == "#ff0000")
 
@@ -226,7 +226,7 @@ They can only be used with other defines and constants, not runtime variables.</
 #endif
 </code></pre>
 <p><code>#ifdef DEFINE</code> is true when the named define exists, regardless of its value.
-It is functionally similar to <code>#if defined(DEFINE)</code>, but there is no <code>#elsedef</code> — chains must use <code>#elif defined(...)</code> instead.</p>
+It is functionally similar to <code>#if defined(DEFINE)</code>, but there is no <code>#elsedef</code> - chains must use <code>#elif defined(...)</code> instead.</p>
 <p><code>#ifndef DEFINE</code> is the inverse, similar to <code>#if !defined(DEFINE)</code>.</p>
 <p>A common use is grouping defines under a single “build setting” flag:</p>
 <pre><code class="language-dm">// Uncomment the one setting you want before compiling.
