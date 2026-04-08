@@ -20,7 +20,7 @@ var/daytime = NIGHT  // daytime = 1
 ## Macros
 
 Macros are defines with parameters, in the format `#define Name(Parameters) Value`.
-They are **purely textual substitution** — the preprocessor replaces every call site with the expanded text before compilation.
+They are **purely textual substitution** - the preprocessor replaces every call site with the expanded text before compilation.
 There is no function call at runtime, no scope, no type checking, and no local variables.
 
 ```dm playground
@@ -70,7 +70,7 @@ They can only be used with other defines and constants, not runtime variables.
 
 
 `#ifdef DEFINE` is true when the named define exists, regardless of its value.
-It is functionally similar to `#if defined(DEFINE)`, but there is no `#elsedef` — chains must use `#elif defined(...)` instead.
+It is functionally similar to `#if defined(DEFINE)`, but there is no `#elsedef` - chains must use `#elif defined(...)` instead.
 
 `#ifndef DEFINE` is the inverse, similar to `#if !defined(DEFINE)`.
 
