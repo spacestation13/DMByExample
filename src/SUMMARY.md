@@ -22,7 +22,7 @@
 		- [while](./flow/loops/while.md)
 		- [for](./flow/loops/for.md)
 		- [Nesting](./flow/loops/nesting.md)
-	- [Advanced loops]()
+	- [Advanced loops](./flow/advanced_loops.md)
 - [Procedures](./procs.md)
 	- [Arguments](./procs/arguments.md)
 		- [Named Arguments](./procs/arguments/named_argu.md)

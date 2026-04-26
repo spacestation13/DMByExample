@@ -1,59 +1,80 @@
 # Operator Overloading
 
-## ## ⚠⚠ WIP PAGE ⚠⚠
+Operator overloading lets a datum define what an operator should do when that datum is used on the left-hand side of an operation.
 
-Operator overloading is a special way to define a different process for operators to use when working with datums/objects. It's similar to [object overriding](../objs/inheritance.md) which you'll learn about later. This is yet another way to save you some time and writing if you have to perform an operation multiple times.
+This is useful when your type has a natural meaning for operations such as `+`, `+=`, `==`, or `[]`.
 
-An example would be if you have two objs that you wanted to have the vars within added up. Without operator overloading it would look something like this:
+The overload is written as a proc named `operator` immediately followed by the operator itself.
 
-```dm
-/obj/foo
-	var/a = 1
-	var/b = 2
+For example:
 
-	proc/showvars()
-		return "a = [a], b = [b]"
+- `proc/operator+()` overloads `+`
+- `proc/operator+=()` overloads `+=`
+- `proc/operator==()` overloads `==`
 
-/obj/bar
-	var/a = 4
-	var/b = 5
-
-/proc/main()
-	var/obj/foo/newfoo = new
-	var/obj/bar/newbar = new
-
-	newfoo.a += newbar.a
-	newfoo.b += newbar.b
-
-	world << newfoo.showvars()
-```
-
-Operator overloading would allow you to define how the `+=` should act differently when we want to add our vars together since normally it wouldn't do what we want it to. This is done through defining a proc inside of a datum/obj using the keyword `operator` almost always immediately followed by the operator we want to override with new functionality.
+Without operator overloading, combining two custom values means manually touching each field yourself:
 
 ```dm
-/obj/foo
-	var/a = 1
-	var/b = 2
+/datum/stats
+  var/strength = 0
+  var/agility = 0
 
-	proc/showvars()
-		return "a = [a], b = [b]"
-
-	proc/operator+=(obj/temp)
-		a += temp.a
-		b += temp.b
-
-
-/obj/bar
-	var/a = 4
-	var/b = 5
+  proc/as_text()
+    return "STR [strength], AGI [agility]"
 
 /proc/main()
-	var/obj/foo/newfoo = new
-	var/obj/bar/newbar = new
+  var/datum/stats/base_stats = new
+  var/datum/stats/boots_bonus = new
 
-	newfoo += newbar
+  base_stats.strength = 3
+  base_stats.agility = 4
+  boots_bonus.strength = 1
+  boots_bonus.agility = 2
 
-	world << newfoo.showvars()
+  base_stats.strength += boots_bonus.strength
+  base_stats.agility += boots_bonus.agility
+
+  world.log << base_stats.as_text()
 ```
 
-While this didn't save us much work for this small example, with more complex datums/objs this can help eliminate a lot of headache as you can take care of a lot of different operations with a single overload.
+That works, but it gets repetitive quickly.
+
+With overloads, we can teach the datum what `+` and `+=` mean instead:
+
+```dm playground
+/datum/stats
+  var/strength = 0
+  var/agility = 0
+
+  proc/as_text()
+    return "STR [strength], AGI [agility]"
+
+  proc/operator+(datum/stats/other)
+    var/datum/stats/result = new
+    result.strength = strength + other.strength
+    result.agility = agility + other.agility
+    return result
+
+  proc/operator+=(datum/stats/other)
+    strength += other.strength
+    agility += other.agility
+
+/proc/main()
+  var/datum/stats/base_stats = new
+  var/datum/stats/ring_bonus = new
+
+  base_stats.strength = 3
+  base_stats.agility = 4
+  ring_bonus.strength = 1
+  ring_bonus.agility = 2
+
+  var/datum/stats/combined = base_stats + ring_bonus
+  world.log << "base + ring = [combined.as_text()]"
+
+  base_stats += ring_bonus
+  world.log << "base stats are now [base_stats.as_text()]"
+```
+
+As a rule of thumb, overload operators only when the meaning is obvious.
+
+>**NOTE:** If you overload `+` but not `+=`, DM can still fall back to `a = a + b` for datums. Writing a dedicated `operator+=()` is clearer.
