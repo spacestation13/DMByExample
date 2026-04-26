@@ -37,10 +37,10 @@
             const path_to_root = "../../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../../searchindex-e2cf3d4e.js";
+            window.path_to_searchindex_js = "../../searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../../toc-8f2de12b.js"></script>
+        <script src="../../toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,23 +177,41 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="named-arguments"><a class="header" href="#named-arguments">Named Arguments</a></h1>
-<h2 id="-wip-page-"><a class="header" href="#-wip-page-">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Another way to pass arguments to a func is to name them when calling. Normally when you call a func, the arguments used will be placed in the func’s arguments in the order they are set when you call that func.</p>
 <pre><code class="language-dm">proc/SomeProc(a, b, c)
-	world &lt;&lt; "[a] is first, [b] is second, [c] is third."
+  world &lt;&lt; "[a] is first, [b] is second, [c] is third."
 
 proc/Main()
-	SomeProc(1, 2, 3) // 1 goes to a since it's first in the list and so on...
+  SomeProc(1, 2, 3) // 1 goes to a since it's first in the list and so on...
 </code></pre>
 <p>However, you can specify the order using named arugments.</p>
 <pre><code class="language-dm">proc/Main()
-	SomeProc(c = 3, b = 2, a = 1) // will produce the same result as above...
+  SomeProc(c = 3, b = 2, a = 1) // will produce the same result as above...
 </code></pre>
 <p>This is mainly useful for ensuring that the right variables go to the right arguments since order doesn’t matter when using names.</p>
 <blockquote>
 <p><strong>Note:</strong> Named arguments that don’t match any of the arguments in the proc you call will produce a <code>runtime error</code>. You’ll learn more about these later on.</p>
 </blockquote>
-<p>TODO: Stuff…</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>Named arguments are most useful when a proc has several optional arguments with defaults. Instead of counting commas until you reach the setting you want to change, you can name only the one you care about.</p>
+<pre><code class="language-dm playground">/proc/show_popup(txt, c = "blue", b = FALSE, w = 2, t = 3)
+  world.log &lt;&lt; "[txt] | c=[c] | b=[b] | w=[w] | t=[t]"
+
+/proc/main()
+  show_popup("Testy")
+  show_popup("Oh No", c = "teal", b = TRUE)
+  show_popup("Quick", t = 10)
+  show_popup("Mixed", "blue", t = 5)
+</code></pre>
+<p>That last call mixes both styles: <code>"Mixed"</code> and <code>"blue"</code> are positional, while <code>t = 5</code> is named.</p>
+<p>This makes longer calls easier to read, easier to change later, and much harder to mix up.</p>
+<h2 id="mixing-positional-and-named-arguments"><a class="header" href="#mixing-positional-and-named-arguments">Mixing Positional and Named Arguments</a></h2>
+<p>You do not have to use names for every argument in a call. DM lets you mix positional arguments with named ones.</p>
+<pre><code class="language-dm">proc/Main()
+  SomeProc(1, b = 2, c = 3)
+</code></pre>
+<p>Here, <code>1</code> is still passed into <code>a</code> because it is first in the argument list, while <code>b</code> and <code>c</code> are matched by name.</p>
+<p>However, this can be confusing.</p>
 
                     </main>
 

@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e2cf3d4e.js";
+            window.path_to_searchindex_js = "../searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8f2de12b.js"></script>
+        <script src="../toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,55 +177,75 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="operator-overloading"><a class="header" href="#operator-overloading">Operator Overloading</a></h1>
-<h2 id="--wip-page-"><a class="header" href="#--wip-page-">## ⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>Operator overloading is a special way to define a different process for operators to use when working with datums/objects. It’s similar to <a href="../objs/inheritance.html">object overriding</a> which you’ll learn about later. This is yet another way to save you some time and writing if you have to perform an operation multiple times.</p>
-<p>An example would be if you have two objs that you wanted to have the vars within added up. Without operator overloading it would look something like this:</p>
-<pre><code class="language-dm">/obj/foo
-	var/a = 1
-	var/b = 2
+<p>Operator overloading lets a datum define what an operator should do when that datum is used on the left-hand side of an operation.</p>
+<p>This is useful when your type has a natural meaning for operations such as <code>+</code>, <code>+=</code>, <code>==</code>, or <code>[]</code>.</p>
+<p>The overload is written as a proc named <code>operator</code> immediately followed by the operator itself.</p>
+<p>For example:</p>
+<ul>
+<li><code>proc/operator+()</code> overloads <code>+</code></li>
+<li><code>proc/operator+=()</code> overloads <code>+=</code></li>
+<li><code>proc/operator==()</code> overloads <code>==</code></li>
+</ul>
+<p>Without operator overloading, combining two custom values means manually touching each field yourself:</p>
+<pre><code class="language-dm">/datum/stats
+  var/strength = 0
+  var/agility = 0
 
-	proc/showvars()
-		return "a = [a], b = [b]"
-
-/obj/bar
-	var/a = 4
-	var/b = 5
-
-/proc/main()
-	var/obj/foo/newfoo = new
-	var/obj/bar/newbar = new
-
-	newfoo.a += newbar.a
-	newfoo.b += newbar.b
-
-	world &lt;&lt; newfoo.showvars()
-</code></pre>
-<p>Operator overloading would allow you to define how the <code>+=</code> should act differently when we want to add our vars together since normally it wouldn’t do what we want it to. This is done through defining a proc inside of a datum/obj using the keyword <code>operator</code> almost always immediately followed by the operator we want to override with new functionality.</p>
-<pre><code class="language-dm">/obj/foo
-	var/a = 1
-	var/b = 2
-
-	proc/showvars()
-		return "a = [a], b = [b]"
-
-	proc/operator+=(obj/temp)
-		a += temp.a
-		b += temp.b
-
-
-/obj/bar
-	var/a = 4
-	var/b = 5
+  proc/as_text()
+    return "STR [strength], AGI [agility]"
 
 /proc/main()
-	var/obj/foo/newfoo = new
-	var/obj/bar/newbar = new
+  var/datum/stats/base_stats = new
+  var/datum/stats/boots_bonus = new
 
-	newfoo += newbar
+  base_stats.strength = 3
+  base_stats.agility = 4
+  boots_bonus.strength = 1
+  boots_bonus.agility = 2
 
-	world &lt;&lt; newfoo.showvars()
+  base_stats.strength += boots_bonus.strength
+  base_stats.agility += boots_bonus.agility
+
+  world.log &lt;&lt; base_stats.as_text()
 </code></pre>
-<p>While this didn’t save us much work for this small example, with more complex datums/objs this can help eliminate a lot of headache as you can take care of a lot of different operations with a single overload.</p>
+<p>That works, but it gets repetitive quickly.</p>
+<p>With overloads, we can teach the datum what <code>+</code> and <code>+=</code> mean instead:</p>
+<pre><code class="language-dm playground">/datum/stats
+  var/strength = 0
+  var/agility = 0
+
+  proc/as_text()
+    return "STR [strength], AGI [agility]"
+
+  proc/operator+(datum/stats/other)
+    var/datum/stats/result = new
+    result.strength = strength + other.strength
+    result.agility = agility + other.agility
+    return result
+
+  proc/operator+=(datum/stats/other)
+    strength += other.strength
+    agility += other.agility
+
+/proc/main()
+  var/datum/stats/base_stats = new
+  var/datum/stats/ring_bonus = new
+
+  base_stats.strength = 3
+  base_stats.agility = 4
+  ring_bonus.strength = 1
+  ring_bonus.agility = 2
+
+  var/datum/stats/combined = base_stats + ring_bonus
+  world.log &lt;&lt; "base + ring = [combined.as_text()]"
+
+  base_stats += ring_bonus
+  world.log &lt;&lt; "base stats are now [base_stats.as_text()]"
+</code></pre>
+<p>As a rule of thumb, overload operators only when the meaning is obvious.</p>
+<blockquote>
+<p><strong>NOTE:</strong> If you overload <code>+</code> but not <code>+=</code>, DM can still fall back to <code>a = a + b</code> for datums. Writing a dedicated <code>operator+=()</code> is clearer.</p>
+</blockquote>
 
                     </main>
 

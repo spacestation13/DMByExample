@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e2cf3d4e.js";
+            window.path_to_searchindex_js = "searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8f2de12b.js"></script>
+        <script src="toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,22 +177,75 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="objects"><a class="header" href="#objects">Objects</a></h1>
-<h2 id="-wip-page-"><a class="header" href="#-wip-page-">⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>To check if an object is of a certain type, use <code>istype(x, /type)</code> which returns a <code>TRUE</code> or <code>FALSE</code> value:</p>
-<pre><code class="language-dm">/obj/foo
-	var/x = 1
+<p>Most values you have seen so far have been primitive values such as numbers, text, or <code>null</code>.</p>
+<p>Objects are different: they can have their own vars and procs attached to them.</p>
+<p>In DM, most user-defined objects ultimately descend from <code>/datum</code>, and more specific kinds of objects are described with <strong>type paths</strong>.</p>
+<h2 id="type-paths"><a class="header" href="#type-paths">Type Paths</a></h2>
+<p>Type paths are how DM names object types.</p>
+<pre><code class="language-dm">/obj
+/obj/weapon
+/obj/weapon/sword
+</code></pre>
+<p>Each extra step in the path makes the type more specific. A <code>/obj/weapon/sword</code> is a kind of <code>/obj/weapon</code>, which is itself a kind of <code>/obj</code>. Just like a file system.</p>
+<h2 id="creating-objects"><a class="header" href="#creating-objects">Creating Objects</a></h2>
+<p>Use <code>new</code> to create an object.</p>
+<pre><code class="language-dm">var/obj/weapon/W = new /obj/weapon
+</code></pre>
+<p>If the variable already has a type, DM can infer the type for <code>new</code>:</p>
+<pre><code class="language-dm">var/obj/weapon/W = new
+</code></pre>
+<h2 id="typed-variables"><a class="header" href="#typed-variables">Typed Variables</a></h2>
+<p>Typing an object variable is important because it tells the compiler what vars and procs you expect that object to have.</p>
+<pre><code class="language-dm">/obj/weapon
+  var/title = "Weapon"
+  var/damage = 0
 
-/proc/foobar(obj/passed)
-	if (istype(passed, /obj/foo))
-		var/obj/bar = passed
-		world &lt;&lt; bar.x
+/proc/main()
+  var/obj/weapon/W = new
+  W.title = "Sword"
+  W.damage = 15
+  world.log &lt;&lt; "[W.title] deals [W.damage] damage."
 </code></pre>
-<p>You can also cast, (done here in the argument), then implicitly typecheck:</p>
-<pre><code class="language-dm">...
-/proc/foobar(obj/foo/bar)
-	if (istype(bar))
-		world &lt;&lt; bar.x
+<p>If <code>W</code> were not typed as <code>obj/weapon</code>, the compiler would not know whether <code>title</code> and <code>damage</code> were valid to access.</p>
+<h2 id="checking-types"><a class="header" href="#checking-types">Checking Types</a></h2>
+<p>Sometimes you are given a more general object and need to see whether it is really the kind you want.</p>
+<p>For that, use <code>istype()</code>:</p>
+<pre><code class="language-dm">/obj/weapon
+  var/damage = 10
+
+/proc/show_damage(obj/thing)
+  if (istype(thing, /obj/weapon))
+    var/obj/weapon/W = thing
+    world.log &lt;&lt; W.damage
 </code></pre>
+<h2 id="casting"><a class="header" href="#casting">Casting</a></h2>
+<p>If you want to convert a general object reference into a more specific typed one, <code>astype()</code> can help:</p>
+<pre><code class="language-dm">/proc/show_damage(obj/thing)
+  var/obj/weapon/W = astype(thing, /obj/weapon)
+  world.log &lt;&lt; W?.damage
+</code></pre>
+<p>If <code>thing</code> is not actually a <code>/obj/weapon</code>, then <code>W</code> becomes <code>null</code>.</p>
+<h2 id="putting-it-together"><a class="header" href="#putting-it-together">Putting It Together</a></h2>
+<pre><code class="language-dm playground">/obj/weapon
+  var/title = "Weapon"
+  var/damage = 0
+
+  proc/describe()
+    return "[title] deals [damage] damage."
+
+/obj/weapon/sword
+  title = "Longsword"
+  damage = 15
+
+/proc/print_weapon(obj/thing)
+  var/obj/weapon/W = astype(thing, /obj/weapon)
+  world.log &lt;&lt; W?.describe()
+
+/proc/main()
+  var/obj/weapon/sword/my_sword = new
+  print_weapon(my_sword)
+</code></pre>
+<p>Objects become much more powerful once you start inheriting from existing types and overriding their behaviour, which is what the next few pages cover.</p>
 
                     </main>
 

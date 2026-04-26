@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e2cf3d4e.js";
+            window.path_to_searchindex_js = "../searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8f2de12b.js"></script>
+        <script src="../toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,38 +177,55 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
-<h2 id="-wip-page-"><a class="header" href="#-wip-page-">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>The parameters that are found within the paraentheses of a proc are known as <code>arguments</code>. This allows you to make more diverse procs and helps to prevent rewriting similar code as different values can be used in the same proc with arguments.</p>
 <p>For instance, let’s bring over part of that FizzBuzz proc that was written on the last page.</p>
 <pre><code class="language-dm">/proc/is_divisible_by(lhs, rhs)
-    if (rhs == 0)
-        return FALSE
+  if (rhs == 0)
+    return FALSE
 
-    return (lhs % rhs == 0)
+  return (lhs % rhs == 0)
 </code></pre>
 <p>As you can see, you can call this proc with two arguments. This can be with any set of two numbers which the proc will use in place of <code>lhs</code> and <code>rhs</code>. For example, if you called <code>is_divisible_by(10, 5)</code> then <code>lhs</code> will be replaced with the value <code>10</code> and <code>rhs</code> with <code>5</code>. The proc can be reused later on with a different set of arguments so you don’t have to manually check/code divisions with other numbers.</p>
 <h2 id="default-arguments"><a class="header" href="#default-arguments">Default Arguments</a></h2>
 <p>You can also set a default value for your arguments as well. This means that when that proc is called the caller doesn’t have to specify a value for any arguments with a default. Let’s take the proc from earlier and add a default value to one of the parameters.</p>
 <pre><code class="language-dm">/proc/is_divisible_by(lhs, rhs = 5)
-    if (rhs == 0)
-        return FALSE
+  if (rhs == 0)
+    return FALSE
 
-    return (lhs % rhs == 0)
+  return (lhs % rhs == 0)
 </code></pre>
 <p>Now when we call this proc we can simply do <code>is_divisible_by(10)</code> to get the same answer as before as <code>5</code> will be used in the place of <code>rhs</code> due to being a default parameter.</p>
 <blockquote>
 <p><strong>NOTE:</strong> We can override the default value of an argument simply by defining a value for that parameter. If we wrote <code>is_divisible_by(10, 7)</code> then the default <code>5</code> will be overwrote by our <code>7</code>.</p>
 </blockquote>
 <h2 id="argument-specification"><a class="header" href="#argument-specification">Argument Specification</a></h2>
-<p>There is also the notion of specifing the type of variable that you want to use for your arguments. This helps to keep your statements short and to make sure that the right type of variable is being used within the proc itself.</p>
-<pre><code class="language-dm">proc/set_card_desc(obj/car/C, desc = "Red hatchback")
-	C.desc = desc
-	world &lt;&lt; "Your [C] looks like a [desc]."
+<p>You can also specify the type of variable that you want to use for your arguments.
+This helps to keep your statements short and to make sure that the right type of variable is being used within the proc itself.</p>
+<pre><code class="language-dm">proc/set_card_make(obj/car/C, make = "Red sedan")
 </code></pre>
 <blockquote>
-<p>Specifing works like declaring a var but <code>var/</code> is implied and not needed.</p>
+<p>Specifying arguments works like declaring a local var, except <code>var/</code> is implied and does not need to be written.</p>
 </blockquote>
-<p>TODO: <code>...</code></p>
+<p>This means that <code>obj/car/C</code> should be read as “a variable named <code>C</code> that should be treated as an <code>/obj/car</code>”.
+That gives you two main benefits:</p>
+<ul>
+<li>It documents what the proc expects.</li>
+<li>It lets the compiler treat <code>C</code> as a car inside the proc, so accessing car vars and procs is much more natural.</li>
+</ul>
+<p>If <code>C</code> were left untyped, you could still pass a car in, but the compiler would only know that <code>C</code> is a generic variable. With <code>obj/car/C</code>, it knows the proc is written for cars specifically.</p>
+<pre><code class="language-dm playground">/obj/car
+  var/make = "Plain car"
+
+/proc/paint_car(obj/car/C, make = "Red sedan")
+  C.make = make
+  world.log &lt;&lt; "Painted car: [C.make]"
+
+/proc/main()
+  var/obj/car/my_car = new
+  paint_car(my_car)
+  paint_car(my_car, "Blue sedan")
+</code></pre>
+<p>As a rule of thumb, use the most specific argument type that matches what your proc wants.</p>
 
                     </main>
 

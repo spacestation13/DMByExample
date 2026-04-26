@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Hello World - DM By Example</title>
+        <title>Advanced loops - DM By Example</title>
 
 
         <!-- Custom HTML head -->
@@ -12,35 +12,35 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="favicon-de23e50b.svg">
-        <link rel="shortcut icon" href="favicon-8114d1fc.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/main-563ffb87.css">
-        <link rel="stylesheet" href="theme/playground-embed-248f2d7b.css">
+        <link rel="stylesheet" href="../theme/main-563ffb87.css">
+        <link rel="stylesheet" href="../theme/playground-embed-248f2d7b.css">
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-c42060e9.js";
+            window.path_to_searchindex_js = "../searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-65034a81.js"></script>
+        <script src="../toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -107,7 +107,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -142,7 +142,7 @@
                     <h1 class="menu-title">DM By Example</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
 
@@ -176,32 +176,85 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
-<p>This is the source code of the traditional Hello World program.</p>
-<pre><code class="language-dm playground">// This is a comment, and is ignored by the compiler
+                        <h1 id="advanced-loops"><a class="header" href="#advanced-loops">Advanced Loops</a></h1>
+<p>Basic <code>while</code> and numeric <code>for</code> loops cover a lot of ground, but DM also has some very useful loop forms for working with lists and other collections.</p>
+<h2 id="looping-over-lists"><a class="header" href="#looping-over-lists">Looping Over Lists</a></h2>
+<p>If you already have a list, you can loop over its contents directly:</p>
+<pre><code class="language-dm playground">/proc/main()
+  var/list/items = list("crowbar", "wrench", "cable")
 
-// This is a procedure/function named `main()` defined globally.
-// We'll learn more about these later.
-/proc/main()
-  // Print text to the console
-  world.log &lt;&lt; "Hello World!"
+  for (var/item in items)
+    world.log &lt;&lt; item
 </code></pre>
-<p><code>world.log &lt;&lt; "xyz"</code> is the most basic way to output text to the console, using the &lt;&lt; <a href="./operators.html">operator</a>.</p>
-<h2 id="activity"><a class="header" href="#activity">Activity</a></h2>
-<p>Try adding a new line with a second <code>world.log &lt;&lt;</code> so that the output shows:</p>
-<pre><code class="language-text">Hello World!
-I'm a Developer!
+<p>This is usually cleaner than manually working with indexes.</p>
+<blockquote>
+<p><strong>NOTE:</strong> When you loop through a list, DM loops over a copy of that list. If the original list changes during the loop, the current loop will not suddenly start using the new contents.</p>
+</blockquote>
+<h2 id="typed-loop-variables"><a class="header" href="#typed-loop-variables">Typed Loop Variables</a></h2>
+<p>Loop variables can have types too.</p>
+<p>That means DM will filter out values that do not match the type you asked for:</p>
+<pre><code class="language-dm playground">/datum/coin
+
+/proc/main()
+  var/list/mixed = list(
+    new /datum/coin,
+    "hello",
+    5,
+    new /datum/coin
+  )
+
+  for (var/datum/coin/coin in mixed)
+    world.log &lt;&lt; "Ooh! A coin!"
+</code></pre>
+<p>Even though <code>mixed</code> contains text and a number, only the <code>/datum/coin</code> values are handled inside the loop.</p>
+<h2 id="looping-over-contents"><a class="header" href="#looping-over-contents">Looping Over Contents</a></h2>
+<p>You can also loop over objects exist in the world and contain things:</p>
+<pre><code class="language-dm">for (var/obj/O in turf.contents)
+  world &lt;&lt; "There's a [O] here."
+</code></pre>
+<p>This is a common ways to find mobs, objs, turfs, and other map objects.</p>
+<h2 id="keyvalue-loops"><a class="header" href="#keyvalue-loops">Key/Value Loops</a></h2>
+<p>Associative lists can be looped through as key/value pairs:</p>
+<pre><code class="language-dm playground">/proc/main()
+  var/list/prices = list(
+    "apple" = 2,
+    "banana" = 3,
+    "pear" = 5
+  )
+
+  for (var/name, price in prices)
+    world.log &lt;&lt; "[name] costs [price]"
+</code></pre>
+<p>This is nicer than writing <code>prices[name]</code> each time when you need both the key and the value.</p>
+<h2 id="labeled-break-and-continue"><a class="header" href="#labeled-break-and-continue">Labeled <code>break</code> and <code>continue</code></a></h2>
+<p>When loops get nested, sometimes you want to break out of an outer loop rather than just the innermost one.</p>
+<p>DM supports labels for that:</p>
+<pre><code class="language-dm">finding_key:
+  for (var/mob/M in world)
+    for (var/obj/O in M.contents)
+      if (O.name == "gold key")
+        world &lt;&lt; "Found the key on [M]."
+        break finding_key
+</code></pre>
+<p>Likewise, <code>continue</code> can jump to the next iteration of a labeled loop:</p>
+<pre><code class="language-dm">finding_enemies:
+  for (var/mob/M in world)
+    for (var/mob/G in world)
+      if (M in G.friends)
+        continue finding_enemies
+
+    world.log &lt;&lt; "[M] has no enemies"
 </code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="installation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../flow/loops/nesting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="hello/comments.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../procs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -211,11 +264,11 @@ I'm a Developer!
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="installation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../flow/loops/nesting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="hello/comments.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../procs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -235,16 +288,16 @@ I'm a Developer!
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-cd12e089.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-cd12e089.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/playground-embed-394a03c8.js"></script>
+        <script src="../theme/playground-embed-394a03c8.js"></script>
 
 
 

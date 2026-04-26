@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e2cf3d4e.js";
+            window.path_to_searchindex_js = "searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8f2de12b.js"></script>
+        <script src="toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -482,13 +482,38 @@ world &lt;&lt; x // 5
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="constants"><a class="header" href="#constants">Constants</a></h1>
-<h2 id="-wip-page--1"><a class="header" href="#-wip-page--1">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Constant is a modifier for vars that define a constant value. This is done by using the <code>const</code> keyword.</p>
 <pre><code class="language-dm">var/const/max_cash = 1000
 </code></pre>
 <p>They are useful for vars that don’t need to be changed and are used multiple times. It also helps reduce the amount of “magic numbers’, (e.g. numbers that you don’t know what they do/what they are for by looking at them).</p>
 <p>For example, you may want something to have a max speed. Instead of writing code to check different objects against an arbitrary number like <code>100</code>, you can declare a const var like <code>var/const/max_speed = 100</code> that you can use in place of a number. This also provides the ease of only having to change one var instead of potentially hundreds if you decide to change your mind later on.</p>
-<p>TODO: explain how different from defines, scoping</p>
+<h2 id="const-vs-define"><a class="header" href="#const-vs-define"><code>const</code> vs <code>#define</code></a></h2>
+<p><code>const</code> and <code>#define</code> both help you avoid magic numbers, but they are not the same thing.</p>
+<p>A <code>const</code> is a normal DM variable declaration whose value is meant to stay fixed. Because it is still a real variable, it follows the usual scoping rules.</p>
+<p>A <code>#define</code> is a preprocessor directive. Before the compiler parses your code, the preprocessor replaces the defined name with the text you gave it. It is not a variable, does not belong to an object, and does not obey normal variable scope.</p>
+<h2 id="scope"><a class="header" href="#scope">Scope</a></h2>
+<p>Because <code>const</code> is still a variable, you can declare it in different places depending on how widely it should be used.</p>
+<ul>
+<li>A global <code>const</code> can be read anywhere.</li>
+<li>An object <code>const</code> belongs to that type.</li>
+<li>A proc-local <code>const</code> only exists inside that proc.</li>
+</ul>
+<pre><code class="language-dm playground">#define SALES_TAX 0.07
+
+var/const/MAX_CARRY_WEIGHT = 50
+
+/obj/stack
+  var/const/stack_limit = 20
+
+/proc/main()
+  var/const/local_discount = 0.10
+  var/price = 100
+
+  world.log &lt;&lt; "From #define: [price * SALES_TAX]"
+  world.log &lt;&lt; "Local const: [price * local_discount]"
+  world.log &lt;&lt; "Global const: [MAX_CARRY_WEIGHT]"
+  world.log &lt;&lt; "Object const: [/obj/stack::stack_limit]"
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="operators"><a class="header" href="#operators">Operators</a></h1>
 <p>The operators available in DM are very similar to other C-like languages. Their <a href="http://www.byond.com/docs/ref/#/operator">precedence</a> is also similar.</p>
@@ -592,55 +617,75 @@ if(N==2 &amp;&amp; 1/2==0.5) N = 0.5
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="operator-overloading"><a class="header" href="#operator-overloading">Operator Overloading</a></h1>
-<h2 id="--wip-page-"><a class="header" href="#--wip-page-">## ⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>Operator overloading is a special way to define a different process for operators to use when working with datums/objects. It’s similar to <a href="#inheritance">object overriding</a> which you’ll learn about later. This is yet another way to save you some time and writing if you have to perform an operation multiple times.</p>
-<p>An example would be if you have two objs that you wanted to have the vars within added up. Without operator overloading it would look something like this:</p>
-<pre><code class="language-dm">/obj/foo
-	var/a = 1
-	var/b = 2
+<p>Operator overloading lets a datum define what an operator should do when that datum is used on the left-hand side of an operation.</p>
+<p>This is useful when your type has a natural meaning for operations such as <code>+</code>, <code>+=</code>, <code>==</code>, or <code>[]</code>.</p>
+<p>The overload is written as a proc named <code>operator</code> immediately followed by the operator itself.</p>
+<p>For example:</p>
+<ul>
+<li><code>proc/operator+()</code> overloads <code>+</code></li>
+<li><code>proc/operator+=()</code> overloads <code>+=</code></li>
+<li><code>proc/operator==()</code> overloads <code>==</code></li>
+</ul>
+<p>Without operator overloading, combining two custom values means manually touching each field yourself:</p>
+<pre><code class="language-dm">/datum/stats
+  var/strength = 0
+  var/agility = 0
 
-	proc/showvars()
-		return "a = [a], b = [b]"
-
-/obj/bar
-	var/a = 4
-	var/b = 5
-
-/proc/main()
-	var/obj/foo/newfoo = new
-	var/obj/bar/newbar = new
-
-	newfoo.a += newbar.a
-	newfoo.b += newbar.b
-
-	world &lt;&lt; newfoo.showvars()
-</code></pre>
-<p>Operator overloading would allow you to define how the <code>+=</code> should act differently when we want to add our vars together since normally it wouldn’t do what we want it to. This is done through defining a proc inside of a datum/obj using the keyword <code>operator</code> almost always immediately followed by the operator we want to override with new functionality.</p>
-<pre><code class="language-dm">/obj/foo
-	var/a = 1
-	var/b = 2
-
-	proc/showvars()
-		return "a = [a], b = [b]"
-
-	proc/operator+=(obj/temp)
-		a += temp.a
-		b += temp.b
-
-
-/obj/bar
-	var/a = 4
-	var/b = 5
+  proc/as_text()
+    return "STR [strength], AGI [agility]"
 
 /proc/main()
-	var/obj/foo/newfoo = new
-	var/obj/bar/newbar = new
+  var/datum/stats/base_stats = new
+  var/datum/stats/boots_bonus = new
 
-	newfoo += newbar
+  base_stats.strength = 3
+  base_stats.agility = 4
+  boots_bonus.strength = 1
+  boots_bonus.agility = 2
 
-	world &lt;&lt; newfoo.showvars()
+  base_stats.strength += boots_bonus.strength
+  base_stats.agility += boots_bonus.agility
+
+  world.log &lt;&lt; base_stats.as_text()
 </code></pre>
-<p>While this didn’t save us much work for this small example, with more complex datums/objs this can help eliminate a lot of headache as you can take care of a lot of different operations with a single overload.</p>
+<p>That works, but it gets repetitive quickly.</p>
+<p>With overloads, we can teach the datum what <code>+</code> and <code>+=</code> mean instead:</p>
+<pre><code class="language-dm playground">/datum/stats
+  var/strength = 0
+  var/agility = 0
+
+  proc/as_text()
+    return "STR [strength], AGI [agility]"
+
+  proc/operator+(datum/stats/other)
+    var/datum/stats/result = new
+    result.strength = strength + other.strength
+    result.agility = agility + other.agility
+    return result
+
+  proc/operator+=(datum/stats/other)
+    strength += other.strength
+    agility += other.agility
+
+/proc/main()
+  var/datum/stats/base_stats = new
+  var/datum/stats/ring_bonus = new
+
+  base_stats.strength = 3
+  base_stats.agility = 4
+  ring_bonus.strength = 1
+  ring_bonus.agility = 2
+
+  var/datum/stats/combined = base_stats + ring_bonus
+  world.log &lt;&lt; "base + ring = [combined.as_text()]"
+
+  base_stats += ring_bonus
+  world.log &lt;&lt; "base stats are now [base_stats.as_text()]"
+</code></pre>
+<p>As a rule of thumb, overload operators only when the meaning is obvious.</p>
+<blockquote>
+<p><strong>NOTE:</strong> If you overload <code>+</code> but not <code>+=</code>, DM can still fall back to <code>a = a + b</code> for datums. Writing a dedicated <code>operator+=()</code> is clearer.</p>
+</blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="statements"><a class="header" href="#statements">Statements</a></h1>
 <p>A DM program is (mostly) made up of a series of statements:</p>
@@ -801,6 +846,76 @@ world &lt;&lt; json_encode(my_list)
 <p>Try fixing the code above so it works with non-square multi-dimensional lists.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="advanced-loops"><a class="header" href="#advanced-loops">Advanced Loops</a></h1>
+<p>Basic <code>while</code> and numeric <code>for</code> loops cover a lot of ground, but DM also has some very useful loop forms for working with lists and other collections.</p>
+<h2 id="looping-over-lists"><a class="header" href="#looping-over-lists">Looping Over Lists</a></h2>
+<p>If you already have a list, you can loop over its contents directly:</p>
+<pre><code class="language-dm playground">/proc/main()
+  var/list/items = list("crowbar", "wrench", "cable")
+
+  for (var/item in items)
+    world.log &lt;&lt; item
+</code></pre>
+<p>This is usually cleaner than manually working with indexes.</p>
+<blockquote>
+<p><strong>NOTE:</strong> When you loop through a list, DM loops over a copy of that list. If the original list changes during the loop, the current loop will not suddenly start using the new contents.</p>
+</blockquote>
+<h2 id="typed-loop-variables"><a class="header" href="#typed-loop-variables">Typed Loop Variables</a></h2>
+<p>Loop variables can have types too.</p>
+<p>That means DM will filter out values that do not match the type you asked for:</p>
+<pre><code class="language-dm playground">/datum/coin
+
+/proc/main()
+  var/list/mixed = list(
+    new /datum/coin,
+    "hello",
+    5,
+    new /datum/coin
+  )
+
+  for (var/datum/coin/coin in mixed)
+    world.log &lt;&lt; "Ooh! A coin!"
+</code></pre>
+<p>Even though <code>mixed</code> contains text and a number, only the <code>/datum/coin</code> values are handled inside the loop.</p>
+<h2 id="looping-over-contents"><a class="header" href="#looping-over-contents">Looping Over Contents</a></h2>
+<p>You can also loop over objects exist in the world and contain things:</p>
+<pre><code class="language-dm">for (var/obj/O in turf.contents)
+  world &lt;&lt; "There's a [O] here."
+</code></pre>
+<p>This is a common ways to find mobs, objs, turfs, and other map objects.</p>
+<h2 id="keyvalue-loops"><a class="header" href="#keyvalue-loops">Key/Value Loops</a></h2>
+<p>Associative lists can be looped through as key/value pairs:</p>
+<pre><code class="language-dm playground">/proc/main()
+  var/list/prices = list(
+    "apple" = 2,
+    "banana" = 3,
+    "pear" = 5
+  )
+
+  for (var/name, price in prices)
+    world.log &lt;&lt; "[name] costs [price]"
+</code></pre>
+<p>This is nicer than writing <code>prices[name]</code> each time when you need both the key and the value.</p>
+<h2 id="labeled-break-and-continue"><a class="header" href="#labeled-break-and-continue">Labeled <code>break</code> and <code>continue</code></a></h2>
+<p>When loops get nested, sometimes you want to break out of an outer loop rather than just the innermost one.</p>
+<p>DM supports labels for that:</p>
+<pre><code class="language-dm">finding_key:
+  for (var/mob/M in world)
+    for (var/obj/O in M.contents)
+      if (O.name == "gold key")
+        world &lt;&lt; "Found the key on [M]."
+        break finding_key
+</code></pre>
+<p>Likewise, <code>continue</code> can jump to the next iteration of a labeled loop:</p>
+<pre><code class="language-dm">finding_enemies:
+  for (var/mob/M in world)
+    for (var/mob/G in world)
+      if (M in G.friends)
+        continue finding_enemies
+
+    world.log &lt;&lt; "[M] has no enemies"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="procedures"><a class="header" href="#procedures">Procedures</a></h1>
 <p>Procedures, or procs, are declared using the <code>proc</code> keyword. These are also known by other names in other languages, such as functions or methods. Its arguments come after in parentheses. DM does not have a return type annotation like other languages.</p>
 <p>If you are not declaring (therefore, you would be overriding) a new proc, you omit the <code>proc</code> keyword. See: <code>/mob/Login()</code> below.</p>
@@ -834,57 +949,92 @@ world &lt;&lt; json_encode(my_list)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="arguments"><a class="header" href="#arguments">Arguments</a></h1>
-<h2 id="-wip-page--2"><a class="header" href="#-wip-page--2">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>The parameters that are found within the paraentheses of a proc are known as <code>arguments</code>. This allows you to make more diverse procs and helps to prevent rewriting similar code as different values can be used in the same proc with arguments.</p>
 <p>For instance, let’s bring over part of that FizzBuzz proc that was written on the last page.</p>
 <pre><code class="language-dm">/proc/is_divisible_by(lhs, rhs)
-    if (rhs == 0)
-        return FALSE
+  if (rhs == 0)
+    return FALSE
 
-    return (lhs % rhs == 0)
+  return (lhs % rhs == 0)
 </code></pre>
 <p>As you can see, you can call this proc with two arguments. This can be with any set of two numbers which the proc will use in place of <code>lhs</code> and <code>rhs</code>. For example, if you called <code>is_divisible_by(10, 5)</code> then <code>lhs</code> will be replaced with the value <code>10</code> and <code>rhs</code> with <code>5</code>. The proc can be reused later on with a different set of arguments so you don’t have to manually check/code divisions with other numbers.</p>
 <h2 id="default-arguments"><a class="header" href="#default-arguments">Default Arguments</a></h2>
 <p>You can also set a default value for your arguments as well. This means that when that proc is called the caller doesn’t have to specify a value for any arguments with a default. Let’s take the proc from earlier and add a default value to one of the parameters.</p>
 <pre><code class="language-dm">/proc/is_divisible_by(lhs, rhs = 5)
-    if (rhs == 0)
-        return FALSE
+  if (rhs == 0)
+    return FALSE
 
-    return (lhs % rhs == 0)
+  return (lhs % rhs == 0)
 </code></pre>
 <p>Now when we call this proc we can simply do <code>is_divisible_by(10)</code> to get the same answer as before as <code>5</code> will be used in the place of <code>rhs</code> due to being a default parameter.</p>
 <blockquote>
 <p><strong>NOTE:</strong> We can override the default value of an argument simply by defining a value for that parameter. If we wrote <code>is_divisible_by(10, 7)</code> then the default <code>5</code> will be overwrote by our <code>7</code>.</p>
 </blockquote>
 <h2 id="argument-specification"><a class="header" href="#argument-specification">Argument Specification</a></h2>
-<p>There is also the notion of specifing the type of variable that you want to use for your arguments. This helps to keep your statements short and to make sure that the right type of variable is being used within the proc itself.</p>
-<pre><code class="language-dm">proc/set_card_desc(obj/car/C, desc = "Red hatchback")
-	C.desc = desc
-	world &lt;&lt; "Your [C] looks like a [desc]."
+<p>You can also specify the type of variable that you want to use for your arguments.
+This helps to keep your statements short and to make sure that the right type of variable is being used within the proc itself.</p>
+<pre><code class="language-dm">proc/set_card_make(obj/car/C, make = "Red sedan")
 </code></pre>
 <blockquote>
-<p>Specifing works like declaring a var but <code>var/</code> is implied and not needed.</p>
+<p>Specifying arguments works like declaring a local var, except <code>var/</code> is implied and does not need to be written.</p>
 </blockquote>
-<p>TODO: <code>...</code></p>
+<p>This means that <code>obj/car/C</code> should be read as “a variable named <code>C</code> that should be treated as an <code>/obj/car</code>”.
+That gives you two main benefits:</p>
+<ul>
+<li>It documents what the proc expects.</li>
+<li>It lets the compiler treat <code>C</code> as a car inside the proc, so accessing car vars and procs is much more natural.</li>
+</ul>
+<p>If <code>C</code> were left untyped, you could still pass a car in, but the compiler would only know that <code>C</code> is a generic variable. With <code>obj/car/C</code>, it knows the proc is written for cars specifically.</p>
+<pre><code class="language-dm playground">/obj/car
+  var/make = "Plain car"
+
+/proc/paint_car(obj/car/C, make = "Red sedan")
+  C.make = make
+  world.log &lt;&lt; "Painted car: [C.make]"
+
+/proc/main()
+  var/obj/car/my_car = new
+  paint_car(my_car)
+  paint_car(my_car, "Blue sedan")
+</code></pre>
+<p>As a rule of thumb, use the most specific argument type that matches what your proc wants.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="named-arguments"><a class="header" href="#named-arguments">Named Arguments</a></h1>
-<h2 id="-wip-page--3"><a class="header" href="#-wip-page--3">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Another way to pass arguments to a func is to name them when calling. Normally when you call a func, the arguments used will be placed in the func’s arguments in the order they are set when you call that func.</p>
 <pre><code class="language-dm">proc/SomeProc(a, b, c)
-	world &lt;&lt; "[a] is first, [b] is second, [c] is third."
+  world &lt;&lt; "[a] is first, [b] is second, [c] is third."
 
 proc/Main()
-	SomeProc(1, 2, 3) // 1 goes to a since it's first in the list and so on...
+  SomeProc(1, 2, 3) // 1 goes to a since it's first in the list and so on...
 </code></pre>
 <p>However, you can specify the order using named arugments.</p>
 <pre><code class="language-dm">proc/Main()
-	SomeProc(c = 3, b = 2, a = 1) // will produce the same result as above...
+  SomeProc(c = 3, b = 2, a = 1) // will produce the same result as above...
 </code></pre>
 <p>This is mainly useful for ensuring that the right variables go to the right arguments since order doesn’t matter when using names.</p>
 <blockquote>
 <p><strong>Note:</strong> Named arguments that don’t match any of the arguments in the proc you call will produce a <code>runtime error</code>. You’ll learn more about these later on.</p>
 </blockquote>
-<p>TODO: Stuff…</p>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<p>Named arguments are most useful when a proc has several optional arguments with defaults. Instead of counting commas until you reach the setting you want to change, you can name only the one you care about.</p>
+<pre><code class="language-dm playground">/proc/show_popup(txt, c = "blue", b = FALSE, w = 2, t = 3)
+  world.log &lt;&lt; "[txt] | c=[c] | b=[b] | w=[w] | t=[t]"
+
+/proc/main()
+  show_popup("Testy")
+  show_popup("Oh No", c = "teal", b = TRUE)
+  show_popup("Quick", t = 10)
+  show_popup("Mixed", "blue", t = 5)
+</code></pre>
+<p>That last call mixes both styles: <code>"Mixed"</code> and <code>"blue"</code> are positional, while <code>t = 5</code> is named.</p>
+<p>This makes longer calls easier to read, easier to change later, and much harder to mix up.</p>
+<h2 id="mixing-positional-and-named-arguments"><a class="header" href="#mixing-positional-and-named-arguments">Mixing Positional and Named Arguments</a></h2>
+<p>You do not have to use names for every argument in a call. DM lets you mix positional arguments with named ones.</p>
+<pre><code class="language-dm">proc/Main()
+  SomeProc(1, b = 2, c = 3)
+</code></pre>
+<p>Here, <code>1</code> is still passed into <code>a</code> because it is first in the argument list, while <code>b</code> and <code>c</code> are matched by name.</p>
+<p>However, this can be confusing.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="return-values"><a class="header" href="#return-values">Return Values</a></h1>
 <p>Every proc has a return value associated with it. This defaults to a value of <code>null</code>.
@@ -910,22 +1060,75 @@ What’s special about the dot variable is that it’s automatically <code>retur
 <p>With <code>.</code> being present in every proc, we use it as a temporary variable. However, the <code>.</code> variable cannot replace a typecasted variable - it can hold data as any other var in DM can, but it just can’t be accessed as one. Although, the <code>.</code> variable <strong>is</strong> compatible with a few operators that look weird but work perfectly fine, such as: <code>.++</code> for incrementing <code>.</code>’s value.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="objects"><a class="header" href="#objects">Objects</a></h1>
-<h2 id="-wip-page--4"><a class="header" href="#-wip-page--4">⚠⚠ WIP PAGE ⚠⚠</a></h2>
-<p>To check if an object is of a certain type, use <code>istype(x, /type)</code> which returns a <code>TRUE</code> or <code>FALSE</code> value:</p>
-<pre><code class="language-dm">/obj/foo
-	var/x = 1
+<p>Most values you have seen so far have been primitive values such as numbers, text, or <code>null</code>.</p>
+<p>Objects are different: they can have their own vars and procs attached to them.</p>
+<p>In DM, most user-defined objects ultimately descend from <code>/datum</code>, and more specific kinds of objects are described with <strong>type paths</strong>.</p>
+<h2 id="type-paths"><a class="header" href="#type-paths">Type Paths</a></h2>
+<p>Type paths are how DM names object types.</p>
+<pre><code class="language-dm">/obj
+/obj/weapon
+/obj/weapon/sword
+</code></pre>
+<p>Each extra step in the path makes the type more specific. A <code>/obj/weapon/sword</code> is a kind of <code>/obj/weapon</code>, which is itself a kind of <code>/obj</code>. Just like a file system.</p>
+<h2 id="creating-objects"><a class="header" href="#creating-objects">Creating Objects</a></h2>
+<p>Use <code>new</code> to create an object.</p>
+<pre><code class="language-dm">var/obj/weapon/W = new /obj/weapon
+</code></pre>
+<p>If the variable already has a type, DM can infer the type for <code>new</code>:</p>
+<pre><code class="language-dm">var/obj/weapon/W = new
+</code></pre>
+<h2 id="typed-variables"><a class="header" href="#typed-variables">Typed Variables</a></h2>
+<p>Typing an object variable is important because it tells the compiler what vars and procs you expect that object to have.</p>
+<pre><code class="language-dm">/obj/weapon
+  var/title = "Weapon"
+  var/damage = 0
 
-/proc/foobar(obj/passed)
-	if (istype(passed, /obj/foo))
-		var/obj/bar = passed
-		world &lt;&lt; bar.x
+/proc/main()
+  var/obj/weapon/W = new
+  W.title = "Sword"
+  W.damage = 15
+  world.log &lt;&lt; "[W.title] deals [W.damage] damage."
 </code></pre>
-<p>You can also cast, (done here in the argument), then implicitly typecheck:</p>
-<pre><code class="language-dm">...
-/proc/foobar(obj/foo/bar)
-	if (istype(bar))
-		world &lt;&lt; bar.x
+<p>If <code>W</code> were not typed as <code>obj/weapon</code>, the compiler would not know whether <code>title</code> and <code>damage</code> were valid to access.</p>
+<h2 id="checking-types"><a class="header" href="#checking-types">Checking Types</a></h2>
+<p>Sometimes you are given a more general object and need to see whether it is really the kind you want.</p>
+<p>For that, use <code>istype()</code>:</p>
+<pre><code class="language-dm">/obj/weapon
+  var/damage = 10
+
+/proc/show_damage(obj/thing)
+  if (istype(thing, /obj/weapon))
+    var/obj/weapon/W = thing
+    world.log &lt;&lt; W.damage
 </code></pre>
+<h2 id="casting-1"><a class="header" href="#casting-1">Casting</a></h2>
+<p>If you want to convert a general object reference into a more specific typed one, <code>astype()</code> can help:</p>
+<pre><code class="language-dm">/proc/show_damage(obj/thing)
+  var/obj/weapon/W = astype(thing, /obj/weapon)
+  world.log &lt;&lt; W?.damage
+</code></pre>
+<p>If <code>thing</code> is not actually a <code>/obj/weapon</code>, then <code>W</code> becomes <code>null</code>.</p>
+<h2 id="putting-it-together"><a class="header" href="#putting-it-together">Putting It Together</a></h2>
+<pre><code class="language-dm playground">/obj/weapon
+  var/title = "Weapon"
+  var/damage = 0
+
+  proc/describe()
+    return "[title] deals [damage] damage."
+
+/obj/weapon/sword
+  title = "Longsword"
+  damage = 15
+
+/proc/print_weapon(obj/thing)
+  var/obj/weapon/W = astype(thing, /obj/weapon)
+  world.log &lt;&lt; W?.describe()
+
+/proc/main()
+  var/obj/weapon/sword/my_sword = new
+  print_weapon(my_sword)
+</code></pre>
+<p>Objects become much more powerful once you start inheriting from existing types and overriding their behaviour, which is what the next few pages cover.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="disposal"><a class="header" href="#disposal">Disposal</a></h1>
 <p>Once an object is created in DM, you’ll want to eventually get rid of it to free up resources.
@@ -1196,11 +1399,11 @@ catch(exception/e)
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="meta"><a class="header" href="#meta">Meta</a></h1>
-<h2 id="-wip-page--5"><a class="header" href="#-wip-page--5">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--1"><a class="header" href="#-wip-page--1">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>The SS13 community has built up a lot of toolings around the base DM language.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="language-server"><a class="header" href="#language-server">Language Server</a></h1>
-<h2 id="-wip-page--6"><a class="header" href="#-wip-page--6">⚠⚠ WIP PAGE ⚠⚠</a></h2>
+<h2 id="-wip-page--2"><a class="header" href="#-wip-page--2">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>A language server (protocol) is something that is used to help a tool/client and a server, that provides the actual “smartness”, so that the client can use features like auto complete and the like. In even more layman terms, it’s something that gives you the nice features that makes your coding life easier.</p>
 <p>Unless you skipped the large recommendation on the second page, you should already have the language server for the DM language. This is what gave you, and VSCode, the ability to have searchable definitions and auto complete.</p>
 <h2 id="extra-readings"><a class="header" href="#extra-readings">Extra Readings</a></h2>

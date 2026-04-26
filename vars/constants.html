@@ -37,10 +37,10 @@
             const path_to_root = "../";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-e2cf3d4e.js";
+            window.path_to_searchindex_js = "../searchindex-c42060e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8f2de12b.js"></script>
+        <script src="../toc-65034a81.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -177,13 +177,38 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="constants"><a class="header" href="#constants">Constants</a></h1>
-<h2 id="-wip-page-"><a class="header" href="#-wip-page-">⚠⚠ WIP PAGE ⚠⚠</a></h2>
 <p>Constant is a modifier for vars that define a constant value. This is done by using the <code>const</code> keyword.</p>
 <pre><code class="language-dm">var/const/max_cash = 1000
 </code></pre>
 <p>They are useful for vars that don’t need to be changed and are used multiple times. It also helps reduce the amount of “magic numbers’, (e.g. numbers that you don’t know what they do/what they are for by looking at them).</p>
 <p>For example, you may want something to have a max speed. Instead of writing code to check different objects against an arbitrary number like <code>100</code>, you can declare a const var like <code>var/const/max_speed = 100</code> that you can use in place of a number. This also provides the ease of only having to change one var instead of potentially hundreds if you decide to change your mind later on.</p>
-<p>TODO: explain how different from defines, scoping</p>
+<h2 id="const-vs-define"><a class="header" href="#const-vs-define"><code>const</code> vs <code>#define</code></a></h2>
+<p><code>const</code> and <code>#define</code> both help you avoid magic numbers, but they are not the same thing.</p>
+<p>A <code>const</code> is a normal DM variable declaration whose value is meant to stay fixed. Because it is still a real variable, it follows the usual scoping rules.</p>
+<p>A <code>#define</code> is a preprocessor directive. Before the compiler parses your code, the preprocessor replaces the defined name with the text you gave it. It is not a variable, does not belong to an object, and does not obey normal variable scope.</p>
+<h2 id="scope"><a class="header" href="#scope">Scope</a></h2>
+<p>Because <code>const</code> is still a variable, you can declare it in different places depending on how widely it should be used.</p>
+<ul>
+<li>A global <code>const</code> can be read anywhere.</li>
+<li>An object <code>const</code> belongs to that type.</li>
+<li>A proc-local <code>const</code> only exists inside that proc.</li>
+</ul>
+<pre><code class="language-dm playground">#define SALES_TAX 0.07
+
+var/const/MAX_CARRY_WEIGHT = 50
+
+/obj/stack
+  var/const/stack_limit = 20
+
+/proc/main()
+  var/const/local_discount = 0.10
+  var/price = 100
+
+  world.log &lt;&lt; "From #define: [price * SALES_TAX]"
+  world.log &lt;&lt; "Local const: [price * local_discount]"
+  world.log &lt;&lt; "Global const: [MAX_CARRY_WEIGHT]"
+  world.log &lt;&lt; "Object const: [/obj/stack::stack_limit]"
+</code></pre>
 
                     </main>
 
