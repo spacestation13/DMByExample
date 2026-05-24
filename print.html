@@ -16,8 +16,8 @@
         <link rel="icon" href="favicon-de23e50b.svg">
         <link rel="shortcut icon" href="favicon-8114d1fc.png">
         <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
         <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -38,10 +38,10 @@
             const path_to_root = "";
             const default_light_theme = "dark";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-c42060e9.js";
+            window.path_to_searchindex_js = "searchindex-a8379f07.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-65034a81.js"></script>
+        <script src="toc-41a8129c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -291,8 +291,11 @@ Forgetting that vars can be uninitialised or deleted can cause a lot of issues. 
 <p><code>myVariable</code> is the variable’s name, which cannot be a reserved word like <code>var</code> as we said previously.</p>
 <p><code>= initialValue</code> is used to assign an initial value to the variable. This is optional, and if omitted, the variable’s value will be <code>null</code>, a special value that means the variable holds nothing.</p>
 <p>A key difference in other languages, like C, is that primitive variables don’t need the user to define their type, which means you can do</p>
-<pre><code class="language-dm">var/myVar = "Hello World"
-myVar = 1
+<pre><code class="language-dm playground">/proc/main()
+	var/myVar = "Hello World"
+	world.log &lt;&lt; myVar
+	myVar = 1
+	world.log &lt;&lt; myVar
 </code></pre>
 <p>without any sort of error. Even though this will work with any sort of var type, we will see futher on that it can cause issues when our variables hold objects and we try to access its methods or such, but we’ll expand on this <a href="#objects">later</a>.</p>
 <h2 id="activity-1"><a class="header" href="#activity-1">Activity</a></h2>
@@ -313,8 +316,12 @@ myVar = 1
            String"
 </code></pre>
 <p>We also have the ability to interpolate variables within strings as such:</p>
-<pre><code class="language-dm">var/num = 5
-world &lt;&lt; "Bob has [num] cows." // Bob has 5 cows.
+<pre><code class="language-dm playground">/proc/main()
+  var/num = 5
+  world.log &lt;&lt; "Bob has [num] cows." // Bob has 5  cows.
+
+  // Escape quotes inside a  string
+  world.log &lt;&lt; "The [num]\th cow says, \"Hi.\""
 </code></pre>
 <p>Instead of escaping every line, there is another format for multi-line strings (<code>{""}</code>):</p>
 <pre><code class="language-dm">var/an = "an"
@@ -701,14 +708,11 @@ if(N==2 &amp;&amp; 1/2==0.5) N = 0.5
 <pre><code class="language-dm">x += 5
 </code></pre>
 <p>Statements can be a part of other statements, and expressions must be part of a statement.</p>
-<pre><code class="language-dm">// variable binding
-var/x = 5
+<pre><code class="language-dm">var/x = 5
 
-// this line is a statement, and there is a (expression) in it
+// this line is a statement,
+// and there is an (expression) inside
 x = (x + 5)
-
-var/lessThan3 = x &lt; 3
-world.log &lt;&lt; lessThan3
 </code></pre>
 <h2 id="activity-4"><a class="header" href="#activity-4">Activity</a></h2>
 <p>Try making a statement of your own from a total of three expressions. It should be true (1) if a variable <code>y</code> is greater than 3 but less than 10.</p>
@@ -724,15 +728,15 @@ world.log &lt;&lt; lessThan3
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ifelse"><a class="header" href="#ifelse">if/else</a></h1>
 <p>Branching with <code>if-else</code> is similar to other languages. The boolean condition needs to be surrounded by parentheses and each condition is followed by a block. <code>if-else</code> conditionals are expressions.</p>
-<pre><code class="language-dm">/mob/Login()
-	var/n = 5
+<pre><code class="language-dm playground">/proc/main()
+  var/n = 5
 
-	if (n &lt; 0)
-		world &lt;&lt; "[n] is negative"
-	else if (n &gt; 0)
-		world &lt;&lt; "[n] is positive"
-	else
-		world &lt;&lt; "[n] is zero"
+  if (n &lt; 0)
+    world.log &lt;&lt; "[n] is negative"
+  else if (n &gt; 0)
+    world.log &lt;&lt; "[n] is positive"
+  else
+    world.log &lt;&lt; "[n] is zero"
 </code></pre>
 <p>You can also construct if statements on a single line, as such:</p>
 <pre><code class="language-dm">if (n == 7) world.log &lt;&lt; "Special number!"
@@ -1042,20 +1046,24 @@ To call a proc and store its return value in a variable, you can do this:</p>
 <pre><code class="language-dm">var/value = foo()
 </code></pre>
 <p>To return specific values from a proc, you use the <code>return</code> keyword along with an <strong>optional</strong> argument value, (defaulting to <code>null</code> without one).</p>
-<pre><code class="language-dm">/proc/foo(arg)
-	switch (arg)
-		if (1)
-			return "good!"
-		else
-			return "bad!"
+<pre><code class="language-dm playground">/proc/foo(arg)
+  switch (arg)
+    if (1)
+      return "good!"
+    else
+      return "bad!"
+
+/proc/main()
+  world.log &lt;&lt; foo(0)
+  world.log &lt;&lt; foo(1)
 </code></pre>
 <p>There also exists a special variable for each proc called the ‘dot variable’, accessed via the <code>.</code> symbol.
 What’s special about the dot variable is that it’s automatically <code>return</code>-ed at the end of a proc, provided that the proc does not already manually return, (e.g. <code>return x</code>).</p>
 <p>To re-code the above more tersely:</p>
 <pre><code class="language-dm">/proc/foo(arg)
-	. = "bad!"
-	if (arg == 1)
-		return "good!"
+  . = "bad!"
+  if (arg == 1)
+    return "good!"
 </code></pre>
 <p>With <code>.</code> being present in every proc, we use it as a temporary variable. However, the <code>.</code> variable cannot replace a typecasted variable - it can hold data as any other var in DM can, but it just can’t be accessed as one. Although, the <code>.</code> variable <strong>is</strong> compatible with a few operators that look weird but work perfectly fine, such as: <code>.++</code> for incrementing <code>.</code>’s value.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -1485,11 +1493,11 @@ catch(exception/e)
 
         <script src="elasticlunr-ef4e11c1.min.js"></script>
         <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="searcher-09f2665d.js"></script>
 
         <script src="clipboard-1626706a.min.js"></script>
         <script src="highlight-cd12e089.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="book-c22b7243.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="theme/playground-embed-394a03c8.js"></script>
