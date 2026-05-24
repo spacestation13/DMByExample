@@ -2,16 +2,16 @@
 
 Branching with `if-else` is similar to other languages. The boolean condition needs to be surrounded by parentheses and each condition is followed by a block. `if-else` conditionals are expressions.
 
-```dm
-/mob/Login()
-	var/n = 5
+```dm playground
+/proc/main()
+  var/n = 5
 
-	if (n < 0)
-		world << "[n] is negative"
-	else if (n > 0)
-		world << "[n] is positive"
-	else
-		world << "[n] is zero"
+  if (n < 0)
+    world.log << "[n] is negative"
+  else if (n > 0)
+    world.log << "[n] is positive"
+  else
+    world.log << "[n] is zero"
 ```
 
 You can also construct if statements on a single line, as such:

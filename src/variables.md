@@ -14,9 +14,12 @@ where `var` is the keyword telling the compiler we're defining a new variable.
 
 A key difference in other languages, like C, is that primitive variables don't need the user to define their type, which means you can do
 
-```dm
-var/myVar = "Hello World"
-myVar = 1
+```dm playground
+/proc/main()
+	var/myVar = "Hello World"
+	world.log << myVar
+	myVar = 1
+	world.log << myVar
 ```
 
 without any sort of error. Even though this will work with any sort of var type, we will see futher on that it can cause issues when our variables hold objects and we try to access its methods or such, but we'll expand on this [later](./objs.md).

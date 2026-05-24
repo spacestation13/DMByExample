@@ -9,13 +9,17 @@ var/value = foo()
 
 To return specific values from a proc, you use the `return` keyword along with an **optional** argument value, (defaulting to `null` without one).
 
-```dm
+```dm playground
 /proc/foo(arg)
-	switch (arg)
-		if (1)
-			return "good!"
-		else
-			return "bad!"
+  switch (arg)
+    if (1)
+      return "good!"
+    else
+      return "bad!"
+
+/proc/main()
+  world.log << foo(0)
+  world.log << foo(1)
 ```
 
 There also exists a special variable for each proc called the 'dot variable', accessed via the `.` symbol.
@@ -25,9 +29,9 @@ To re-code the above more tersely:
 
 ```dm
 /proc/foo(arg)
-	. = "bad!"
-	if (arg == 1)
-		return "good!"
+  . = "bad!"
+  if (arg == 1)
+    return "good!"
 ```
 
 With `.` being present in every proc, we use it as a temporary variable. However, the `.` variable cannot replace a typecasted variable - it can hold data as any other var in DM can, but it just can’t be accessed as one. Although, the `.` variable **is** compatible with a few operators that look weird but work perfectly fine, such as: `.++` for incrementing `.`'s value.

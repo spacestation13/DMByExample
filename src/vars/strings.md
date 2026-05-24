@@ -22,9 +22,13 @@ var/str = "Multi \
 
 We also have the ability to interpolate variables within strings as such:
 
-```dm
-var/num = 5
-world << "Bob has [num] cows." // Bob has 5 cows.
+```dm playground
+/proc/main()
+  var/num = 5
+  world.log << "Bob has [num] cows." // Bob has 5  cows.
+
+  // Escape quotes inside a  string
+  world.log << "The [num]\th cow says, \"Hi.\""
 ```
 
 Instead of escaping every line, there is another format for multi-line strings (`{""}`):

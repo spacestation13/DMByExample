@@ -25,14 +25,11 @@ x += 5
 Statements can be a part of other statements, and expressions must be part of a statement.
 
 ```dm
-// variable binding
 var/x = 5
 
-// this line is a statement, and there is a (expression) in it
+// this line is a statement,
+// and there is an (expression) inside
 x = (x + 5)
-
-var/lessThan3 = x < 3
-world.log << lessThan3
 ```
 
 ## Activity
